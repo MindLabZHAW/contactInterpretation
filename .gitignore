@@ -3,7 +3,7 @@
 /data/raw_data/
 /data/processed_datasets/
 /data/labeled_data/
-/deployment/trained_models/
+/pipelines/trained_models/
 
 
 
