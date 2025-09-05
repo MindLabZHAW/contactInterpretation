@@ -1,6 +1,11 @@
-/frankaRobot/DATA/
-/urRobot/DATA/
 /robotAPI
-/dataset/franka_main/pickleDatasets
+/Archive
+/data/raw_data/
+/data/processed_datasets/
+/data/labeled_data/
+/pipelines/trained_models/
+
+
+
 
 
