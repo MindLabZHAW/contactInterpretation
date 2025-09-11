@@ -8,6 +8,7 @@ class ContactDetectorAI:
     load and run your actual AI model here.
     """
     def __init__(self, threshold: float = 5.0):
+        #TODO: THIS CLASS SHOULD GET AI MODEL AND LOAD IT HERE.
         self.contact_threshold = threshold
         print(f"🧠 AI Contact Detector Initialized with threshold: {self.contact_threshold}N.")
 
