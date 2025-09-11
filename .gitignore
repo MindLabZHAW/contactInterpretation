@@ -1,6 +1,5 @@
-/depmloyment
 /robotAPI
 /dataset
 /data
 /Archive
-pipelines/trained_models
+pipelines/trained_models/franka_main
