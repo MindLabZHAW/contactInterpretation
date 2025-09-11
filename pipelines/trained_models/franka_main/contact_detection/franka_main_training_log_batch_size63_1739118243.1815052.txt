@@ -1,0 +1,9 @@
+2025-02-09 17:34:33,584 - INFO - trained on franka_main/trained_models/contact_detection/63, test on franka_main
+2025-02-09 17:34:46,812 - INFO - Testing: 64, 3, 80, Accuracy:97.83, DetectionFailurRate:3.20, FalseAlarm:1.30, Contact Detection Delay: 62.75ms, No-Contact Detection Delay: 51.68ms, TP: 3384, TN: 4092, FP: 54, FN: 112
+2025-02-09 17:34:59,982 - INFO - Testing: 64, 3, 100, Accuracy:95.21, DetectionFailurRate:2.54, FalseAlarm:6.95, Contact Detection Delay: 47.31ms, No-Contact Detection Delay: 58.97ms, TP: 3646, TN: 3627, FP: 271, FN: 95
+2025-02-09 17:35:13,353 - INFO - Testing: 64, 5, 80, Accuracy:97.00, DetectionFailurRate:3.38, FalseAlarm:2.67, Contact Detection Delay: 59.91ms, No-Contact Detection Delay: 72.75ms, TP: 3348, TN: 3833, FP: 105, FN: 117
+2025-02-09 17:35:26,153 - INFO - Testing: 64, 5, 100, Accuracy:94.94, DetectionFailurRate:7.01, FalseAlarm:3.39, Contact Detection Delay: 54.73ms, No-Contact Detection Delay: 48.16ms, TP: 3330, TN: 4019, FP: 141, FN: 251
+2025-02-09 17:35:38,915 - INFO - Testing: 128, 3, 80, Accuracy:92.87, DetectionFailurRate:14.06, FalseAlarm:1.18, Contact Detection Delay: 58.83ms, No-Contact Detection Delay: 51.70ms, TP: 3051, TN: 4088, FP: 49, FN: 499
+2025-02-09 17:35:51,798 - INFO - Testing: 128, 3, 100, Accuracy:98.30, DetectionFailurRate:1.20, FalseAlarm:2.12, Contact Detection Delay: 52.75ms, No-Contact Detection Delay: 45.68ms, TP: 3549, TN: 4106, FP: 89, FN: 43
+2025-02-09 17:36:04,746 - INFO - Testing: 128, 5, 80, Accuracy:97.76, DetectionFailurRate:3.77, FalseAlarm:1.01, Contact Detection Delay: 63.70ms, No-Contact Detection Delay: 48.13ms, TP: 3295, TN: 4207, FP: 43, FN: 129
+2025-02-09 17:36:17,591 - INFO - Testing: 128, 5, 100, Accuracy:88.83, DetectionFailurRate:2.76, FalseAlarm:18.94, Contact Detection Delay: 57.80ms, No-Contact Detection Delay: 56.25ms, TP: 3458, TN: 3119, FP: 729, FN: 98

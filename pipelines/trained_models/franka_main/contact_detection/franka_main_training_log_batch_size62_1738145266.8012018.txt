@@ -1,0 +1,11 @@
+025-01-29 11:31:33,357 - INFO - Accuracy:95.13, DetectionFailurRate:3.23, FalseAlarm:6.52, Contact Detection Delay: 43.328ms, No-Contact Detection Delay: 45.726ms, TP: 539, TN: 516, FP: 36, FN: 18
+2025-01-29 11:31:33,517 - INFO - trained on franka_main, test on {'/home/rzma/myProjects/contactInterpretation//dataset/franka_main/labeled_data/': 7}
+2025-01-29 12:17:34,609 - INFO - trained on franka_main, test on {'/home/rzma/myProjects/contactInterpretation//dataset/franka_main/labeled_data/': 7}
+2025-01-29 12:17:44,784 - INFO - Testing: 64, 3, 80, Accuracy:95.03, DetectionFailurRate:4.07, FalseAlarm:2.26, Contact Detection Delay: 37.47ms, No-Contact Detection Delay: 65.43ms, TP: 2422, TN: 2628, FP: 218, FN: 46
+2025-01-29 12:17:54,733 - INFO - Testing: 64, 3, 100, Accuracy:90.46, DetectionFailurRate:1.81, FalseAlarm:11.62, Contact Detection Delay: 36.07ms, No-Contact Detection Delay: 61.92ms, TP: 2467, TN: 2321, FP: 488, FN: 17
+2025-01-29 12:18:05,035 - INFO - Testing: 64, 5, 80, Accuracy:91.52, DetectionFailurRate:6.27, FalseAlarm:11.84, Contact Detection Delay: 36.68ms, No-Contact Detection Delay: 64.29ms, TP: 2487, TN: 2399, FP: 426, FN: 27
+2025-01-29 12:18:15,002 - INFO - Testing: 64, 5, 100, Accuracy:92.52, DetectionFailurRate:0.00, FalseAlarm:4.91, Contact Detection Delay: 36.18ms, No-Contact Detection Delay: 51.57ms, TP: 2476, TN: 2384, FP: 381, FN: 12
+2025-01-29 12:18:25,052 - INFO - Testing: 128, 3, 80, Accuracy:94.20, DetectionFailurRate:5.05, FalseAlarm:8.17, Contact Detection Delay: 38.13ms, No-Contact Detection Delay: 72.97ms, TP: 2442, TN: 2498, FP: 283, FN: 21
+2025-01-29 12:18:35,000 - INFO - Testing: 128, 3, 100, Accuracy:98.00, DetectionFailurRate:5.74, FalseAlarm:0.25, Contact Detection Delay: 54.46ms, No-Contact Detection Delay: 56.41ms, TP: 2293, TN: 2855, FP: 85, FN: 20
+2025-01-29 12:18:45,015 - INFO - Testing: 128, 5, 80, Accuracy:95.71, DetectionFailurRate:3.19, FalseAlarm:9.79, Contact Detection Delay: 46.36ms, No-Contact Detection Delay: 67.31ms, TP: 2429, TN: 2635, FP: 214, FN: 13
+2025-01-29 12:18:55,088 - INFO - Testing: 128, 5, 100, Accuracy:91.57, DetectionFailurRate:3.60, FalseAlarm:9.05, Contact Detection Delay: 32.92ms, No-Contact Detection Delay: 59.81ms, TP: 2471, TN: 2387, FP: 434, FN: 13

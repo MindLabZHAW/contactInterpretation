@@ -1,0 +1,11 @@
+2025-09-09 10:53:09,484 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 30, gap = 3, --------------
+2025-09-09 10:56:37,678 - INFO - Accuracy:79.52, DetectionFailurRate:71.15, FalseAlarm:0.00, Contact Detection Delay: 97.507ms, No-Contact Detection Delay: nanms, TP: 73, TN: 626, FP: 0, FN: 180
+
+2025-09-09 10:59:31,041 - INFO - trained on pipelines/trained_models/franka_main/contact_detection/71, test on franka_main
+2025-09-09 10:59:46,020 - INFO - Testing: 32, 3, 30, Accuracy:90.96, DetectionFailurRate:14.25, FalseAlarm:3.73, Contact Detection Delay: 69.23ms, No-Contact Detection Delay: 90.69ms, TP: 4398, TN: 4846, FP: 188, FN: 731
+
+2025-09-09 11:05:21,073 - INFO - Fine-tuning from pipelines/trained_models/franka_main/contact_detection/63 on franka_mindlab
+2025-09-09 11:05:31,827 - INFO - Testing: 64, 3, 80, Accuracy:85.01, DetectionFailurRate:19.30, FalseAlarm:10.88, Contact Detection Delay: 67.524ms, No-Contact Detection Delay: 91.995ms, TP: 694, TN: 803, FP: 98, FN: 166
+
+2025-09-09 11:07:41,685 - INFO - Fine- tuned on pipelines/trained_models/franka_mindlab/contact_detection/fine_tuned71, test on franka_mindlab
+2025-09-09 11:07:58,861 - INFO - Testing: 64, 3, 80, Accuracy:92.21, DetectionFailurRate:6.12, FalseAlarm:9.00, Contact Detection Delay: 67.98ms, No-Contact Detection Delay: 47.26ms, TP: 4905, TN: 6499, FP: 643, FN: 320
