@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class AbstractRobot(ABC):
+class RobotInterface(ABC):
     """
     An abstract interface (or "contract") for all robot controllers.
 

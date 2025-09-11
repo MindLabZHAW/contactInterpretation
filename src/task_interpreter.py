@@ -1,6 +1,6 @@
 import time
-from abstract_robot import AbstractRobot
-from json_loader import JsonLoader
+from robot_interface import RobotInterface
+from config_loader import ConfigLoader
 class ContactDetectorAI:
     """
     A class to encapsulate the contact detection model.
@@ -25,13 +25,13 @@ class ContactDetectorAI:
         force = robot_data.get("force_z", 0)
         return force > self.contact_threshold
 
-class Orchestrator:
+class TaskInterpreter:
     """
     The main brain of the application. It interprets a task defined in a
     JSON file, commands the robot, and uses the AI model to react to
     real-time contact events based on a prioritized set of rules.
     """
-    def __init__(self, robot: AbstractRobot, ai_model: ContactDetectorAI, default_contact_actions: dict = None):
+    def __init__(self, robot: RobotInterface, ai_model: ContactDetectorAI, default_contact_actions: dict = None):
         self.robot = robot
         self.ai = ai_model
         self.task_data = None
@@ -40,7 +40,7 @@ class Orchestrator:
 
     def load_task_from_file(self, file_path: str):
         """Loads and stores the task definition from a JSON file."""
-        self.task_data = JsonLoader().load(file_path)
+        self.task_data = ConfigLoader().load(file_path)
 
     def run(self):
         """The main execution handler for the entire loaded task."""

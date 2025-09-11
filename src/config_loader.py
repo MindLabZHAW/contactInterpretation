@@ -1,6 +1,6 @@
 import json
 
-class JsonLoader:
+class ConfigLoader:
     """
     A utility class responsible for loading and parsing data from any
     JSON file. It includes error handling for missing files or bad syntax.

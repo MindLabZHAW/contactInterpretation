@@ -7,9 +7,9 @@
 
 import random
 import time
-from abstract_robot import AbstractRobot
+from robot_interface import RobotInterface
 
-class UR5_Robot(AbstractRobot):
+class UR5_Robot(RobotInterface):
     """
     Concrete implementation for a Universal Robots UR5/UR5e.
     This class translates the abstract methods into specific commands
@@ -74,7 +74,7 @@ class UR5_Robot(AbstractRobot):
         print("🚨 UR5 Robot: EMERGENCY STOP 🚨")
 
 
-class FrankaRobot(AbstractRobot):
+class FrankaRobot(RobotInterface):
     """
     Concrete implementation for a Franka Emika Panda robot.
     This class uses the high-level 'frankx' library.

@@ -1,6 +1,6 @@
-from orchestrator import Orchestrator, ContactDetectorAI
-from robot_implementations import UR5_Robot, FrankaRobot
-from json_loader import JsonLoader # Import the new generic loader
+from task_interpreter import TaskInterpreter, ContactDetectorAI
+from robots import UR5_Robot, FrankaRobot
+from config_loader import ConfigLoader # Import the new generic loader
 
 if __name__ == "__main__":
     """
@@ -18,23 +18,23 @@ if __name__ == "__main__":
     # my_robot = FrankaRobot(ip_address="192.168.1.15")
 
     # --- 3. Load Default Contact Behaviors from JSON ---
-    json_loader = JsonLoader()
-    default_behaviors = json_loader.load('src/json/AI_behaviors/default_bahavior.json')
+    config_loader = ConfigLoader()
+    default_behaviors = config_loader.load('src/config/default_behaviors.json')
     
     # If loading fails, proceed with an empty dictionary as a safe fallback.
     if not default_behaviors:
         print("WARNING: Could not load default behaviors. Continuing with no defaults.")
         default_behaviors = {}
 
-    # --- 4. Configure and Run the Orchestrator ---
-    controller = Orchestrator(
+    # --- 4. Configure and Run the TaskInterpreter ---
+    controller = TaskInterpreter(
         robot=my_robot, 
         ai_model=contact_ai, 
         default_contact_actions=default_behaviors
     )
     
     # Specify the task file to execute.
-    controller.load_task_from_file('src/json/robot_tasks/my_assembly_task.json')
+    controller.load_task_from_file('src/config/my_assembly_task.json')
     
     # Start the entire process.
     controller.run()
