@@ -6,8 +6,7 @@ class AbstractRobot(ABC):
 
     This class defines a set of common methods that any robot implementation
     must have. This ensures that the high-level Orchestrator can control
-    different types of robots without knowing their specific details. It's the
-    foundation of the "plug-and-play" robot architecture.
+    different types of robots without knowing their specific details.
     """
     
     @abstractmethod
@@ -31,19 +30,30 @@ class AbstractRobot(ABC):
         Retrieves real-time sensor data from the robot.
         
         Returns:
-            dict: A dictionary containing key-value pairs of sensor data,
-                  such as {"force_z": 10.5, "joint_angles": [...]}.
+            dict: A dictionary of sensor data, e.g., {"force_z": 10.5}.
         """
         pass
 
     @abstractmethod
-    def send_move_command(self, move_data) -> None:
+    def send_move_command(self, move_data: dict) -> None:
         """
-        Sends a movement command to the robot.
+        Sends a non-blocking movement command to the robot. The orchestrator
+        will use is_moving() to check for its completion.
         
         Args:
-            move_data: The data describing the next move (e.g., target pose,
-                       waypoint, or a simple continuation signal).
+            move_data (dict): The data describing the next move, typically
+                              from a step in the JSON task file.
+        """
+        pass
+
+    @abstractmethod
+    def is_moving(self) -> bool:
+        """
+        Checks if the robot is currently executing a move command. This is
+        essential for the orchestrator's real-time monitoring loop.
+
+        Returns:
+            bool: True if the robot is busy, False if it is idle.
         """
         pass
 

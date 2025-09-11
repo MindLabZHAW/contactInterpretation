@@ -1,6 +1,6 @@
 import time
 from abstract_robot import AbstractRobot
-
+from json_loader import JsonLoader
 class ContactDetectorAI:
     """
     A class to encapsulate the contact detection model.
@@ -13,7 +13,7 @@ class ContactDetectorAI:
 
     def predict_contact(self, robot_data: dict) -> bool:
         """
-        Predicts contact based on robot data.
+        Predicts contact based on robot force data.
         
         Args:
             robot_data (dict): A dictionary containing sensor data from the robot.
@@ -23,51 +23,107 @@ class ContactDetectorAI:
             bool: True if contact is detected, False otherwise.
         """
         force = robot_data.get("force_z", 0)
-        # In a real application, you would replace this logic with:
-        # processed_input = self.preprocess(robot_data)
-        # prediction = self.model.predict(processed_input)
         return force > self.contact_threshold
 
 class Orchestrator:
     """
-    The main brain of the application. It orchestrates the process by
-    reading data, getting AI predictions, and commanding the robot.
-    It operates on any robot that adheres to the AbstractRobot interface.
+    The main brain of the application. It interprets a task defined in a
+    JSON file, commands the robot, and uses the AI model to react to
+    real-time contact events based on a prioritized set of rules.
     """
-    def __init__(self, robot: AbstractRobot, ai_model: ContactDetectorAI):
+    def __init__(self, robot: AbstractRobot, ai_model: ContactDetectorAI, default_contact_actions: dict = None):
         self.robot = robot
         self.ai = ai_model
-        self.is_running = False
+        self.task_data = None
+        # Store the default actions defined in main.py. If none are provided, use an empty dictionary.
+        self.default_actions = default_contact_actions if default_contact_actions else {}
 
-    def run_process(self):
-        """The main real-time control loop."""
-        if not self.robot.connect():
-            print("ERROR: Failed to connect to robot. Aborting process.")
+    def load_task_from_file(self, file_path: str):
+        """Loads and stores the task definition from a JSON file."""
+        self.task_data = JsonLoader().load(file_path)
+
+    def run(self):
+        """The main execution handler for the entire loaded task."""
+        if not self.task_data:
+            print("ERROR: No task loaded. Call load_task_from_file() first. Aborting.")
             return
 
-        self.is_running = True
-        print("\n--- ✅ Starting Robot Process ---")
+        if not self.robot.connect():
+            print("ERROR: Failed to connect to robot. Aborting.")
+            return
+
+        print(f"\n--- ✅ Starting Task: {self.task_data.get('name', 'Untitled Task')} ---")
         try:
-            while self.is_running:
-                # 1. Read the latest data from the robot
-                current_data = self.robot.get_data()
-                
-                # 2. Get a prediction from the AI model
-                is_contact = self.ai.predict_contact(current_data)
-                
-                # 3. Decide and act based on the prediction
-                if is_contact:
-                    print(f"CONTACT DETECTED! Force: {current_data.get('force_z', 0):.2f}N")
-                    self.robot.stop()
-                    self.is_running = False # Stop the loop on contact
-                else:
-                    print(f"No contact. Force: {current_data.get('force_z', 0):.2f}N. Continuing move.")
-                    self.robot.send_move_command(move_data="next_waypoint")
-                
-                # Control the frequency of the loop (e.g., 10 Hz)
-                time.sleep(0.1)
-        except KeyboardInterrupt:
-            print("\nProcess interrupted by user.")
+            # Execute each step from the JSON file sequentially
+            for step in self.task_data.get('steps', []):
+                print(f"\nExecuting Step {step.get('id', '?')}: {step.get('command', 'Unknown Command')}")
+                step_successful = self.execute_step(step)
+                if not step_successful:
+                    print(f"--- ⚠️ Task halted due to contact event at step {step.get('id', '?')} ---")
+                    break # Stop executing the rest of the task
+            else: # This 'else' belongs to the 'for' loop, runs if the loop completes without 'break'
+                 print("\n--- ✅ All steps completed successfully. ---")
         finally:
             self.robot.disconnect()
-            print("--- ⏹️ Robot Process Finished ---")
+            print("--- ⏹️ Task Finished ---")
+
+    def execute_step(self, step: dict) -> bool:
+        """
+        Executes a single step and contains the real-time monitoring loop.
+        Returns True if the step completes, False if interrupted by contact.
+        """
+        # Send the initial command to the robot (this should be non-blocking)
+        self.robot.send_move_command(step)
+        
+        # MONITORING LOOP: Check for contact while the robot is busy
+        while self.robot.is_moving():
+            robot_data = self.robot.get_data()
+            if self.ai.predict_contact(robot_data):
+                self.robot.stop() # Immediately stop the robot
+                print(f"CONTACT DETECTED during step {step.get('id', '?')} ({step.get('command', 'Unknown')})!")
+                self.handle_contact(step) 
+                return False # Step was interrupted
+
+            time.sleep(0.01) # High-frequency check (100 Hz)
+        
+        print(f"Step {step.get('id', '?')} completed without contact.")
+        return True # Step completed without interruption
+
+    def handle_contact(self, step: dict):
+        """
+        Handles a contact event with a priority-based rule system.
+        Priority 1: Step-specific 'on_contact' from JSON.
+        Priority 2: Command-type default action.
+        Priority 3: Global fallback (stop the task).
+        """
+        command_type = step.get('command')
+        contact_action = None
+
+        # Priority 1: Check for a specific action in the step's JSON definition.
+        if 'on_contact' in step and step['on_contact']:
+            print("Handling contact with STEP-SPECIFIC action from JSON.")
+            contact_action = step['on_contact']
+        
+        # Priority 2: If no specific action, check for a default for this command type.
+        elif command_type in self.default_actions:
+            print(f"Handling contact with COMMAND-DEFAULT action for '{command_type}'.")
+            contact_action = self.default_actions[command_type]
+            
+        # Priority 3: If no other rule applies, use the safest global fallback.
+        else:
+            print("Handling contact with GLOBAL FALLBACK action.")
+            contact_action = {
+                "action": "stop_task",
+                "message": f"Critical Error: No contact rule defined for command '{command_type}'."
+            }
+            
+        # Now, execute the chosen action
+        action = contact_action.get('action', 'stop_task')
+        message = contact_action.get('message', 'No message.')
+        print(f"--> Action: {action.upper()}. Message: {message}")
+
+        if action == "retry":
+            print("--> Logic for retrying the step would be implemented here.")
+        elif action == "log_and_continue":
+            print("--> Logging event and preparing to continue to the next step.")
+        # For 'stop_task', no further action is needed as the loop will break.

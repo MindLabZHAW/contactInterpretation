@@ -1,0 +1,36 @@
+{
+  "name": "Simple Assembly Task",
+  "steps": [
+    {
+      "id": 1,
+      "command": "move",
+      "target": [0.5, -0.2, 0.4],
+      "speed": 0.1,
+      "on_contact": {
+        "action": "stop_task",
+        "message": "Error: Obstacle detected on the way to the part bin."
+      }
+    },
+    {
+      "id": 2,
+      "command": "insert",
+      "target": [0.5, -0.2, 0.2],
+      "speed": 0.02
+    },
+    {
+      "id": 3,
+      "command": "open_hand"
+    },
+    {
+      "id": 4,
+      "command": "move",
+      "target": [0.3, 0.0, 0.5],
+      "speed": 0.2,
+      "on_contact": {
+        "action": "retry",
+        "max_retries": 3,
+        "message": "Path is obstructed, will retry up to 3 times."
+      }
+    }
+  ]
+}
