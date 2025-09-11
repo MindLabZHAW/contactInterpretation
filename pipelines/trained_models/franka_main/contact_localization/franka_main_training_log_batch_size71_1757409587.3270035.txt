@@ -1,0 +1,25 @@
+2025-09-09 11:20:21,411 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 30, gap = 3, --------------
+2025-09-09 11:25:27,346 - INFO - Accuracy on the test data = [61.38306260108948]
+
+2025-09-09 11:30:10,159 - INFO - trained model on pipelines/trained_models/franka_main/contact_localization/71/, tested on franka_main, with 7 links
+2025-09-09 11:30:19,739 - INFO - numLayer1_hiddenSize32_seq_num30_gap3_accuracy61.38, total samples: 3949
+2025-09-09 11:30:19,740 - INFO - acuracy= 78.65282349962015, detection failure (links): [64.69594594594594, 3.322784810126582, 28.176795580110497, 13.704496788008566, 23.765432098765434, 2.7732463295269167, 11.233480176211454]
+
+2025-09-09 11:34:02,007 - INFO - fine-tuning pipelines/trained_models/franka_main/64/ on ur5 with 6 links
+2025-09-09 11:35:31,400 - INFO - fine-tuning pipelines/trained_models/franka_main/contact_localization/71/ on ur5 with 6 links
+
+2025-09-09 11:40:25,935 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-09-09 11:40:30,084 - INFO - Accuracy on the test data = [88.25546503067017]
+2025-09-09 11:40:30,106 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-09-09 11:40:34,268 - INFO - Accuracy on the test data = [82.98328518867493]
+
+2025-09-09 11:47:03,574 - INFO - fine-tuning pipelines/trained_models/franka_main/contact_localization/62/ on ur5 with 6 links
+2025-09-09 11:47:03,628 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-09-09 11:47:07,649 - INFO - Accuracy on the test data = [87.78396844863892]
+
+2025-09-09 11:47:07,671 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-09-09 11:47:11,732 - INFO - Accuracy on the test data = [84.22631621360779]
+
+2025-09-09 11:48:11,004 - INFO - Fine-tuned source model with ur5, tested on ur5, with 6 links
+2025-09-09 11:48:48,328 - INFO - numLayer1_hiddenSize128_seq_num100_gap5_accuracy87.78, total samples: 4435
+2025-09-09 11:48:48,328 - INFO - acuracy= 61.44306651634723, detection failure (links): [30.26086956521739, 12.517580872011253, 24.110671936758894, 45.359281437125745, 36.20178041543027, 82.51572327044026]

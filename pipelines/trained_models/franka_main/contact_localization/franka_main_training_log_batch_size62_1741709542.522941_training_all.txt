@@ -1,0 +1,576 @@
+2025-03-11 17:13:09,077 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 30, gap = 3, --------------
+2025-03-11 17:28:30,608 - INFO - Accuracy on the test data = [64.80186581611633]
+2025-03-11 17:28:31,070 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 30, gap = 5, --------------
+2025-03-11 17:36:39,345 - INFO - Accuracy on the test data = [78.55477929115295]
+2025-03-11 17:36:39,819 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 30, gap = 10, --------------
+2025-03-11 17:41:01,438 - INFO - Accuracy on the test data = [76.14607810974121]
+2025-03-11 17:41:01,738 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 30, gap = 15, --------------
+2025-03-11 17:44:02,551 - INFO - Accuracy on the test data = [91.45299196243286]
+2025-03-11 17:44:03,081 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 50, gap = 3, --------------
+2025-03-11 17:57:18,987 - INFO - Accuracy on the test data = [77.76037454605103]
+2025-03-11 17:57:19,424 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 50, gap = 5, --------------
+2025-03-11 18:05:11,123 - INFO - Accuracy on the test data = [87.39232420921326]
+2025-03-11 18:05:11,478 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 50, gap = 10, --------------
+2025-03-11 18:08:58,775 - INFO - Accuracy on the test data = [87.62724995613098]
+2025-03-11 18:08:59,074 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 50, gap = 15, --------------
+2025-03-11 18:11:38,055 - INFO - Accuracy on the test data = [72.51370549201965]
+2025-03-11 18:11:38,657 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 80, gap = 3, --------------
+2025-03-11 18:22:28,748 - INFO - Accuracy on the test data = [90.6497597694397]
+2025-03-11 18:22:29,251 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 80, gap = 5, --------------
+2025-03-11 18:29:52,273 - INFO - Accuracy on the test data = [91.67987108230591]
+2025-03-11 18:29:52,643 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 80, gap = 10, --------------
+2025-03-11 18:33:40,442 - INFO - Accuracy on the test data = [91.67987108230591]
+2025-03-11 18:33:40,876 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 80, gap = 15, --------------
+2025-03-11 18:36:20,162 - INFO - Accuracy on the test data = [91.67987108230591]
+2025-03-11 18:36:20,832 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 100, gap = 3, --------------
+2025-03-11 18:41:59,699 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-11 18:42:00,282 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 100, gap = 5, --------------
+2025-03-11 18:46:40,959 - INFO - Accuracy on the test data = [91.37380123138428]
+2025-03-11 18:46:41,344 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 100, gap = 10, --------------
+2025-03-11 18:50:08,165 - INFO - Accuracy on the test data = [91.13418459892273]
+2025-03-11 18:50:08,595 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 100, gap = 15, --------------
+2025-03-11 18:52:29,212 - INFO - Accuracy on the test data = [91.9329047203064]
+2025-03-11 18:52:30,037 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 150, gap = 3, --------------
+2025-03-11 18:56:05,300 - INFO - Accuracy on the test data = [91.85004234313965]
+2025-03-11 18:56:05,966 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 150, gap = 5, --------------
+2025-03-11 18:59:13,157 - INFO - Accuracy on the test data = [91.68704152107239]
+2025-03-11 18:59:13,708 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 150, gap = 10, --------------
+2025-03-11 19:02:03,897 - INFO - Accuracy on the test data = [90.220046043396]
+2025-03-11 19:02:04,262 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 150, gap = 15, --------------
+2025-03-11 19:04:24,471 - INFO - Accuracy on the test data = [91.52404069900513]
+2025-03-11 19:04:25,391 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 200, gap = 3, --------------
+2025-03-11 19:07:31,629 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 19:07:32,513 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 200, gap = 5, --------------
+2025-03-11 19:11:44,813 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 19:11:45,304 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 200, gap = 10, --------------
+2025-03-11 19:16:06,500 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 19:16:06,896 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=32 seq_num = 200, gap = 15, --------------
+2025-03-11 19:20:12,574 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 19:20:13,246 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 30, gap = 3, --------------
+2025-03-11 19:37:57,148 - INFO - Accuracy on the test data = [44.52214539051056]
+2025-03-11 19:37:57,609 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 30, gap = 5, --------------
+2025-03-11 19:46:57,133 - INFO - Accuracy on the test data = [83.60528349876404]
+2025-03-11 19:46:57,504 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 30, gap = 10, --------------
+2025-03-11 19:53:05,416 - INFO - Accuracy on the test data = [89.74359035491943]
+2025-03-11 19:53:05,842 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 30, gap = 15, --------------
+2025-03-11 19:56:36,363 - INFO - Accuracy on the test data = [82.51748085021973]
+2025-03-11 19:56:36,919 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 50, gap = 3, --------------
+2025-03-11 20:12:07,105 - INFO - Accuracy on the test data = [72.82693982124329]
+2025-03-11 20:12:07,559 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 50, gap = 5, --------------
+2025-03-11 20:24:21,635 - INFO - Accuracy on the test data = [79.32654619216919]
+2025-03-11 20:24:21,986 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 50, gap = 10, --------------
+2025-03-11 20:27:56,685 - INFO - Accuracy on the test data = [91.30775332450867]
+2025-03-11 20:27:56,982 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 50, gap = 15, --------------
+2025-03-11 20:30:20,212 - INFO - Accuracy on the test data = [91.30775332450867]
+2025-03-11 20:30:20,816 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 80, gap = 3, --------------
+2025-03-11 20:35:45,434 - INFO - Accuracy on the test data = [90.80824255943298]
+2025-03-11 20:35:46,054 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 80, gap = 5, --------------
+2025-03-11 20:40:50,000 - INFO - Accuracy on the test data = [90.5705213546753]
+2025-03-11 20:40:50,361 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 80, gap = 10, --------------
+2025-03-11 20:46:43,967 - INFO - Accuracy on the test data = [90.88748097419739]
+2025-03-11 20:46:44,289 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 80, gap = 15, --------------
+2025-03-11 20:50:15,200 - INFO - Accuracy on the test data = [90.6497597694397]
+2025-03-11 20:50:16,031 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 100, gap = 3, --------------
+2025-03-11 20:55:50,320 - INFO - Accuracy on the test data = [90.09584784507751]
+2025-03-11 20:55:50,906 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 100, gap = 5, --------------
+2025-03-11 21:00:27,092 - INFO - Accuracy on the test data = [92.0127809047699]
+2025-03-11 21:00:27,475 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 100, gap = 10, --------------
+2025-03-11 21:03:28,900 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-11 21:03:29,347 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 100, gap = 15, --------------
+2025-03-11 21:05:47,900 - INFO - Accuracy on the test data = [91.5335476398468]
+2025-03-11 21:05:48,744 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 150, gap = 3, --------------
+2025-03-11 21:08:11,833 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-11 21:08:12,505 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 150, gap = 5, --------------
+2025-03-11 21:10:40,542 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-11 21:10:41,097 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 150, gap = 10, --------------
+2025-03-11 21:12:57,339 - INFO - Accuracy on the test data = [92.0945405960083]
+2025-03-11 21:12:57,707 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 150, gap = 15, --------------
+2025-03-11 21:14:56,104 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-11 21:14:56,991 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 200, gap = 3, --------------
+2025-03-11 21:17:46,152 - INFO - Accuracy on the test data = [91.59733653068542]
+2025-03-11 21:17:47,010 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 200, gap = 5, --------------
+2025-03-11 21:20:18,221 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 21:20:18,695 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 200, gap = 10, --------------
+2025-03-11 21:22:24,637 - INFO - Accuracy on the test data = [91.59733653068542]
+2025-03-11 21:22:25,035 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=64 seq_num = 200, gap = 15, --------------
+2025-03-11 21:24:33,112 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 21:24:33,648 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 30, gap = 3, --------------
+2025-03-11 21:39:29,816 - INFO - Accuracy on the test data = [47.63014614582062]
+2025-03-11 21:39:30,338 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 30, gap = 5, --------------
+2025-03-11 21:47:49,996 - INFO - Accuracy on the test data = [71.87257409095764]
+2025-03-11 21:47:50,354 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 30, gap = 10, --------------
+2025-03-11 21:51:38,977 - INFO - Accuracy on the test data = [75.0582754611969]
+2025-03-11 21:51:39,420 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 30, gap = 15, --------------
+2025-03-11 21:54:10,007 - INFO - Accuracy on the test data = [80.9634804725647]
+2025-03-11 21:54:10,529 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 50, gap = 3, --------------
+2025-03-11 22:06:34,506 - INFO - Accuracy on the test data = [82.69381523132324]
+2025-03-11 22:06:34,972 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 50, gap = 5, --------------
+2025-03-11 22:15:11,506 - INFO - Accuracy on the test data = [85.43460965156555]
+2025-03-11 22:15:11,864 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 50, gap = 10, --------------
+2025-03-11 22:19:04,082 - INFO - Accuracy on the test data = [86.76585555076599]
+2025-03-11 22:19:04,382 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 50, gap = 15, --------------
+2025-03-11 22:21:31,374 - INFO - Accuracy on the test data = [91.77760481834412]
+2025-03-11 22:21:32,000 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 80, gap = 3, --------------
+2025-03-11 22:26:17,296 - INFO - Accuracy on the test data = [91.4421558380127]
+2025-03-11 22:26:17,801 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 80, gap = 5, --------------
+2025-03-11 22:30:50,759 - INFO - Accuracy on the test data = [91.28367900848389]
+2025-03-11 22:30:51,122 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 80, gap = 10, --------------
+2025-03-11 22:34:25,119 - INFO - Accuracy on the test data = [91.5213942527771]
+2025-03-11 22:34:25,443 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 80, gap = 15, --------------
+2025-03-11 22:36:57,671 - INFO - Accuracy on the test data = [91.5213942527771]
+2025-03-11 22:36:58,312 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 3, --------------
+2025-03-11 22:40:00,613 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-11 22:40:01,280 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-03-11 22:43:27,300 - INFO - Accuracy on the test data = [91.9329047203064]
+2025-03-11 22:43:27,683 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 10, --------------
+2025-03-11 22:46:16,044 - INFO - Accuracy on the test data = [91.77316427230835]
+2025-03-11 22:46:16,364 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 100, gap = 15, --------------
+2025-03-11 22:48:52,312 - INFO - Accuracy on the test data = [91.85303449630737]
+2025-03-11 22:48:53,244 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 150, gap = 3, --------------
+2025-03-11 22:51:19,566 - INFO - Accuracy on the test data = [91.605544090271]
+2025-03-11 22:51:20,185 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 150, gap = 5, --------------
+2025-03-11 22:53:31,366 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-11 22:53:31,790 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 150, gap = 10, --------------
+2025-03-11 22:55:32,126 - INFO - Accuracy on the test data = [91.52404069900513]
+2025-03-11 22:55:32,618 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 150, gap = 15, --------------
+2025-03-11 22:57:11,292 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-11 22:57:12,215 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 200, gap = 3, --------------
+2025-03-11 22:59:42,915 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 22:59:43,664 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 200, gap = 5, --------------
+2025-03-11 23:02:00,668 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 23:02:01,279 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 200, gap = 10, --------------
+2025-03-11 23:03:53,275 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 23:03:53,657 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=128 seq_num = 200, gap = 15, --------------
+2025-03-11 23:05:35,094 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-11 23:05:35,630 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 30, gap = 3, --------------
+2025-03-11 23:20:50,222 - INFO - Accuracy on the test data = [80.34188151359558]
+2025-03-11 23:20:50,721 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 30, gap = 5, --------------
+2025-03-11 23:29:12,540 - INFO - Accuracy on the test data = [51.04895234107971]
+2025-03-11 23:29:12,928 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 30, gap = 10, --------------
+2025-03-11 23:33:21,383 - INFO - Accuracy on the test data = [77.77777910232544]
+2025-03-11 23:33:21,710 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 30, gap = 15, --------------
+2025-03-11 23:36:15,501 - INFO - Accuracy on the test data = [79.17637825012207]
+2025-03-11 23:36:16,029 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 50, gap = 3, --------------
+2025-03-11 23:47:32,709 - INFO - Accuracy on the test data = [90.91621041297913]
+2025-03-11 23:47:33,150 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 50, gap = 5, --------------
+2025-03-11 23:57:45,682 - INFO - Accuracy on the test data = [87.47063279151917]
+2025-03-11 23:57:46,041 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 50, gap = 10, --------------
+2025-03-12 00:02:07,511 - INFO - Accuracy on the test data = [89.19342160224915]
+2025-03-12 00:02:07,963 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 50, gap = 15, --------------
+2025-03-12 00:04:39,204 - INFO - Accuracy on the test data = [88.41033577919006]
+2025-03-12 00:04:39,827 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 80, gap = 3, --------------
+2025-03-12 00:09:55,755 - INFO - Accuracy on the test data = [89.69889283180237]
+2025-03-12 00:09:56,262 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 80, gap = 5, --------------
+2025-03-12 00:14:23,879 - INFO - Accuracy on the test data = [91.4421558380127]
+2025-03-12 00:14:24,352 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 80, gap = 10, --------------
+2025-03-12 00:17:51,553 - INFO - Accuracy on the test data = [91.75911545753479]
+2025-03-12 00:17:52,017 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 80, gap = 15, --------------
+2025-03-12 00:20:20,803 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 00:20:21,448 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 100, gap = 3, --------------
+2025-03-12 00:23:29,089 - INFO - Accuracy on the test data = [91.4536714553833]
+2025-03-12 00:23:29,614 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 100, gap = 5, --------------
+2025-03-12 00:27:36,485 - INFO - Accuracy on the test data = [85.62300205230713]
+2025-03-12 00:27:37,015 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 100, gap = 10, --------------
+2025-03-12 00:31:26,801 - INFO - Accuracy on the test data = [91.37380123138428]
+2025-03-12 00:31:27,143 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 100, gap = 15, --------------
+2025-03-12 00:33:56,832 - INFO - Accuracy on the test data = [91.85303449630737]
+2025-03-12 00:33:57,657 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 150, gap = 3, --------------
+2025-03-12 00:36:37,067 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 00:36:37,865 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 150, gap = 5, --------------
+2025-03-12 00:39:02,418 - INFO - Accuracy on the test data = [91.19804501533508]
+2025-03-12 00:39:02,850 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 150, gap = 10, --------------
+2025-03-12 00:41:01,586 - INFO - Accuracy on the test data = [91.605544090271]
+2025-03-12 00:41:01,957 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 150, gap = 15, --------------
+2025-03-12 00:42:52,923 - INFO - Accuracy on the test data = [91.19804501533508]
+2025-03-12 00:42:53,863 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 200, gap = 3, --------------
+2025-03-12 00:45:01,974 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 00:45:02,844 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 200, gap = 5, --------------
+2025-03-12 00:47:20,977 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 00:47:21,460 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 200, gap = 10, --------------
+2025-03-12 00:50:18,735 - INFO - Accuracy on the test data = [91.93011522293091]
+2025-03-12 00:50:19,130 - INFO - ------------  model_cnnLSTM , num_layers = 1, hidden_size=256 seq_num = 200, gap = 15, --------------
+2025-03-12 00:52:55,354 - INFO - Accuracy on the test data = [91.84691905975342]
+2025-03-12 00:52:56,033 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 30, gap = 3, --------------
+2025-03-12 01:11:30,608 - INFO - Accuracy on the test data = [71.09557390213013]
+2025-03-12 01:11:31,082 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 30, gap = 5, --------------
+2025-03-12 01:19:47,479 - INFO - Accuracy on the test data = [50.2719521522522]
+2025-03-12 01:19:47,854 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 30, gap = 10, --------------
+2025-03-12 01:23:55,569 - INFO - Accuracy on the test data = [81.3519835472107]
+2025-03-12 01:23:56,076 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 30, gap = 15, --------------
+2025-03-12 01:26:41,997 - INFO - Accuracy on the test data = [88.034188747406]
+2025-03-12 01:26:42,522 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 50, gap = 3, --------------
+2025-03-12 01:40:00,838 - INFO - Accuracy on the test data = [86.45262122154236]
+2025-03-12 01:40:01,286 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 50, gap = 5, --------------
+2025-03-12 01:48:09,735 - INFO - Accuracy on the test data = [77.44714021682739]
+2025-03-12 01:48:10,095 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 50, gap = 10, --------------
+2025-03-12 01:52:10,287 - INFO - Accuracy on the test data = [89.50665593147278]
+2025-03-12 01:52:10,586 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 50, gap = 15, --------------
+2025-03-12 01:54:50,698 - INFO - Accuracy on the test data = [78.30853462219238]
+2025-03-12 01:54:51,293 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 80, gap = 3, --------------
+2025-03-12 02:03:24,591 - INFO - Accuracy on the test data = [91.0459578037262]
+2025-03-12 02:03:25,071 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 80, gap = 5, --------------
+2025-03-12 02:11:31,586 - INFO - Accuracy on the test data = [91.67987108230591]
+2025-03-12 02:11:31,966 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 80, gap = 10, --------------
+2025-03-12 02:15:32,387 - INFO - Accuracy on the test data = [90.41204452514648]
+2025-03-12 02:15:32,710 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 80, gap = 15, --------------
+2025-03-12 02:18:11,271 - INFO - Accuracy on the test data = [91.5213942527771]
+2025-03-12 02:18:12,038 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 100, gap = 3, --------------
+2025-03-12 02:25:16,895 - INFO - Accuracy on the test data = [87.53993511199951]
+2025-03-12 02:25:17,414 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 100, gap = 5, --------------
+2025-03-12 02:30:50,723 - INFO - Accuracy on the test data = [82.42811560630798]
+2025-03-12 02:30:51,105 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 100, gap = 10, --------------
+2025-03-12 02:35:04,194 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 02:35:04,658 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 100, gap = 15, --------------
+2025-03-12 02:37:58,535 - INFO - Accuracy on the test data = [91.0543143749237]
+2025-03-12 02:37:59,356 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 150, gap = 3, --------------
+2025-03-12 02:42:03,406 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 02:42:04,077 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 150, gap = 5, --------------
+2025-03-12 02:45:50,683 - INFO - Accuracy on the test data = [90.95354676246643]
+2025-03-12 02:45:51,247 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 150, gap = 10, --------------
+2025-03-12 02:49:16,819 - INFO - Accuracy on the test data = [91.85004234313965]
+2025-03-12 02:49:17,181 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 150, gap = 15, --------------
+2025-03-12 02:51:55,994 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 02:51:56,910 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 200, gap = 3, --------------
+2025-03-12 02:55:22,154 - INFO - Accuracy on the test data = [91.51414036750793]
+2025-03-12 02:55:23,032 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 200, gap = 5, --------------
+2025-03-12 02:59:02,458 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 02:59:02,982 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 200, gap = 10, --------------
+2025-03-12 03:02:03,702 - INFO - Accuracy on the test data = [91.59733653068542]
+2025-03-12 03:02:04,124 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=32 seq_num = 200, gap = 15, --------------
+2025-03-12 03:04:44,906 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 03:04:45,531 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 30, gap = 3, --------------
+2025-03-12 03:19:05,345 - INFO - Accuracy on the test data = [80.8080792427063]
+2025-03-12 03:19:05,948 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 30, gap = 5, --------------
+2025-03-12 03:27:36,115 - INFO - Accuracy on the test data = [91.53069257736206]
+2025-03-12 03:27:36,570 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 30, gap = 10, --------------
+2025-03-12 03:31:41,384 - INFO - Accuracy on the test data = [88.73348832130432]
+2025-03-12 03:31:41,926 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 30, gap = 15, --------------
+2025-03-12 03:34:25,693 - INFO - Accuracy on the test data = [91.53069257736206]
+2025-03-12 03:34:26,290 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 50, gap = 3, --------------
+2025-03-12 03:48:12,754 - INFO - Accuracy on the test data = [90.05481600761414]
+2025-03-12 03:48:13,272 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 50, gap = 5, --------------
+2025-03-12 03:56:20,689 - INFO - Accuracy on the test data = [89.97650742530823]
+2025-03-12 03:56:21,258 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 50, gap = 10, --------------
+2025-03-12 04:00:24,094 - INFO - Accuracy on the test data = [88.8018786907196]
+2025-03-12 04:00:24,439 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 50, gap = 15, --------------
+2025-03-12 04:03:06,163 - INFO - Accuracy on the test data = [91.6209876537323]
+2025-03-12 04:03:06,841 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 80, gap = 3, --------------
+2025-03-12 04:09:27,473 - INFO - Accuracy on the test data = [91.4421558380127]
+2025-03-12 04:09:28,043 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 80, gap = 5, --------------
+2025-03-12 04:15:13,909 - INFO - Accuracy on the test data = [91.67987108230591]
+2025-03-12 04:15:14,326 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 80, gap = 10, --------------
+2025-03-12 04:19:16,986 - INFO - Accuracy on the test data = [90.09508490562439]
+2025-03-12 04:19:17,344 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 80, gap = 15, --------------
+2025-03-12 04:21:59,692 - INFO - Accuracy on the test data = [91.75911545753479]
+2025-03-12 04:22:00,456 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 100, gap = 3, --------------
+2025-03-12 04:26:03,852 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 04:26:04,642 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 100, gap = 5, --------------
+2025-03-12 04:30:07,209 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 04:30:07,674 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 100, gap = 10, --------------
+2025-03-12 04:33:54,152 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 04:33:54,486 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 100, gap = 15, --------------
+2025-03-12 04:36:34,212 - INFO - Accuracy on the test data = [90.9744381904602]
+2025-03-12 04:36:35,339 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 150, gap = 3, --------------
+2025-03-12 04:39:57,248 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 04:39:58,004 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 150, gap = 5, --------------
+2025-03-12 04:43:05,210 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 04:43:05,704 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 150, gap = 10, --------------
+2025-03-12 04:45:50,411 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 04:45:50,983 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 150, gap = 15, --------------
+2025-03-12 04:48:43,427 - INFO - Accuracy on the test data = [91.605544090271]
+2025-03-12 04:48:44,467 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 200, gap = 3, --------------
+2025-03-12 04:51:25,108 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 04:51:25,939 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 200, gap = 5, --------------
+2025-03-12 04:54:16,640 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 04:54:17,326 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 200, gap = 10, --------------
+2025-03-12 04:56:53,256 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 04:56:53,696 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=64 seq_num = 200, gap = 15, --------------
+2025-03-12 04:59:03,066 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 04:59:03,691 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 30, gap = 3, --------------
+2025-03-12 05:13:23,111 - INFO - Accuracy on the test data = [66.20046496391296]
+2025-03-12 05:13:23,855 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 30, gap = 5, --------------
+2025-03-12 05:22:14,768 - INFO - Accuracy on the test data = [55.7109534740448]
+2025-03-12 05:22:15,201 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 30, gap = 10, --------------
+2025-03-12 05:26:32,649 - INFO - Accuracy on the test data = [80.10877966880798]
+2025-03-12 05:26:33,066 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 30, gap = 15, --------------
+2025-03-12 05:29:22,500 - INFO - Accuracy on the test data = [82.51748085021973]
+2025-03-12 05:29:23,284 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 50, gap = 3, --------------
+2025-03-12 05:43:20,692 - INFO - Accuracy on the test data = [84.49491262435913]
+2025-03-12 05:43:21,203 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 50, gap = 5, --------------
+2025-03-12 05:51:43,653 - INFO - Accuracy on the test data = [89.81989026069641]
+2025-03-12 05:51:44,077 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 50, gap = 10, --------------
+2025-03-12 05:55:54,264 - INFO - Accuracy on the test data = [85.04306674003601]
+2025-03-12 05:55:54,769 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 50, gap = 15, --------------
+2025-03-12 05:58:39,748 - INFO - Accuracy on the test data = [76.35082006454468]
+2025-03-12 05:58:40,438 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 80, gap = 3, --------------
+2025-03-12 06:04:34,448 - INFO - Accuracy on the test data = [90.17432928085327]
+2025-03-12 06:04:35,098 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 80, gap = 5, --------------
+2025-03-12 06:10:08,948 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 06:10:09,419 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 80, gap = 10, --------------
+2025-03-12 06:14:24,263 - INFO - Accuracy on the test data = [91.204434633255]
+2025-03-12 06:14:24,776 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 80, gap = 15, --------------
+2025-03-12 06:17:25,722 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 06:17:26,467 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 100, gap = 3, --------------
+2025-03-12 06:21:40,706 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 06:21:41,284 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-03-12 06:25:23,903 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 06:25:24,502 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 100, gap = 10, --------------
+2025-03-12 06:28:39,663 - INFO - Accuracy on the test data = [91.69328808784485]
+2025-03-12 06:28:40,062 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 100, gap = 15, --------------
+2025-03-12 06:31:21,009 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 06:31:21,970 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 150, gap = 3, --------------
+2025-03-12 06:34:12,339 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 06:34:13,249 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 150, gap = 5, --------------
+2025-03-12 06:37:08,147 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 06:37:08,651 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 150, gap = 10, --------------
+2025-03-12 06:39:53,096 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 06:39:53,498 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 150, gap = 15, --------------
+2025-03-12 06:42:02,274 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 06:42:03,466 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 200, gap = 3, --------------
+2025-03-12 06:44:51,386 - INFO - Accuracy on the test data = [91.59733653068542]
+2025-03-12 06:44:52,220 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 200, gap = 5, --------------
+2025-03-12 06:47:22,027 - INFO - Accuracy on the test data = [91.68053269386292]
+2025-03-12 06:47:22,561 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 200, gap = 10, --------------
+2025-03-12 06:49:24,887 - INFO - Accuracy on the test data = [91.68053269386292]
+2025-03-12 06:49:25,495 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=128 seq_num = 200, gap = 15, --------------
+2025-03-12 06:51:32,929 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 06:51:33,569 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 30, gap = 3, --------------
+2025-03-12 07:09:29,530 - INFO - Accuracy on the test data = [77.85547971725464]
+2025-03-12 07:09:30,086 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 30, gap = 5, --------------
+2025-03-12 07:22:07,199 - INFO - Accuracy on the test data = [48.018649220466614]
+2025-03-12 07:22:07,822 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 30, gap = 10, --------------
+2025-03-12 07:26:54,045 - INFO - Accuracy on the test data = [57.34265446662903]
+2025-03-12 07:26:54,404 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 30, gap = 15, --------------
+2025-03-12 07:29:55,390 - INFO - Accuracy on the test data = [87.56798505783081]
+2025-03-12 07:29:55,942 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 50, gap = 3, --------------
+2025-03-12 07:45:13,693 - INFO - Accuracy on the test data = [78.77838611602783]
+2025-03-12 07:45:14,324 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 50, gap = 5, --------------
+2025-03-12 07:53:59,040 - INFO - Accuracy on the test data = [84.49491262435913]
+2025-03-12 07:53:59,438 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 50, gap = 10, --------------
+2025-03-12 07:58:13,896 - INFO - Accuracy on the test data = [81.91072940826416]
+2025-03-12 07:58:14,233 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 50, gap = 15, --------------
+2025-03-12 08:01:10,975 - INFO - Accuracy on the test data = [80.50117492675781]
+2025-03-12 08:01:11,605 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 80, gap = 3, --------------
+2025-03-12 08:07:28,675 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 08:07:29,201 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 80, gap = 5, --------------
+2025-03-12 08:13:31,046 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 08:13:31,532 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 80, gap = 10, --------------
+2025-03-12 08:18:11,697 - INFO - Accuracy on the test data = [89.06497359275818]
+2025-03-12 08:18:12,176 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 80, gap = 15, --------------
+2025-03-12 08:21:11,462 - INFO - Accuracy on the test data = [90.88748097419739]
+2025-03-12 08:21:12,293 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 100, gap = 3, --------------
+2025-03-12 08:26:18,663 - INFO - Accuracy on the test data = [90.49520492553711]
+2025-03-12 08:26:19,219 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 100, gap = 5, --------------
+2025-03-12 08:30:34,464 - INFO - Accuracy on the test data = [91.29393100738525]
+2025-03-12 08:30:34,901 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 100, gap = 10, --------------
+2025-03-12 08:35:46,456 - INFO - Accuracy on the test data = [91.69328808784485]
+2025-03-12 08:35:46,990 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 100, gap = 15, --------------
+2025-03-12 08:39:12,967 - INFO - Accuracy on the test data = [91.9329047203064]
+2025-03-12 08:39:13,850 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 150, gap = 3, --------------
+2025-03-12 08:42:46,319 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 08:42:47,035 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 150, gap = 5, --------------
+2025-03-12 08:46:29,522 - INFO - Accuracy on the test data = [91.52404069900513]
+2025-03-12 08:46:30,137 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 150, gap = 10, --------------
+2025-03-12 08:50:32,941 - INFO - Accuracy on the test data = [91.76853895187378]
+2025-03-12 08:50:33,410 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 150, gap = 15, --------------
+2025-03-12 08:53:20,911 - INFO - Accuracy on the test data = [91.52404069900513]
+2025-03-12 08:53:21,935 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 200, gap = 3, --------------
+2025-03-12 08:56:59,306 - INFO - Accuracy on the test data = [91.93011522293091]
+2025-03-12 08:57:00,364 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 200, gap = 5, --------------
+2025-03-12 08:59:43,182 - INFO - Accuracy on the test data = [89.43427801132202]
+2025-03-12 08:59:43,743 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 200, gap = 10, --------------
+2025-03-12 09:02:22,548 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 09:02:23,040 - INFO - ------------  model_cnnLSTM , num_layers = 2, hidden_size=256 seq_num = 200, gap = 15, --------------
+2025-03-12 09:04:47,095 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 09:04:47,763 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 30, gap = 3, --------------
+2025-03-12 09:24:04,217 - INFO - Accuracy on the test data = [57.34265446662903]
+2025-03-12 09:24:04,817 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 30, gap = 5, --------------
+2025-03-12 09:32:46,069 - INFO - Accuracy on the test data = [82.2843849658966]
+2025-03-12 09:32:46,513 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 30, gap = 10, --------------
+2025-03-12 09:37:05,011 - INFO - Accuracy on the test data = [89.51048851013184]
+2025-03-12 09:37:05,389 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 30, gap = 15, --------------
+2025-03-12 09:39:57,007 - INFO - Accuracy on the test data = [68.14296841621399]
+2025-03-12 09:39:57,785 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 50, gap = 3, --------------
+2025-03-12 09:53:59,320 - INFO - Accuracy on the test data = [88.7235701084137]
+2025-03-12 09:53:59,835 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 50, gap = 5, --------------
+2025-03-12 10:02:25,376 - INFO - Accuracy on the test data = [71.73061966896057]
+2025-03-12 10:02:25,968 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 50, gap = 10, --------------
+2025-03-12 10:06:35,294 - INFO - Accuracy on the test data = [86.53092980384827]
+2025-03-12 10:06:35,656 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 50, gap = 15, --------------
+2025-03-12 10:09:23,079 - INFO - Accuracy on the test data = [90.05481600761414]
+2025-03-12 10:09:23,798 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 80, gap = 3, --------------
+2025-03-12 10:19:18,233 - INFO - Accuracy on the test data = [87.55943179130554]
+2025-03-12 10:19:18,857 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 80, gap = 5, --------------
+2025-03-12 10:27:40,853 - INFO - Accuracy on the test data = [91.0459578037262]
+2025-03-12 10:27:41,307 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 80, gap = 10, --------------
+2025-03-12 10:32:13,645 - INFO - Accuracy on the test data = [90.88748097419739]
+2025-03-12 10:32:14,000 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 80, gap = 15, --------------
+2025-03-12 10:35:27,007 - INFO - Accuracy on the test data = [91.4421558380127]
+2025-03-12 10:35:27,757 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 100, gap = 3, --------------
+2025-03-12 10:42:35,999 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 10:42:36,619 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 100, gap = 5, --------------
+2025-03-12 10:49:05,340 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 10:49:05,814 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 100, gap = 10, --------------
+2025-03-12 10:53:43,546 - INFO - Accuracy on the test data = [91.77316427230835]
+2025-03-12 10:53:43,927 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 100, gap = 15, --------------
+2025-03-12 10:56:45,552 - INFO - Accuracy on the test data = [91.69328808784485]
+2025-03-12 10:56:46,524 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 150, gap = 3, --------------
+2025-03-12 11:02:13,724 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 11:02:14,503 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 150, gap = 5, --------------
+2025-03-12 11:06:51,622 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 11:06:52,142 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 150, gap = 10, --------------
+2025-03-12 11:11:31,808 - INFO - Accuracy on the test data = [91.27954244613647]
+2025-03-12 11:11:32,368 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 150, gap = 15, --------------
+2025-03-12 11:14:39,273 - INFO - Accuracy on the test data = [91.52404069900513]
+2025-03-12 11:14:40,258 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 200, gap = 3, --------------
+2025-03-12 11:19:25,091 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 11:19:26,076 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 200, gap = 5, --------------
+2025-03-12 11:24:09,825 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 11:24:10,504 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 200, gap = 10, --------------
+2025-03-12 11:28:28,863 - INFO - Accuracy on the test data = [91.51414036750793]
+2025-03-12 11:28:29,306 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=32 seq_num = 200, gap = 15, --------------
+2025-03-12 11:31:57,756 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 11:31:58,408 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 30, gap = 3, --------------
+2025-03-12 11:48:14,270 - INFO - Accuracy on the test data = [71.01787328720093]
+2025-03-12 11:48:15,032 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 30, gap = 5, --------------
+2025-03-12 11:57:56,060 - INFO - Accuracy on the test data = [60.372960567474365]
+2025-03-12 11:57:56,496 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 30, gap = 10, --------------
+2025-03-12 12:02:42,474 - INFO - Accuracy on the test data = [79.72028255462646]
+2025-03-12 12:02:42,854 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 30, gap = 15, --------------
+2025-03-12 12:05:57,594 - INFO - Accuracy on the test data = [68.8422679901123]
+2025-03-12 12:05:58,398 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 50, gap = 3, --------------
+2025-03-12 12:21:49,392 - INFO - Accuracy on the test data = [75.80265998840332]
+2025-03-12 12:21:49,908 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 50, gap = 5, --------------
+2025-03-12 12:31:15,683 - INFO - Accuracy on the test data = [87.39232420921326]
+2025-03-12 12:31:16,142 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 50, gap = 10, --------------
+2025-03-12 12:35:57,006 - INFO - Accuracy on the test data = [85.35630106925964]
+2025-03-12 12:35:57,516 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 50, gap = 15, --------------
+2025-03-12 12:39:07,336 - INFO - Accuracy on the test data = [91.77760481834412]
+2025-03-12 12:39:08,050 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 80, gap = 3, --------------
+2025-03-12 12:47:07,820 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 12:47:08,334 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 80, gap = 5, --------------
+2025-03-12 12:54:42,711 - INFO - Accuracy on the test data = [91.36291742324829]
+2025-03-12 12:54:43,227 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 80, gap = 10, --------------
+2025-03-12 12:59:19,255 - INFO - Accuracy on the test data = [91.67987108230591]
+2025-03-12 12:59:19,586 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 80, gap = 15, --------------
+2025-03-12 13:02:26,543 - INFO - Accuracy on the test data = [91.6006326675415]
+2025-03-12 13:02:27,293 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 100, gap = 3, --------------
+2025-03-12 13:07:55,913 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 13:07:56,555 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 100, gap = 5, --------------
+2025-03-12 13:12:37,902 - INFO - Accuracy on the test data = [91.13418459892273]
+2025-03-12 13:12:38,359 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 100, gap = 10, --------------
+2025-03-12 13:17:05,000 - INFO - Accuracy on the test data = [91.77316427230835]
+2025-03-12 13:17:05,375 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 100, gap = 15, --------------
+2025-03-12 13:20:07,516 - INFO - Accuracy on the test data = [91.69328808784485]
+2025-03-12 13:20:08,494 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 150, gap = 3, --------------
+2025-03-12 13:24:03,404 - INFO - Accuracy on the test data = [91.605544090271]
+2025-03-12 13:24:04,188 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 150, gap = 5, --------------
+2025-03-12 13:27:52,504 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 13:27:53,010 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 150, gap = 10, --------------
+2025-03-12 13:31:23,635 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 13:31:24,073 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 150, gap = 15, --------------
+2025-03-12 13:34:34,459 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 13:34:35,604 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 200, gap = 3, --------------
+2025-03-12 13:38:39,252 - INFO - Accuracy on the test data = [91.18136167526245]
+2025-03-12 13:38:40,072 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 200, gap = 5, --------------
+2025-03-12 13:42:41,020 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 13:42:41,551 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 200, gap = 10, --------------
+2025-03-12 13:46:25,914 - INFO - Accuracy on the test data = [91.51414036750793]
+2025-03-12 13:46:26,534 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=64 seq_num = 200, gap = 15, --------------
+2025-03-12 13:49:52,014 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 13:49:52,661 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 30, gap = 3, --------------
+2025-03-12 14:06:50,169 - INFO - Accuracy on the test data = [67.90986657142639]
+2025-03-12 14:06:50,776 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 30, gap = 5, --------------
+2025-03-12 14:16:52,231 - INFO - Accuracy on the test data = [70.55166959762573]
+2025-03-12 14:16:52,843 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 30, gap = 10, --------------
+2025-03-12 14:21:52,046 - INFO - Accuracy on the test data = [75.91297626495361]
+2025-03-12 14:21:52,462 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 30, gap = 15, --------------
+2025-03-12 14:25:14,628 - INFO - Accuracy on the test data = [87.64568567276001]
+2025-03-12 14:25:15,209 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 50, gap = 3, --------------
+2025-03-12 14:41:56,904 - INFO - Accuracy on the test data = [85.82615256309509]
+2025-03-12 14:41:57,530 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 50, gap = 5, --------------
+2025-03-12 14:51:35,238 - INFO - Accuracy on the test data = [91.22944474220276]
+2025-03-12 14:51:35,611 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 50, gap = 10, --------------
+2025-03-12 14:56:24,483 - INFO - Accuracy on the test data = [92.01253056526184]
+2025-03-12 14:56:24,802 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 50, gap = 15, --------------
+2025-03-12 14:59:36,125 - INFO - Accuracy on the test data = [88.8018786907196]
+2025-03-12 14:59:36,876 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 80, gap = 3, --------------
+2025-03-12 15:06:55,367 - INFO - Accuracy on the test data = [90.96671938896179]
+2025-03-12 15:06:55,897 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 80, gap = 5, --------------
+2025-03-12 15:13:55,855 - INFO - Accuracy on the test data = [90.49128293991089]
+2025-03-12 15:13:56,251 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 80, gap = 10, --------------
+2025-03-12 15:18:44,180 - INFO - Accuracy on the test data = [91.28367900848389]
+2025-03-12 15:18:44,641 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 80, gap = 15, --------------
+2025-03-12 15:21:54,239 - INFO - Accuracy on the test data = [90.17432928085327]
+2025-03-12 15:21:54,911 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 100, gap = 3, --------------
+2025-03-12 15:27:30,028 - INFO - Accuracy on the test data = [89.53673839569092]
+2025-03-12 15:27:30,573 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 100, gap = 5, --------------
+2025-03-12 15:32:20,950 - INFO - Accuracy on the test data = [91.9329047203064]
+2025-03-12 15:32:21,489 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 100, gap = 10, --------------
+2025-03-12 15:36:40,047 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 15:36:40,389 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 100, gap = 15, --------------
+2025-03-12 15:39:51,817 - INFO - Accuracy on the test data = [92.65175461769104]
+2025-03-12 15:39:52,659 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 150, gap = 3, --------------
+2025-03-12 15:43:58,986 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 15:43:59,821 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 150, gap = 5, --------------
+2025-03-12 15:47:47,888 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 15:47:48,379 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 150, gap = 10, --------------
+2025-03-12 15:51:25,512 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 15:51:25,912 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 150, gap = 15, --------------
+2025-03-12 15:54:38,960 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 15:54:40,004 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 200, gap = 3, --------------
+2025-03-12 15:58:51,263 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 15:58:52,090 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 200, gap = 5, --------------
+2025-03-12 16:02:42,756 - INFO - Accuracy on the test data = [91.68053269386292]
+2025-03-12 16:02:43,299 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 200, gap = 10, --------------
+2025-03-12 16:07:04,980 - INFO - Accuracy on the test data = [91.68053269386292]
+2025-03-12 16:07:05,414 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=128 seq_num = 200, gap = 15, --------------
+2025-03-12 16:10:40,538 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 16:10:41,372 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 30, gap = 3, --------------
+2025-03-12 16:32:14,033 - INFO - Accuracy on the test data = [52.60295271873474]
+2025-03-12 16:32:14,675 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 30, gap = 5, --------------
+2025-03-12 16:45:33,354 - INFO - Accuracy on the test data = [84.69308614730835]
+2025-03-12 16:45:33,790 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 30, gap = 10, --------------
+2025-03-12 16:52:25,702 - INFO - Accuracy on the test data = [65.19036293029785]
+2025-03-12 16:52:26,082 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 30, gap = 15, --------------
+2025-03-12 16:56:48,315 - INFO - Accuracy on the test data = [91.60839319229126]
+2025-03-12 16:56:48,939 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 50, gap = 3, --------------
+2025-03-12 17:18:22,960 - INFO - Accuracy on the test data = [91.22944474220276]
+2025-03-12 17:18:23,620 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 50, gap = 5, --------------
+2025-03-12 17:30:54,491 - INFO - Accuracy on the test data = [91.54267907142639]
+2025-03-12 17:30:54,921 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 50, gap = 10, --------------
+2025-03-12 17:37:08,117 - INFO - Accuracy on the test data = [84.96476411819458]
+2025-03-12 17:37:08,475 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 50, gap = 15, --------------
+2025-03-12 17:41:17,666 - INFO - Accuracy on the test data = [82.38058090209961]
+2025-03-12 17:41:18,330 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 80, gap = 3, --------------
+2025-03-12 17:53:08,936 - INFO - Accuracy on the test data = [91.75911545753479]
+2025-03-12 17:53:09,549 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 80, gap = 5, --------------
+2025-03-12 18:01:28,527 - INFO - Accuracy on the test data = [91.5213942527771]
+2025-03-12 18:01:29,006 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 80, gap = 10, --------------
+2025-03-12 18:07:07,447 - INFO - Accuracy on the test data = [91.1251962184906]
+2025-03-12 18:07:07,846 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 80, gap = 15, --------------
+2025-03-12 18:11:09,939 - INFO - Accuracy on the test data = [90.96671938896179]
+2025-03-12 18:11:10,736 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 100, gap = 3, --------------
+2025-03-12 18:17:26,047 - INFO - Accuracy on the test data = [91.85303449630737]
+2025-03-12 18:17:26,716 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 100, gap = 5, --------------
+2025-03-12 18:23:33,410 - INFO - Accuracy on the test data = [89.37699794769287]
+2025-03-12 18:23:33,921 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 100, gap = 10, --------------
+2025-03-12 18:29:19,391 - INFO - Accuracy on the test data = [92.0127809047699]
+2025-03-12 18:29:19,957 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 100, gap = 15, --------------
+2025-03-12 18:33:23,610 - INFO - Accuracy on the test data = [91.61341786384583]
+2025-03-12 18:33:24,632 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 150, gap = 3, --------------
+2025-03-12 18:38:46,885 - INFO - Accuracy on the test data = [91.52404069900513]
+2025-03-12 18:38:47,741 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 150, gap = 5, --------------
+2025-03-12 18:43:17,990 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 18:43:18,709 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 150, gap = 10, --------------
+2025-03-12 18:46:33,891 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 18:46:34,331 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 150, gap = 15, --------------
+2025-03-12 18:47:56,492 - INFO - Accuracy on the test data = [91.44254326820374]
+2025-03-12 18:47:57,548 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 200, gap = 3, --------------
+2025-03-12 18:49:25,326 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 18:49:26,250 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 200, gap = 5, --------------
+2025-03-12 18:50:46,037 - INFO - Accuracy on the test data = [91.34775400161743]
+2025-03-12 18:50:46,583 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 200, gap = 10, --------------
+2025-03-12 18:52:10,304 - INFO - Accuracy on the test data = [91.7637288570404]
+2025-03-12 18:52:10,765 - INFO - ------------  model_cnnLSTM , num_layers = 3, hidden_size=256 seq_num = 200, gap = 15, --------------
+2025-03-12 18:53:30,956 - INFO - Accuracy on the test data = [91.7637288570404]
