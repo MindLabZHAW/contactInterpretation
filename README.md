@@ -29,7 +29,7 @@ Install with:
 ```bash
 conda env create -f environment.yml
 conda activate contact-interpretation
-#or
+# or
 pip install -r requirements.txt
 ```
 
@@ -39,32 +39,24 @@ pip install -r requirements.txt
 1. Power on robot → yellow light.
 2. Connect to console (`172.16.0.2` or `192.168.15.33`).
 3. Unlock → blue light → activate FCI.
-4. Run control PC setup:
-```bash
-bash src/robotAPI/frankX/bash_scripts/start_control_pc.sh
-```
-
-5. Launch glove node for data labeling:
-```bash
-source /opt/ros/noetic/setup.bash
-conda activate frankxenv
-python src/dataLabeling/digitalGloveNode.py
-```
-
-6. Start control & data saving:
-```bash
-python src/frankX/main.py
-python src/frankX/saveDataNode.py
-```
->>>>>>> 	modified:   README.md
-
+4. Run control PC setup
 ### UR5e (via RTDE)
 
 1. Enable remote control on teach pendant.
 
-2. Run data collection:
+### Common steps: 
+
+1. Launch glove node for data labeling:
 ```bash
-python src/urRobot/main_ur10.py
+source /opt/ros/noetic/setup.bash
+conda activate frankpyenv
+python src/dataLabeling/digitalGloveNode.py
+```
+
+2. Start control & data saving:
+```bash
+python src/main.py
+python src/saveDataNode.py
 ```
 
 ## Training
@@ -77,20 +69,3 @@ Pipelines for training are in `pipelines/`:
 - **Contact detection:** `pipelines/training_pipeline_contact_detection.py`
 - **Localization:** `pipelines/training_pipeline_localization.py`
 
-
-### Example Run
-```bash
-python pipelines/training_pipeline_contact_detection.py
-```
-
-## Deployment
-
-
-Use scripts under `deployment/` to run trained models on robots.
-
-
-### Example Run
-```bash
-python deployment/run_model_franka.py # For Franka Panda
-python deployment/run_model_ur5.py # For UR5e
-```
