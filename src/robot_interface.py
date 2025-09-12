@@ -2,13 +2,12 @@ from abc import ABC, abstractmethod
 
 class RobotInterface(ABC):
     """
-    An abstract interface (or "contract") for all robot controllers.
-    This class defines the common methods any robot implementation must have.
+    Abstract base class defining the contract for all robot implementations.
+    This ensures that the TaskInterpreter can work with any supported robot.
     """
-    
     @abstractmethod
     def connect(self) -> bool:
-        """Establishes a connection to the physical robot hardware."""
+        """Establishes a connection to the robot."""
         pass
 
     @abstractmethod
@@ -18,20 +17,20 @@ class RobotInterface(ABC):
 
     @abstractmethod
     def get_data(self) -> dict:
-        """Retrieves real-time sensor data from the robot."""
+        """Retrieves the current state data from the robot (e.g., joint errors)."""
         pass
 
     @abstractmethod
-    def send_move_command(self, move_data: dict) -> None:
-        """Sends a non-blocking movement command to the robot."""
+    def send_action(self, action_data: dict) -> None:
+        """Sends a command or action to the robot (e.g., move, screw)."""
         pass
 
     @abstractmethod
-    def is_moving(self) -> bool:
-        """Checks if the robot is currently executing a move command."""
+    def is_performing_action(self) -> bool:
+        """Returns True if the robot is currently busy executing an action."""
         pass
 
     @abstractmethod
     def stop(self) -> None:
-        """Sends an immediate stop command to the robot."""
+        """Immediately halts any ongoing robot motion."""
         pass

@@ -1,21 +1,13 @@
 {
-  "name": "Simple Assembly Task",
+  "task_name": "Full Simulation Data Analysis",
+  "description": "A task to process an entire simulation CSV file for contact events.",
   "steps": [
     {
-      "id": 1,
+      "step_id": 1,
+      "description": "Process all simulation data from CSV",
       "command": "move",
-      "target": [0.3, 0.0, 0.5, 1.0, 0.0, 0.0, 0.0],
-      "speed": 0.1,
-      "on_contact": {
-        "action": "stop_task",
-        "message": "Error: Obstacle detected on the way to the part bin."
-      }
-    },
-    {
-      "id": 2,
-      "command": "move",
-      "target": [0.3, 0.0, 0.3, 1.0, 0.0, 0.0, 0.0],
-      "speed": 0.05
+      "target": [],
+      "speed": 0.1
     }
   ]
 }

@@ -25,7 +25,13 @@ if __name__ == "__main__":
     # my_robot = FrankaRobot(ip_address="192.168.1.15") 
 
     # --- Option B: Simulation Mode using data from a CSV file ---
-    my_robot = SimulationRobot(csv_file_path='src/config/simulated_robot_data.csv')
+    default_csv_path = 'dataset/franka_main/labeled_data/link6/b5_1.csv'
+    csv_path_input = input(f"Enter the path to the simulation CSV file [{default_csv_path}]: ")
+    if not csv_path_input:
+        csv_path_input = default_csv_path
+        
+    my_robot = SimulationRobot(csv_file_path=csv_path_input)
+
 
     # --- 3. Load Configuration Files ---
     config_loader = ConfigLoader()
@@ -38,7 +44,8 @@ if __name__ == "__main__":
     controller = TaskInterpreter(
         robot=my_robot, 
         ai_model=contact_ai, 
-        default_contact_actions=default_behaviors
+        default_contact_actions=default_behaviors,
+        loop_delay=0
     )
     
     controller.load_task_from_file('src/config/my_assembly_task.json')
@@ -46,4 +53,3 @@ if __name__ == "__main__":
     controller.run()
     
     logging.info("--- System Shutdown ---")
-

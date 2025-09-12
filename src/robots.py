@@ -1,20 +1,13 @@
 import numpy as np
-# pip install ur-rtde frankx
-#
-# import rtde_control
-# import rtde_receive
-# import frankx
 import time
 import logging
 from robot_interface import RobotInterface
 
-# Import pandas for the simulation robot, handling potential import errors
 try:
     import pandas as pd
 except ImportError:
     pd = None
 
-# Import frankx for the real robot, handling potential import errors
 try:
     import frankx
 except ImportError:
@@ -22,10 +15,7 @@ except ImportError:
 
 
 class SimulationRobot(RobotInterface):
-    """
-    A simulated robot that reads its state sequentially from a CSV file.
-    This is used for offline testing of the interpreter and AI model logic.
-    """
+    """A simulated robot that reads its state sequentially from a CSV file."""
     def __init__(self, csv_file_path: str):
         if pd is None:
             raise ImportError("The 'pandas' library is not installed. Please run 'pip install pandas' to use the simulation robot.")
@@ -34,8 +24,7 @@ class SimulationRobot(RobotInterface):
         self.data = None
         self.current_step_index = 0
         self.total_steps = 0
-        self._is_moving = False
-        self.move_step_duration = 0 # How many data rows a 'move' command consumes
+        self._is_performing_action = False
         print(f"🤖 SimulationRobot initialized with data file: {self.file_path}")
 
     def connect(self) -> bool:
@@ -44,6 +33,9 @@ class SimulationRobot(RobotInterface):
             self.data = pd.read_csv(self.file_path)
             self.total_steps = len(self.data)
             self.current_step_index = 0
+            if 'label' not in self.data.columns:
+                logging.error(f"Ground truth 'label' column not found in {self.file_path}.")
+                return False
             print(f"✅ Simulation data loaded successfully with {self.total_steps} timesteps.")
             return True
         except FileNotFoundError:
@@ -54,69 +46,64 @@ class SimulationRobot(RobotInterface):
             return False
 
     def disconnect(self) -> None:
-        print("Disconnected from simulation.")
+        print("\nDisconnected from simulation.")
         self.data = None
 
     def get_data(self) -> dict:
         """
-        Reads the next row from the CSV file and calculates the joint position error (e_q).
+        Reads the data for the CURRENT timestep. The AI model will use this to make a
+        prediction for the window ENDING at this timestep. The label from this
+        same timestep is used as the ground truth for that window's prediction.
         """
         if self.current_step_index >= self.total_steps:
-            logging.warning("End of simulation data reached. Returning last known state.")
-            # Prevent an index error by staying on the last row
             self.current_step_index = self.total_steps - 1
 
         row = self.data.iloc[self.current_step_index]
-        # Assuming 7 DoF based on column names
-        q = row[[f'q_{i+1}' for i in range(7)]].values
-        q_d = row[[f'q_d_{i+1}' for i in range(7)]].values
+        
+        # Calculate joint position error (e_q) for the current timestep
+        q = row[[f'q{i}' for i in range(7)]].values
+        q_d = row[[f'q_d{i}' for i in range(7)]].values
         e_q = q_d - q
         
-        # Advance the data pointer for the next call
+        # Get the label for the current timestep
+        ground_truth_label = int(row['label'])
+        
+        # Advance the index for the next call
         self.current_step_index += 1
         
-        return {"e_q": e_q}
+        return {"e_q": e_q, "label": ground_truth_label}
 
-    def send_move_command(self, move_data: dict) -> None:
-        """
-        Simulates starting a move. A move will last for a set number of data points.
-        """
-        command = move_data.get('command')
-        print(f"SimulationRobot: Received command '{command}'. Move will consume 5 data rows.")
-        if self.current_step_index < self.total_steps:
-            self._is_moving = True
-            # Each simulated 'move' will last for 5 calls to get_data()
-            self.move_step_duration = 5 
+    def send_action(self, action_data: dict) -> None:
+        command = action_data.get('command')
+        if command in ['move', 'screw']:
+            print(f"SimulationRobot: Received '{command}'. Will process all data.")
+            if self.current_step_index < self.total_steps:
+                self._is_performing_action = True
         else:
-            self._is_moving = False
+            print(f"SimulationRobot: Unknown command '{command}'.")
 
-    def is_moving(self) -> bool:
-        """
-        Checks if the simulated move is still in progress by counting down the duration.
-        """
-        if self._is_moving:
-            self.move_step_duration -= 1
-            if self.move_step_duration <= 0:
-                self._is_moving = False
-                print("SimulationRobot: Move finished.")
-        return self._is_moving
+    def is_performing_action(self) -> bool:
+        if self.current_step_index >= self.total_steps:
+            if self._is_performing_action:
+                print("\nSimulationRobot: End of data reached. Action finished.")
+            self._is_performing_action = False
+        return self._is_performing_action
 
     def stop(self) -> None:
-        """Stops the simulated motion immediately."""
-        self._is_moving = False
-        self.move_step_duration = 0
-        print("🚨 SimulationRobot: EMERGENCY STOP 🚨")
+        if self._is_performing_action:
+            print("\n🚨 SimulationRobot: EMERGENCY STOP 🚨")
+        self._is_performing_action = False
 
 
 class FrankaRobot(RobotInterface):
-    """
-    Concrete implementation for a Franka Emika Panda robot using the 'frankx' library.
-    """
+    # (No changes needed for FrankaRobot)
     def __init__(self, ip_address: str):
         if frankx is None:
             raise ImportError("The 'frankx' library is not installed. Please run 'pip install frankx' to use the real robot.")
         self.robot_ip = ip_address
         self.robot = None
+        self.current_step_index = 0
+        self.total_steps = 1
         print(f"🤖 Franka Panda Controller initialized for IP: {self.robot_ip}")
 
     def connect(self) -> bool:
@@ -135,39 +122,33 @@ class FrankaRobot(RobotInterface):
         print("Disconnected from Franka robot.")
 
     def get_data(self) -> dict:
-        """
-        Reads the robot's state and calculates the joint position error (e_q).
-        """
         state = self.robot.read_once()
         q = np.array(state.q)
         q_d = np.array(state.q_d)
         e_q = q_d - q
         return {"e_q": e_q}
 
-    def send_move_command(self, move_data: dict) -> None:
-        """
-        Sends a non-blocking move command to the robot using frankx.
-        """
-        command = move_data.get('command')
+    def send_action(self, action_data: dict) -> None:
+        command = action_data.get('command')
         print(f"Franka Robot: Executing command '{command}'")
-        
+        target_pose_list = action_data.get('target')
+        if not target_pose_list:
+            logging.warning("No 'target' provided for move command.")
+            return
+        pose = frankx.Pose(target_pose_list)
         if command == 'move':
-            target_pose_list = move_data.get('target')
-            if target_pose_list:
-                # frankx.Pose can take a list [x, y, z, a, b, c, d] for pose with quaternion
-                pose = frankx.Pose(target_pose_list)
-                # The move command is non-blocking, its completion is tracked by is_moving()
-                self.robot.move(pose, speed=move_data.get('speed', 0.1), non_blocking=True)
-        # Add other command handlers like 'open_hand', 'screw', 'insert' here as needed
+            self.robot.move(pose, speed=action_data.get('speed', 0.1), non_blocking=True)
+        elif command == 'screw':
+            print("Franka Robot: Executing screw motion (placeholder).")
+            self.robot.move(pose, speed=action_data.get('speed', 0.02), non_blocking=True)
+        self.current_step_index = 1
 
-    def is_moving(self) -> bool:
-        """
-        Checks if the robot is currently executing a motion command.
-        """
-        return self.robot.is_moving()
+    def is_performing_action(self) -> bool:
+        is_moving = self.robot.is_moving()
+        if not is_moving:
+            self.current_step_index = self.total_steps
+        return is_moving
 
     def stop(self) -> None:
-        """Stops the robot's motion immediately."""
         self.robot.stop_motion()
         print("🚨 Franka Robot: EMERGENCY STOP 🚨")
-
