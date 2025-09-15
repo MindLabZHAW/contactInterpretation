@@ -1,11 +1,12 @@
 import json
 import logging
+from typing import Dict 
 
 class ConfigLoader:
     """
     A utility class for loading and parsing data from any JSON file.
     """
-    def load(self, file_path: str) -> dict:
+    def load(self, file_path: str) -> Dict: 
         """
         Loads data from a specified JSON file.
         """

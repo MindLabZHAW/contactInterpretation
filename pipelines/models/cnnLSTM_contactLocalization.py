@@ -79,10 +79,7 @@ class cnnLSTM(nn.Module):
         device = input.device
         output = self.forward(input)
         
-        # Check if all elements are masked (-inf) for each sample
-        nocontact_masked = (output <= 0).all(dim=1)  # True if all entries are masked
-
-        # Find the index of the max value (ignoring masked ones)
-        predictions = torch.argmax(output, dim=1)+1  # Get index of max valid value
-        predictions[nocontact_masked] = 0
-        return predictions
+        # Find the index of the max score, which corresponds to the predicted link
+        # Add 1 because link numbers are typically 1-based, not 0-based
+        predicted_link = torch.argmax(output, dim=1) + 1
+        return predicted_link

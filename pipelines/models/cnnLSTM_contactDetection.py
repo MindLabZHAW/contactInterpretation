@@ -1,4 +1,4 @@
-
+import torch
 import torch.nn as nn
 
    
@@ -74,7 +74,16 @@ class cnnLSTM(nn.Module):
         return joint_step_outputs
     
     def prediction(self, input):
-        device = input.device
+        """
+        Takes the raw logit output from the forward pass, converts it to a
+        probability using the sigmoid function, and then thresholds it at 0.5
+        to return a binary prediction (0 or 1).
+        """
+        # Get the raw scores (logits) from the forward pass
         output = self.forward(input)
-        return (output > 0.5).int()
-        #return torch.argmax(output, dim=1)
+
+        # Apply the sigmoid function to convert logits to probabilities
+        probabilities = torch.sigmoid(output)
+
+        # Threshold the probabilities at 0.5 to get the final binary class
+        return (probabilities > 0.5).int()
