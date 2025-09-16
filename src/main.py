@@ -67,7 +67,9 @@ if __name__ == "__main__":
         ip_address=robot_ip,
         selected_features=SELECTED_FEATURES
     )
-    task_name, loop_delay = 'multi_pose_franka_task.json', 0.008
+    task_name, loop_delay = 'multi_pose_franka_task.json', 0.005
+    #task_name, loop_delay = 'franka_wait.json', 0.005
+
     
     #############################################################################################
     # --- 5. Load Configuration Files ---
@@ -89,7 +91,8 @@ if __name__ == "__main__":
         ai_model=contact_ai, 
         default_contact_actions=default_behaviors,
         data_logger=data_logger,
-        loop_delay=loop_delay # Set to 0 for fastest simulation, or >0 to slow it down.
+        loop_delay=loop_delay, # Set to 0 for fastest simulation, or >0 to slow it down.
+        realtime_plot=True  # Set to True to enable real-time plotting
     )
     
     controller.load_task_from_file(f'src/config/{task_name}')

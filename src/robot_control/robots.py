@@ -186,7 +186,7 @@ class FrankaRobot(RobotInterface):
             return {"features": features_dict, "label": 0, "contact_link": 0}
         except state is None:
             return {}       
-    def _execute_and_wait(self, motion: 'frankx.Motion', target_joints: List[float]):
+    def _move(self, motion: 'frankx.Motion', target_joints: List[float]):
         """
         Starts an async move and then waits for the robot to reach the target pose.
         """
@@ -205,6 +205,16 @@ class FrankaRobot(RobotInterface):
                 time.sleep(0.001)
         except Exception as e:
             logging.error(f"Error during motion execution: {e}")
+    def _wait(self, duration: float):
+        """
+        Waits for a specified duration. This is used for 'wait' actions.
+        """
+        try:
+            logging.info(f"Starting wait for {duration} seconds.")
+            time.sleep(duration)
+            logging.info(f"Wait completed.")
+        except Exception as e:
+            logging.error(f"Error during wait action: {e}")
 
     def send_action(self, action_data: dict) -> None:
         """Creates and starts the motion-monitoring thread."""
@@ -216,10 +226,17 @@ class FrankaRobot(RobotInterface):
             target_joints = action_data.get("target")
             if isinstance(target_joints, list) and len(target_joints) == 7:
                 motion = frankx.JointMotion(target_joints)
-                self.motion_thread = threading.Thread(target=self._execute_and_wait, args=(motion, target_joints))
+                self.motion_thread = threading.Thread(target=self._move, args=(motion, target_joints))
                 self.motion_thread.start()
             else:
                 logging.warning(f"Invalid 'target' for move command.")
+        elif command == "wait":
+            duration = action_data.get("duration")
+            if isinstance(duration, (int, float)) and duration > 0:
+                self.motion_thread = threading.Thread(target=self._wait, args=(duration,))
+                self.motion_thread.start()
+            else:
+                logging.warning(f"Invalid 'duration' for wait command: {duration}")
         else:
             logging.warning(f"Command '{command}' is not yet implemented.")
 
