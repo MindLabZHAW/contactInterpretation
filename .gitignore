@@ -1,5 +1,17 @@
+# Python
+# Ignore Python cache files and compiled files
+__pycache__/
+*.pyc
+
+# Project-Specific Directories
+# Ignore these directories only at the root of the project
 /robotAPI
 /dataset
 /data
 /Archive
-/src/__pycache__
+/logs
+
+
+# Other common files to ignore
+*.log
+.env

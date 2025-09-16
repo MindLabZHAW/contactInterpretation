@@ -5,7 +5,8 @@ import torch
 import sys
 import logging
 from typing import Tuple, Optional, Dict, List
-from collections import Counter # <-- Added import
+from collections import Counter
+import time
 
 # --- Basic Configuration ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -28,7 +29,6 @@ class ContactAI:
     def __init__(self, num_features: int, majority_voting_window: int = 14):
         self.num_features = num_features
         self.majority_voting_window = majority_voting_window
-        # History to store recent predictions for smoothing
         self.detection_history: List[int] = []
         
         # --- Hyperparameter-Based Model Selection ---
@@ -58,41 +58,45 @@ class ContactAI:
         """
         Returns raw prediction, smoothed prediction, and localization.
         """
+        start_time = time.time()
         if self.window is None: return 0, 0, -1
-        features = robot_data.get("features")
-        if features is None: return 0, 0, -1
-
-        new_column = np.array(features, dtype=np.float64).reshape((self.num_features, 1))
-        self.window = np.append(self.window[:, 1:], new_column, axis=1)
         
+        # --- THIS IS THE FIX ---
+        features_dict = robot_data.get("features")
+        if not features_dict:
+            return 0, 0, -1
+        # Convert the dictionary of features into a list of values
+        feature_values = list(features_dict.values())
+        # ---------------------
+        
+
+        new_column = np.array(feature_values, dtype=np.float64).reshape((self.num_features, 1))
+        self.window = np.append(self.window[:, 1:], new_column, axis=1)
+
         with torch.no_grad():
             detection_window = self.window[:, -self.window_length:]
-            detection_input = torch.from_numpy(detection_window).unsqueeze(0).double().to(self.device)
+            detection_input = torch.from_numpy(detection_window).unsqueeze(0).float().to(self.device)
             raw_detection_pred = self.detection_model.prediction(detection_input).item()
 
-            # --- Majority Voting Logic ---
             self.detection_history.append(raw_detection_pred)
             smoothed_detection_pred = raw_detection_pred
             if len(self.detection_history) >= self.majority_voting_window:
                 smoothed_detection_pred = self._majority_vote()
-            # ---------------------------
 
             localization_pred = -1
-            # Use the SMOOTHED prediction to decide whether to run localization
             if smoothed_detection_pred == 1:
                 localization_window = self.window[:, -self.loc_window_length:]
-                localization_input = torch.from_numpy(localization_window).unsqueeze(0).double().to(self.device)
+                localization_input = torch.from_numpy(localization_window).unsqueeze(0).float().to(self.device)
                 localization_pred = self.localization_model.prediction(localization_input).item()
                 
         return raw_detection_pred, smoothed_detection_pred, localization_pred
 
-    # ... (the rest of the methods: _get_hyperparameters_from_user, _find_and_load_model_by_hyperparams, _parse_model_name, _load_model remain the same) ...
     def _get_hyperparameters_from_user(self) -> Dict:
         """Prompts the user to enter model hyperparameters."""
         while True:
             try:
-                hidden_size = int(input("Enter desired Hidden Size (e.g., 256): "))
-                seq_num = int(input("Enter desired Sequence Length (e.g., 100): "))
+                hidden_size = 128#int(input("Enter desired Hidden Size (e.g., 256): "))
+                seq_num = 100#int(input("Enter desired Sequence Length (e.g., 100): "))
                 return {'hidden_size': hidden_size, 'seq_num': seq_num}
             except ValueError:
                 print("Invalid input. Please enter integers only.")
@@ -144,7 +148,7 @@ class ContactAI:
             seq_num_match = re.search(r'seq_num(\d+)', filename)
             if not all([hidden_size_match, seq_num_match]): return None
             num_layers_match = re.search(r'numLayer(\d+)', filename)
-            params['num_layers'] = int(num_layers_match.group(1)) if num_layers_match else 3
+            params['num_layers'] = int(num_layers_match.group(1)) if num_layers_match else 1
             params['hidden_size'] = int(hidden_size_match.group(1))
             params['seq_num'] = int(seq_num_match.group(1))
             return params
@@ -166,7 +170,7 @@ class ContactAI:
         state_dict = checkpoint.get('model_state_dict', checkpoint)
         window_length = params['seq_num']
         
-        model = ModelClass(num_features_joints=params['seq_num'], hidden_size=params['hidden_size'], num_layers=params['num_layers']).double()
+        model = ModelClass(num_features_joints=params['seq_num'], hidden_size=params['hidden_size'], num_layers=params['num_layers']).float()
         model.load_state_dict(state_dict)
         model.to(device)
         model.eval()

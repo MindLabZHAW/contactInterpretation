@@ -3,7 +3,7 @@ from task_interpreter import TaskInterpreter
 from contact_interpretation.interpreter import ContactAI
 from robot_control.robots import FrankaRobot, SimulationRobot
 from config_loader import ConfigLoader
-
+from data_logger import DataLogger
 if __name__ == "__main__":
     """
     Main entry point for the robot contact interpretation application.
@@ -11,24 +11,40 @@ if __name__ == "__main__":
     """
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     logging.info("--- Initializing System ---")
-
+    #############################################################################################
     # --- 1. Define Model and Feature Configuration ---
+    #############################################################################################
+
     # The feature columns the AI models were trained on. The order must be consistent.
     SELECTED_FEATURES = [
         'e0', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6'
     ]
     NUM_FEATURES = len(SELECTED_FEATURES)
-
+    #############################################################################################
     # --- 2. Initialize AI Models ---
+    #############################################################################################
+    
     # This will trigger the interactive prompts for model selection.
     contact_ai = ContactAI(num_features=NUM_FEATURES)
     if contact_ai.detection_model is None or contact_ai.localization_model is None:
         logging.error("Model loading failed. Exiting application.")
         exit()
 
-    # --- 3. Select and Initialize Robot Implementation ---
+    # --- 3. Activate Data Logging (Optional) ---
+    data_logger = None
+    save_data = input("Do you want to save the collected data to a CSV file? (y/n): ").lower()
+    if save_data == 'y':
+        log_headers = ['label','raw_pred', 'smoothed_pred', 'loc_pred'] + SELECTED_FEATURES
+        data_logger = DataLogger(headers=log_headers)
+
+    #############################################################################################
+    # --- 4. Select and Initialize Robot Implementation ---
+    #############################################################################################
+
+    '''
     # For this example, we use the SimulationRobot.
     default_csv_path = 'dataset/franka_main/labeled_data/link5/c4_1.csv'
+    default_csv_path = 'logs/contact_data_20250916-152217.csv'
     csv_path_input = input(f"Enter the path to the simulation CSV file [{default_csv_path}]: ")
     # Use the default path if the user just presses Enter
     if not csv_path_input:
@@ -38,25 +54,45 @@ if __name__ == "__main__":
         csv_file_path=csv_path_input,
         selected_features=SELECTED_FEATURES
     )
+    task_name , loop_delay= 'my_simulation_task.json', 0.0
+    '''
 
-    # --- 4. Load Configuration Files ---
+     # This block is now configured for the real Franka robot.
+    robot_ip = "192.168.15.33"#input("Enter the Franka Robot's IP address: ")
+    if not robot_ip:
+        logging.error("Robot IP address is required. Exiting.")
+        exit()
+        
+    my_robot = FrankaRobot(
+        ip_address=robot_ip,
+        selected_features=SELECTED_FEATURES
+    )
+    task_name, loop_delay = 'multi_pose_franka_task.json', 0.008
+    
+    #############################################################################################
+    # --- 5. Load Configuration Files ---
+    #############################################################################################
+
     config_loader = ConfigLoader()
     # Note: The path is relative to the project root where the script is run from.
     default_behaviors = config_loader.load('src/config/default_behaviors.json')
     if not default_behaviors:
         logging.warning("Could not load default behaviors. Continuing with no defaults.")
         default_behaviors = {}
+    #############################################################################################
+    # --- 6. Configure and Run the Task Interpreter ---
+    #############################################################################################
 
-    # --- 5. Configure and Run the Task Interpreter ---
     # The controller brings all the components together.
     controller = TaskInterpreter(
         robot=my_robot, 
         ai_model=contact_ai, 
         default_contact_actions=default_behaviors,
-        loop_delay=0  # Set to 0 for fastest simulation, or >0 to slow it down.
+        data_logger=data_logger,
+        loop_delay=loop_delay # Set to 0 for fastest simulation, or >0 to slow it down.
     )
     
-    controller.load_task_from_file('src/config/my_assembly_task.json')
+    controller.load_task_from_file(f'src/config/{task_name}')
     
     # This starts the main application loop.
     controller.run()
