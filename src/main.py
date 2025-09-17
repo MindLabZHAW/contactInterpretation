@@ -1,7 +1,7 @@
 import logging
 from task_interpreter import TaskInterpreter
 from contact_interpretation.interpreter import ContactAI
-from robot_control.robots import FrankaRobot, SimulationRobot
+from robot_control.robots import FrankaRobot, SimulationRobot, URRobot
 from config_loader import ConfigLoader
 from data_logger import DataLogger
 if __name__ == "__main__":
@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # The feature columns the AI models were trained on. The order must be consistent.
     SELECTED_FEATURES = [
-        'e0', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6'
+        'e0', 'e1', 'e2', 'e3', 'e4', 'e5'#, 'e6'
     ]
     NUM_FEATURES = len(SELECTED_FEATURES)
     #############################################################################################
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     #############################################################################################
 
     '''
-    # For this example, we use the SimulationRobot.
+    # SimulationRobot.
     default_csv_path = 'dataset/franka_main/labeled_data/link5/c4_1.csv'
     default_csv_path = 'logs/contact_data_20250916-152217.csv'
     csv_path_input = input(f"Enter the path to the simulation CSV file [{default_csv_path}]: ")
@@ -55,9 +55,9 @@ if __name__ == "__main__":
         selected_features=SELECTED_FEATURES
     )
     task_name , loop_delay= 'my_simulation_task.json', 0.0
-    '''
-
-     # This block is now configured for the real Franka robot.
+    
+    #############################################################################################
+    #Franka robot.
     robot_ip = "192.168.15.33"#input("Enter the Franka Robot's IP address: ")
     if not robot_ip:
         logging.error("Robot IP address is required. Exiting.")
@@ -67,10 +67,26 @@ if __name__ == "__main__":
         ip_address=robot_ip,
         selected_features=SELECTED_FEATURES
     )
-    task_name, loop_delay = 'multi_pose_franka_task.json', 0.005
-    #task_name, loop_delay = 'franka_wait.json', 0.005
-
+    task_name, loop_delay = 'frankaMindlab_multi_pose_task.json', 0.005
+    #task_name, loop_delay = 'robots_wait.json', 0.005
+    '''
+    #############################################################################################
+    # UR robot
+    robot_ip = "192.168.163.11"#input("Enter the Franka Robot's IP address: ")
+    if not robot_ip:
+        logging.error("Robot IP address is required. Exiting.")
+        exit()
     
+    my_robot = URRobot(
+        ip_address=robot_ip,
+        selected_features=SELECTED_FEATURES,
+        frequency=200,
+        #robot_name='UR5e'
+    )
+    task_name, loop_delay = 'UR5e_multi_pose_task.json', 0.005
+    task_name, loop_delay = 'robots_wait.json', 0.005
+
+
     #############################################################################################
     # --- 5. Load Configuration Files ---
     #############################################################################################

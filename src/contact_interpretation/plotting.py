@@ -11,7 +11,8 @@ def plot_results(
     predictions: List[int], 
     smoothed_predictions: Optional[List[int]] = None, 
     localization_predictions: Optional[List[int]] = None, 
-    title: str = "AI Predictions vs. Ground Truth"
+    title: str = "AI Predictions vs. Ground Truth",
+    robot_name: str = "Robot"
 ):
     """
     Generates and displays a plot comparing predictions against ground truth labels.
@@ -64,7 +65,7 @@ def plot_results(
         ax2.grid(None) # Turn off the grid for the secondary axis to reduce clutter
 
     # --- Final Touches ---
-    fig.suptitle(title, fontsize=16)
+    fig.suptitle(f'{title}: {robot_name}', fontsize=16)
     # Collect all labels from all axes for a single legend
     lines, labels = ax1.get_legend_handles_labels()
     if 'ax2' in locals():
@@ -78,12 +79,13 @@ def plot_results(
     print("\nDisplaying plot. Close the plot window to exit the program.")
     plt.show()
 
-def _run_plotting_process(queue: mp.Queue, window_size: int, refresh_rate_hz: int):
+def _run_plotting_process(queue: mp.Queue, window_size: int, refresh_rate_hz: int, robot_name: str):
     """
     This function runs in a separate process. It creates and manages the plot.
     """
     plt.ion()
     fig, ax1 = plt.subplots(figsize=(15, 7))
+    fig.suptitle(f"Real-Time Contact Interpretation: {robot_name}", fontsize=16) # Add title
     ax2 = ax1.twinx()
 
     ax1.set_xlabel("Time Step")
@@ -158,11 +160,11 @@ class RealTimePlotter:
     A process-safe plotter that runs matplotlib in a separate process
     to prevent blocking the main application.
     """
-    def __init__(self, window_size: int = 200, refresh_rate_hz: int = 10):
+    def __init__(self, window_size: int = 200, refresh_rate_hz: int = 10, robot_name: str = "Robot"):
         self.queue = mp.Queue()
         self.plot_process = mp.Process(
             target=_run_plotting_process, 
-            args=(self.queue, window_size, refresh_rate_hz)
+            args=(self.queue, window_size, refresh_rate_hz, robot_name)
         )
         self.step_count = 0
 

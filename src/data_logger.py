@@ -16,6 +16,7 @@ class DataLogger:
         self.headers = ['timestamp'] + headers
         self.data_rows: List[list] = []
         self.start_time = None
+        self.robot_name = "robot"
 
         # Create a 'logs' directory if it doesn't already exist
         self.log_directory = 'logs'
@@ -54,7 +55,7 @@ class DataLogger:
 
         # Create a unique, timestamped filename (e.g., contact_data_20250916-103055.csv)
         timestamp_str = time.strftime("%Y%m%d-%H%M%S")
-        filename = os.path.join(self.log_directory, f"contact_data_{timestamp_str}.csv")
+        filename = os.path.join(self.log_directory, f"{self.robot_name}_data_{timestamp_str}.csv")
 
         # Use pandas to create a DataFrame and save it to a CSV file
         df = pd.DataFrame(self.data_rows, columns=self.headers)

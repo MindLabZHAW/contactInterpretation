@@ -18,10 +18,12 @@ class TaskInterpreter:
         self.ai = ai_model
         self.task = None
         self.default_contact_actions = default_contact_actions
+        if data_logger:
+            data_logger.robot_name= self.robot.name
         self.data_logger = data_logger
         self.loop_delay = loop_delay
         # Initialize the real-time plotter if requested
-        self.plotter = RealTimePlotter() if realtime_plot else None
+        self.plotter = RealTimePlotter(robot_name = self.robot.name) if realtime_plot else None
 
         self.detection_ground_truths: List[int] = []
         self.raw_predictions: List[int] = []
@@ -76,7 +78,8 @@ class TaskInterpreter:
                 ground_truth=self.detection_ground_truths,
                 predictions=self.raw_predictions,
                 smoothed_predictions=self.smoothed_predictions,
-                localization_predictions=self.localization_predictions
+                localization_predictions=self.localization_predictions,
+                robot_name=self.robot.name
             )
             
             if self.data_logger:

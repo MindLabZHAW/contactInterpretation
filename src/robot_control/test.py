@@ -1,4 +1,4 @@
-from frankx import Affine, LinearRelativeMotion, Robot, JointMotion
+'''from frankx import Affine, LinearRelativeMotion, Robot, JointMotion
 from frankx import Gripper
 import numpy as np
 import time 
@@ -33,3 +33,23 @@ robot.move_async(JointMotion(joint_motion))
 print('Joints: ', state.q)
 print('Joints_d: ', state.q_d)
 time.sleep(2)
+'''
+from rtde_receive import RTDEReceiveInterface as RTDEReceive
+from rtde_control import RTDEControlInterface as RTDEControl
+
+ip_address = "192.168.163.11"
+frequency = 125
+
+robot_control = RTDEControl(ip_address)
+robot_receive = RTDEReceive(ip_address, frequency)
+
+target_joints = robot_receive.getActualQ()
+print(target_joints)
+
+target_joints[0] = target_joints[0]+0.1
+print(target_joints)
+
+robot_control.moveL_FK(target_joints, 0.2, 0.1, True)
+print('Joints: ', robot_receive.getActualQ())
+#robot_control.stopL()
+print('Joints: ', robot_receive.getActualQ())

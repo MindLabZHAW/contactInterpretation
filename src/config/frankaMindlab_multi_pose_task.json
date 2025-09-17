@@ -6,7 +6,7 @@
       "step_id": 1,
       "description": "Move to initial pose",
       "command": "move",
-      "target": [
+      "joints_positions": [
         -1.6556571811642506,
         -0.45431252892936025,
         0.066077537051126,
@@ -21,7 +21,7 @@
       "step_id": 2,
       "description": "Move to intermediate pose 1",
       "command": "move",
-      "target": [
+      "joints_positions": [
         -1.7553224134984446,
         -0.45431253187279946,
         0.06607922685740408,
@@ -36,7 +36,7 @@
       "step_id": 3,
       "description": "Move to intermediate pose 2",
       "command": "move",
-      "target": [
+      "joints_positions": [
         -1.850127792855632,
         -0.45430974781304073,
         0.066079917496707,

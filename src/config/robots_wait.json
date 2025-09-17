@@ -1,10 +1,10 @@
 {
-  "task_name": "Franka Multi-Pose Movement",
+  "task_name": "Streaming data withour robot movement",
   "description": "A task to move the Franka robot through a sequence of three specific joint configurations.",
   "steps": [
     {
       "step_id": 1,
-      "description": "Move to initial pose",
+      "description": "waiting without moving",
       "command": "wait",
       "duration": 20.0
     }

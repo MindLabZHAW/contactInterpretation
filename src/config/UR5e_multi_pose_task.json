@@ -1,0 +1,48 @@
+{
+  "task_name": "UR5 Multi-Pose Movement",
+  "description": "A task to move the Franka robot through a sequence of three specific joint configurations.",
+  "steps": [
+    {
+      "step_id": 1,
+      "description": "Move to initial pose",
+      "command": "move",
+      "joints_positions": [
+          0.3759019613265991,
+         -1.752176424066061, 
+         -1.2872651815414429, 
+         -1.7904521427550257, 
+          1.6637976169586182, 
+          0.8473176956176758
+      ],
+      "speed": 0.2
+    },
+    {
+      "step_id": 2,
+      "description": "Move to intermediate pose 1",
+      "command": "move",
+      "joints_positions": [
+          0.5759019613265991,
+         -1.852176424066061, 
+         -1.2872651815414429, 
+         -1.7904521427550257, 
+          1.6637976169586182, 
+          0.8473176956176758
+      ],
+      "speed": 0.2
+    },
+    {
+      "step_id": 3,
+      "description": "Move to intermediate pose 2",
+      "command": "move",
+      "joints_positions": [
+          0.4759019613265991,
+         -1.752176424066061, 
+         -1.2872651815414429, 
+         -1.7904521427550257, 
+          1.6637976169586182, 
+          0.8473176956176758
+      ],
+      "speed": 0.2
+    }
+  ]
+}
