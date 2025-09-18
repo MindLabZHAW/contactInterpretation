@@ -1,13 +1,16 @@
-'''from frankx import Affine, LinearRelativeMotion, Robot, JointMotion
+from frankx import Affine, LinearRelativeMotion, Robot, JointMotion
 from frankx import Gripper
 import numpy as np
 import time 
-gripper = Gripper("192.168.15.33")
-robot = Robot("192.168.15.33")
+robot_ip = "192.168.15.33"
+robot_ip = "10.10.10.150"
+
+gripper = Gripper(robot_ip)
+robot = Robot(robot_ip)
+
 # Recover from errors
 robot.recover_from_errors()
 robot.set_default_behavior()
-
 gripper.move(0.03)
 
 # Set velocity, acceleration and jerk to 5% of the maximum
@@ -27,7 +30,8 @@ feature_vector = np.array(state.q_d)- np.array(state.q)# Using external torques 
 print('error: ', feature_vector)
 
 joint_motion = state.q
-joint_motion[0] = joint_motion[0]+0.05
+joint_ID = 5
+joint_motion[joint_ID] = joint_motion[joint_ID]-0.05
 
 robot.move_async(JointMotion(joint_motion))
 print('Joints: ', state.q)
@@ -53,3 +57,4 @@ robot_control.moveL_FK(target_joints, 0.2, 0.1, True)
 print('Joints: ', robot_receive.getActualQ())
 #robot_control.stopL()
 print('Joints: ', robot_receive.getActualQ())
+'''

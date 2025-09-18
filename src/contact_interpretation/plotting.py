@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from typing import List, Optional
-import threading
 import time
-import matplotlib.animation as animation
 import multiprocessing as mp
+import signal # Import the signal module
 
 def plot_results(
     ground_truth: List[int], 
@@ -73,7 +72,6 @@ def plot_results(
         lines += lines2
         labels += labels2
     ax1.legend(lines, labels, loc='upper right')
-
     ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
     
     print("\nDisplaying plot. Close the plot window to exit the program.")
@@ -82,10 +80,13 @@ def plot_results(
 def _run_plotting_process(queue: mp.Queue, window_size: int, refresh_rate_hz: int, robot_name: str):
     """
     This function runs in a separate process. It creates and manages the plot.
+    THE FIX: It ignores KeyboardInterrupts and waits for a sentinel value.
     """
+    signal.signal(signal.SIGINT, signal.SIG_IGN) # Ignore Ctrl+C in this process
+    
     plt.ion()
     fig, ax1 = plt.subplots(figsize=(15, 7))
-    fig.suptitle(f"Real-Time Contact Interpretation: {robot_name}", fontsize=16) # Add title
+    fig.suptitle(f"Real-Time Contact Interpretation: {robot_name}", fontsize=16)
     ax2 = ax1.twinx()
 
     ax1.set_xlabel("Time Step")
@@ -109,32 +110,24 @@ def _run_plotting_process(queue: mp.Queue, window_size: int, refresh_rate_hz: in
 
     while True:
         try:
-            # Pull all available data from the queue
-            while not queue.empty():
-                data_point = queue.get_nowait()
-                if data_point is None:  # Sentinel value to stop
-                    plt.close(fig)
-                    return
-                
-                x_data.append(data_point[0])
-                gt_data.append(data_point[1])
-                pred_data.append(data_point[2])
-                smooth_data.append(data_point[3])
-                loc_data.append(data_point[4])
+            # Check for the sentinel value to terminate
+            data_point = queue.get()
+            if data_point is None:
+                plt.close(fig)
+                return
 
-            # Throttle the drawing to the specified refresh rate
+            x_data.append(data_point[0])
+            gt_data.append(data_point[1])
+            pred_data.append(data_point[2])
+            smooth_data.append(data_point[3])
+            loc_data.append(data_point[4])
+
             if time.time() - last_draw_time < draw_interval:
-                time.sleep(0.01)
                 continue
             
             last_draw_time = time.time()
-
-            # Prepare data for plotting (scrolling window)
-            x = x_data[-window_size:]
-            gt = gt_data[-window_size:]
-            pred = pred_data[-window_size:]
-            smooth = smooth_data[-window_size:]
-            loc = loc_data[-window_size:]
+            
+            x, gt, pred, smooth, loc = (d[-window_size:] for d in [x_data, gt_data, pred_data, smooth_data, loc_data])
 
             if not x: continue
 
@@ -151,9 +144,9 @@ def _run_plotting_process(queue: mp.Queue, window_size: int, refresh_rate_hz: in
             fig.canvas.draw()
             fig.canvas.flush_events()
 
-        except (KeyboardInterrupt, BrokenPipeError):
-            plt.close(fig)
-            return
+        except Exception:
+            # Catch other potential errors to prevent the process from crashing
+            continue
 
 class RealTimePlotter:
     """
@@ -184,7 +177,7 @@ class RealTimePlotter:
     def close(self):
         """Signals the plotting process to terminate and waits for it."""
         if self.plot_process.is_alive():
-            self.queue.put(None)  # Send sentinel value
-            self.plot_process.join(timeout=2)
+            self.queue.put(None) # Send the sentinel value
+            self.plot_process.join(timeout=2) # Wait for the process to finish
             if self.plot_process.is_alive():
                 self.plot_process.terminate() # Forcefully stop if it doesn't close

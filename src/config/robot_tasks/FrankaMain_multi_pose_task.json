@@ -1,0 +1,96 @@
+{
+  "task_name": "Franka Multi-Pose Movement",
+  "description": "A task to move the Franka robot through a sequence of three specific joint configurations.",
+  "steps": [
+    {
+      "step_id": 1,
+      "description": "Move to initial pose",
+      "command": "move",
+      "joints_positions": [
+         -0.1363908473446693,
+         -0.17609776820297346, 
+         -0.10729672771192266, 
+         -2.6505586970968453, 
+         -0.08934852959431733, 
+          2.5607140840297125, 
+          0.8259126959253096
+      ],
+      "speed": 0.2
+    },
+    {
+      "step_id": 2,
+      "description": "Move to intermediate pose 1",
+      "command": "move",
+      "joints_positions": [
+         0.1363908473446693,
+         -0.17609776820297346, 
+         -0.15729672771192266, 
+         -2.6505586970968453, 
+         -0.08934852959431733, 
+          2.5007140840297125, 
+          0.8259126959253096
+      ],
+      "speed": 0.2
+    },
+    {
+      "step_id": 3,
+      "description": "Move to intermediate pose 2",
+      "command": "move",
+      "joints_positions": [
+         0.1363908473446693,
+         -0.17609776820297346, 
+         -0.15729672771192266, 
+         -2.3505586970968453, 
+         -0.08934852959431733, 
+          2.5007140840297125, 
+          0.8259126959253096
+      ],
+      "speed": 0.2
+    },
+        {
+      "step_id": 1,
+      "description": "Move to initial pose",
+      "command": "move",
+      "joints_positions": [
+         -0.1363908473446693,
+         -0.17609776820297346, 
+         -0.15729672771192266, 
+         -2.6505586970968453, 
+         -0.08934852959431733, 
+          2.5607140840297125, 
+          0.8259126959253096
+      ],
+      "speed": 0.2
+    },
+    {
+      "step_id": 2,
+      "description": "Move to intermediate pose 1",
+      "command": "move",
+      "joints_positions": [
+         -0.1363908473446693,
+         -0.17609776820297346, 
+         -0.10729672771192266, 
+         -2.3505586970968453, 
+         -0.08934852959431733, 
+          2.5607140840297125, 
+          0.8259126959253096
+      ],
+      "speed": 0.2
+    },
+    {
+      "step_id": 3,
+      "description": "Move to intermediate pose 2",
+      "command": "move",
+      "joints_positions": [
+         0.1363908473446693,
+         -0.17609776820297346, 
+         -0.15729672771192266, 
+         -2.6505586970968453, 
+         -0.08934852959431733, 
+          2.5007140840297125, 
+          0.8259126959253096
+      ],
+      "speed": 0.2
+    }
+  ]
+}

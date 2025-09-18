@@ -106,16 +106,16 @@ class FrankaRobot(RobotInterface):
     Final robust implementation based on the user's suggested architecture.
     Uses a dedicated state-reading thread and a dedicated motion-monitoring thread.
     """
-    def __init__(self, ip_address: str, selected_features: List[str], robot_name: str = "FrankaRobot"):
+    def __init__(self, ip_address: str, selected_features: List[str], robot_name: str = "FrankaRobot",set_dynamic_rel: float = 0.05):
         if frankx is None:
             raise ImportError("The 'frankx' library is not installed.")
         
         self.ip_address = ip_address
         self.selected_features = selected_features
         self.robot = None
-        self.motion_thread = None # <-- THIS LINE FIXES THE ERROR
+        self.motion_thread = None
         self.name = robot_name
-
+        self.set_dynamic_rel = set_dynamic_rel
         
         # Thread-safe state handling
         self.latest_state = None
@@ -123,6 +123,9 @@ class FrankaRobot(RobotInterface):
         self.state_reader_thread = None
         self.run_state_reader = False
         self.robot_lock = threading.Lock()
+
+        # Motion execution flag
+        self._stop_motion = False
         
         logging.info(f"🤖 FrankaRobot initialized for IP address: {self.ip_address}")
 
@@ -146,7 +149,7 @@ class FrankaRobot(RobotInterface):
             self.robot = frankx.Robot(self.ip_address)
             self.robot.set_default_behavior()
             self.robot.recover_from_errors()
-            self.robot.set_dynamic_rel(0.05)
+            self.robot.set_dynamic_rel(self.set_dynamic_rel)
             logging.info("Robot dynamics set to 5%.")
             
             # Start the state reader thread
@@ -160,9 +163,16 @@ class FrankaRobot(RobotInterface):
             return False
 
     def disconnect(self) -> None:
+        # Signal state reader to stop and wait for it
         self.run_state_reader = False
-        if self.state_reader_thread:
+        if self.state_reader_thread and self.state_reader_thread.is_alive():
             self.state_reader_thread.join()
+
+        # Signal motion thread to stop and wait for it
+        if self.motion_thread and self.motion_thread.is_alive():
+            self._stop_motion = True
+            self.motion_thread.join()
+
         if self.robot:
             self.stop()
             logging.info("Disconnected from Franka robot.")
@@ -170,65 +180,67 @@ class FrankaRobot(RobotInterface):
 
     def get_data(self) -> dict:
         """Gets the latest state and dynamically builds the feature vector."""
-        try:
-            with self.state_lock:
-                state = self.latest_state
-            features_dict = {}
+        with self.state_lock:
+            state = self.latest_state if self.latest_state else None
+        
+        if state is None:
+            return {}
 
-            # --- DYNAMIC FEATURE CALCULATION ---
-            for feature in self.selected_features:
-                feature_base = re.sub(r'\d+$', '', feature)
-                index = int(re.search(r'(\d+)$', feature).group(1)) if re.search(r'(\d+)$', feature) else None
+        features_dict = {}
+        for feature in self.selected_features:
+            feature_base = re.sub(r'\d+$', '', feature)
+            match = re.search(r'(\d+)$', feature)
+            index = int(match.group(1)) if match else None
 
-                if feature_base == 'e':
-                    joint_error = np.array(state.q_d) - np.array(state.q)
-                    if index is not None and index < len(joint_error):
-                        features_dict[feature] = joint_error[index]
+            if feature_base == 'e' and index is not None:
+                joint_error = np.array(state.q_d) - np.array(state.q)
+                if index < len(joint_error):
+                    features_dict[feature] = joint_error[index]
+        
+        return {"features": features_dict, "label": 0, "contact_link": 0}
 
-                # Example for adding other features:
-                # if feature_base == 'dq':
-                #     if index is not None and index < len(state.dq):
-                #         features_dict[feature] = state.dq[index]
-            
-            return {"features": features_dict, "label": 0, "contact_link": 0}
-        except state is None:
-            return {}       
     def _move(self, motion: 'frankx.Motion', target_joints: List[float]):
         """
         Starts an async move and then waits for the robot to reach the target pose.
         """
         try:
             with self.robot_lock:
+                # Use move_async to not block the main thread
                 self.robot.move_async(motion)
 
-            while True:
+            while not self._stop_motion:
                 with self.state_lock:
                     current_q = self.latest_state.q if self.latest_state else None
                 
-                if current_q:
-                    if np.allclose(current_q, target_joints, atol=1e-3):
-                        logging.info("Target pose reached.")
-                        break
-                time.sleep(0.001)
+                if current_q and np.allclose(current_q, target_joints, atol=1e-3):
+                    logging.info("Target pose reached.")
+                    break
+                time.sleep(0.01)
         except Exception as e:
-            logging.error(f"Error during motion execution: {e}")
+            if not self._stop_motion:
+                logging.error(f"Error during motion execution: {e}")
+
     def _wait(self, duration: float):
         """
-        Waits for a specified duration. This is used for 'wait' actions.
+        Waits for a specified duration, checking for stop signal.
         """
-        try:
-            logging.info(f"Starting wait for {duration} seconds.")
-            time.sleep(duration)
-            logging.info(f"Wait completed.")
-        except Exception as e:
-            logging.error(f"Error during wait action: {e}")
+        start_time = time.time()
+        logging.info(f"Starting wait for {duration} seconds.")
+        while time.time() - start_time < duration and not self._stop_motion:
+            time.sleep(0.01)
+        
+        if not self._stop_motion:
+            logging.info("Wait completed.")
 
     def send_action(self, action_data: dict) -> None:
         """Creates and starts the motion-monitoring thread."""
-        if not self.robot:
+        if self.is_performing_action():
+            logging.warning("Motion thread is already running.")
             return
 
+        self._stop_motion = False
         command = action_data.get("command")
+
         if command == "move":
             target_joints = action_data.get("joints_positions")
             if isinstance(target_joints, list) and len(target_joints) == 7:
@@ -249,14 +261,20 @@ class FrankaRobot(RobotInterface):
 
     def is_performing_action(self) -> bool:
         """Checks if the motion-monitoring thread is still alive."""
-        if self.motion_thread:
-            return self.motion_thread.is_alive()
-        return False
+        return self.motion_thread is not None and self.motion_thread.is_alive()
 
     def stop(self) -> None:
+        """Stops any ongoing robot motion and signals threads to exit."""
+        self._stop_motion = True
+
+        # Signal motion thread to stop and wait for it
+        if self.motion_thread and self.motion_thread.is_alive():
+            self._stop_motion = True
+            self.motion_thread.join()
+
         if self.robot:
             logging.info("🛑 Halting robot motion.")
-            self.robot.stop_motion()
+            self.robot.stop()
 
 class URRobot(RobotInterface):
     """
@@ -472,6 +490,11 @@ class URRobot(RobotInterface):
     def stop(self) -> None:
         """Stops any ongoing robot motion."""
         self._stop_action = True  # Signal waiting threads to stop
+        
+        if self._action_thread and self._action_thread.is_alive():
+            self._stop_action = True
+            self._action_thread.join(timeout=1)
+
         if self.robot_control and self.robot_control.isConnected():
             try:
                 logging.info("🛑 Halting UR robot motion.")

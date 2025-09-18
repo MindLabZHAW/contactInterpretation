@@ -72,20 +72,23 @@ class TaskInterpreter:
             # Close the real-time plot window if it exists
             if self.plotter:
                 self.plotter.close()
+            self.robot.disconnect()
 
-            logging.info("--- Generating plot with collected data ---")
-            plot_results(
-                ground_truth=self.detection_ground_truths,
-                predictions=self.raw_predictions,
-                smoothed_predictions=self.smoothed_predictions,
-                localization_predictions=self.localization_predictions,
-                robot_name=self.robot.name
-            )
-            
+            try:
+                logging.info("--- Generating plot with collected data ---")
+                plot_results(
+                    ground_truth=self.detection_ground_truths,
+                    predictions=self.raw_predictions,
+                    smoothed_predictions=self.smoothed_predictions,
+                    localization_predictions=self.localization_predictions,
+                    robot_name=self.robot.name
+                )
+            except KeyboardInterrupt:
+                logging.warning("Final plot interrupted by user. Skipping plot generation.")
+
             if self.data_logger:
                 self.data_logger.save()
 
-            self.robot.disconnect()
             logging.info("--- ⏹️ Task Finished ---")
 
     def execute_step(self, step: Dict):

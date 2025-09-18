@@ -1,119 +1,150 @@
 import logging
+import socket
+import sys
 from task_interpreter import TaskInterpreter
 from contact_interpretation.interpreter import ContactAI
-from robot_control.robots import FrankaRobot, SimulationRobot, URRobot
+from robot_control import robots 
 from config_loader import ConfigLoader
 from data_logger import DataLogger
+
+def select_robot_from_list(config: dict) -> str:
+    """
+    Displays a menu of available robots from the config file and prompts the user to choose one.
+    """
+    robot_options = list(config.get("robot_settings", {}).keys())
+    if not robot_options:
+        logging.error("No robots found in the 'robot_settings' of your config file.")
+        return None
+
+    print("\n--- Please Select a Robot ---")
+    for i, name in enumerate(robot_options):
+        print(f"[{i + 1}] {name}")
+    
+    while True:
+        try:
+            choice = int(input(f"Enter your choice (1-{len(robot_options)}): "))
+            if 1 <= choice <= len(robot_options):
+                return robot_options[choice - 1]
+            else:
+                print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+
+def discover_active_robot(config: dict) -> str:
+    """
+    Tries to connect to each robot defined in the config to find which one is active.
+    Returns the name of the first robot that responds.
+    """
+    robot_settings = config.get("robot_settings", {})
+    for name, settings in robot_settings.items():
+        ip = settings.get("init_args", {}).get("ip_address")
+        if not ip:
+            continue 
+
+        try:
+            logging.info(f"Checking for robot '{name}' at {ip}...")
+            with socket.create_connection((ip, 80), timeout=1):
+                logging.info(f"✅ Found active robot: {name}")
+                return name
+        except (socket.timeout, ConnectionRefusedError):
+            logging.info(f"No response from '{name}'.")
+            continue
+            
+    return None
+
+
+def create_robot(config: dict, active_robot_name: str):
+    """
+    Factory function to dynamically create a robot instance from configuration.
+    """
+    settings = config.get("robot_settings", {}).get(active_robot_name)
+
+    if not settings:
+        logging.error(f"Configuration for active robot '{active_robot_name}' not found.")
+        return None, None, None, None
+
+    class_name = settings.get("class_name")
+    init_args = settings.get("init_args", {})
+    selected_features = init_args.get("selected_features")
+    
+    try:
+        RobotClass = getattr(robots, class_name)
+        robot_instance = RobotClass(**init_args)
+    except AttributeError:
+        logging.error(f"Robot class '{class_name}' not found in 'robot_control.robots' module.")
+        return None, None, None, None
+    except Exception as e:
+        logging.error(f"Failed to instantiate robot '{class_name}': {e}")
+        return None, None, None, None
+
+    task_name = settings.get("task_name")
+    loop_delay = settings.get("loop_delay")
+    
+    return robot_instance, task_name, loop_delay, selected_features
+
 if __name__ == "__main__":
     """
     Main entry point for the robot contact interpretation application.
-    This script ties together the robot control and contact interpretation packages.
     """
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     logging.info("--- Initializing System ---")
-    #############################################################################################
-    # --- 1. Define Model and Feature Configuration ---
-    #############################################################################################
-
-    # The feature columns the AI models were trained on. The order must be consistent.
-    SELECTED_FEATURES = [
-        'e0', 'e1', 'e2', 'e3', 'e4', 'e5'#, 'e6'
-    ]
-    NUM_FEATURES = len(SELECTED_FEATURES)
-    #############################################################################################
-    # --- 2. Initialize AI Models ---
-    #############################################################################################
     
-    # This will trigger the interactive prompts for model selection.
+    config_loader = ConfigLoader()
+    config = config_loader.load('src/config/config.json')
+    if not config:
+        logging.error("Could not load config.json. Exiting application.")
+        sys.exit(1)
+
+    active_robot_name = config.get("active_robot")
+    
+    if active_robot_name == "INTERACTIVE":
+        active_robot_name = select_robot_from_list(config)
+        if not active_robot_name:
+            sys.exit(1)
+    elif active_robot_name == "AUTO_DETECT":
+        active_robot_name = discover_active_robot(config)
+        if not active_robot_name:
+            logging.error("Auto-detect failed: No configured robots found on the network.")
+            sys.exit(1)
+    elif active_robot_name not in config.get("robot_settings", {}):
+        logging.error(f"The specified active_robot '{active_robot_name}' does not exist in the configuration.")
+        sys.exit(1)
+        
+    my_robot, task_name, loop_delay, selected_features = create_robot(config, active_robot_name)
+    
+    if my_robot is None:
+        sys.exit(1)
+
+    NUM_FEATURES = len(selected_features)
+    
     contact_ai = ContactAI(num_features=NUM_FEATURES)
     if contact_ai.detection_model is None or contact_ai.localization_model is None:
         logging.error("Model loading failed. Exiting application.")
-        exit()
+        sys.exit(1)
 
-    # --- 3. Activate Data Logging (Optional) ---
     data_logger = None
     save_data = input("Do you want to save the collected data to a CSV file? (y/n): ").lower()
     if save_data == 'y':
-        log_headers = ['label','raw_pred', 'smoothed_pred', 'loc_pred'] + SELECTED_FEATURES
+        log_headers = ['label','raw_pred', 'smoothed_pred', 'loc_pred'] + selected_features
         data_logger = DataLogger(headers=log_headers)
 
-    #############################################################################################
-    # --- 4. Select and Initialize Robot Implementation ---
-    #############################################################################################
-
-    '''
-    # SimulationRobot.
-    default_csv_path = 'dataset/franka_main/labeled_data/link5/c4_1.csv'
-    default_csv_path = 'logs/contact_data_20250916-152217.csv'
-    csv_path_input = input(f"Enter the path to the simulation CSV file [{default_csv_path}]: ")
-    # Use the default path if the user just presses Enter
-    if not csv_path_input:
-        csv_path_input = default_csv_path
-        
-    my_robot = SimulationRobot(
-        csv_file_path=csv_path_input,
-        selected_features=SELECTED_FEATURES
-    )
-    task_name , loop_delay= 'my_simulation_task.json', 0.0
-    
-    #############################################################################################
-    #Franka robot.
-    robot_ip = "192.168.15.33"#input("Enter the Franka Robot's IP address: ")
-    if not robot_ip:
-        logging.error("Robot IP address is required. Exiting.")
-        exit()
-        
-    my_robot = FrankaRobot(
-        ip_address=robot_ip,
-        selected_features=SELECTED_FEATURES
-    )
-    task_name, loop_delay = 'frankaMindlab_multi_pose_task.json', 0.005
-    #task_name, loop_delay = 'robots_wait.json', 0.005
-    '''
-    #############################################################################################
-    # UR robot
-    robot_ip = "192.168.163.11"#input("Enter the Franka Robot's IP address: ")
-    if not robot_ip:
-        logging.error("Robot IP address is required. Exiting.")
-        exit()
-    
-    my_robot = URRobot(
-        ip_address=robot_ip,
-        selected_features=SELECTED_FEATURES,
-        frequency=200,
-        #robot_name='UR5e'
-    )
-    task_name, loop_delay = 'UR5e_multi_pose_task.json', 0.005
-    task_name, loop_delay = 'robots_wait.json', 0.005
-
-
-    #############################################################################################
-    # --- 5. Load Configuration Files ---
-    #############################################################################################
-
-    config_loader = ConfigLoader()
-    # Note: The path is relative to the project root where the script is run from.
     default_behaviors = config_loader.load('src/config/default_behaviors.json')
     if not default_behaviors:
         logging.warning("Could not load default behaviors. Continuing with no defaults.")
         default_behaviors = {}
-    #############################################################################################
-    # --- 6. Configure and Run the Task Interpreter ---
-    #############################################################################################
 
-    # The controller brings all the components together.
     controller = TaskInterpreter(
         robot=my_robot, 
         ai_model=contact_ai, 
         default_contact_actions=default_behaviors,
         data_logger=data_logger,
-        loop_delay=loop_delay, # Set to 0 for fastest simulation, or >0 to slow it down.
-        realtime_plot=True  # Set to True to enable real-time plotting
+        loop_delay=loop_delay,
+        realtime_plot=True
     )
     
-    controller.load_task_from_file(f'src/config/{task_name}')
-    
-    # This starts the main application loop.
+    controller.load_task_from_file(task_name)
     controller.run()
     
     logging.info("--- System Shutdown ---")
+    sys.exit(0)

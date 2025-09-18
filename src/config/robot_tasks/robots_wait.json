@@ -1,12 +1,12 @@
 {
-  "task_name": "Streaming data withour robot movement",
+  "task_name": "Streaming data without robot movement",
   "description": "A task to move the Franka robot through a sequence of three specific joint configurations.",
   "steps": [
     {
       "step_id": 1,
       "description": "waiting without moving",
       "command": "wait",
-      "duration": 20.0
+      "duration": 40.0
     }
   ]
 }
