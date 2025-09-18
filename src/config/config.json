@@ -5,9 +5,9 @@
       "init_args": {
         "ip_address": "10.10.10.150",
         "selected_features": ["e0", "e1", "e2", "e3", "e4", "e5", "e6"],
-        "set_dynamic_rel": 0.1
+        "set_dynamic_rel": 0.08
       },
-      "task_name": "src/config/robot_tasks/FrankaMain_multi_pose_task.json",
+      "task_name": "src/config/robot_tasks/FrankaMain_test2.json",
       "loop_delay": 0.005
     },
     "franka_mindlab": {

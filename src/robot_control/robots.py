@@ -20,7 +20,7 @@ from rtde_receive import RTDEReceiveInterface as RTDEReceive
 from rtde_control import RTDEControlInterface as RTDEControl
 
 class SimulationRobot(RobotInterface):
-    # ... (This class is correct and remains unchanged) ...
+    # ... (This class is unchanged) ...
     def __init__(self, csv_file_path: str, selected_features: List[str], robot_name: str = "SimulationRobot"):
 
         if pd is None:
@@ -86,7 +86,8 @@ class SimulationRobot(RobotInterface):
         return {
             "features": features_dict,
             "label": detection_label,
-            "contact_link": localization_label
+            "contact_link": localization_label,
+            "q": list(row[self.selected_features].values)
         }
 
     def send_action(self, action_data: dict):
@@ -99,6 +100,12 @@ class SimulationRobot(RobotInterface):
 
     def stop(self) -> None:
         self._is_performing_action = False
+
+    def open_gripper(self):
+        print("Simulation: Opening gripper.")
+
+    def close_gripper(self):
+        print("Simulation: Closing gripper.")
 
 
 class FrankaRobot(RobotInterface):
@@ -113,6 +120,7 @@ class FrankaRobot(RobotInterface):
         self.ip_address = ip_address
         self.selected_features = selected_features
         self.robot = None
+        self.gripper = None
         self.motion_thread = None
         self.name = robot_name
         self.set_dynamic_rel = set_dynamic_rel
@@ -147,10 +155,11 @@ class FrankaRobot(RobotInterface):
         logging.info(f"Connecting to Franka robot at {self.ip_address}...")
         try:
             self.robot = frankx.Robot(self.ip_address)
+            self.gripper = frankx.Gripper(self.ip_address)
             self.robot.set_default_behavior()
             self.robot.recover_from_errors()
             self.robot.set_dynamic_rel(self.set_dynamic_rel)
-            logging.info("Robot dynamics set to 5%.")
+            logging.info(f"Robot dynamics set to {self.set_dynamic_rel*100}%.")
             
             # Start the state reader thread
             self.state_reader_thread = Thread(target=self._state_reader_loop)
@@ -197,7 +206,7 @@ class FrankaRobot(RobotInterface):
                 if index < len(joint_error):
                     features_dict[feature] = joint_error[index]
         
-        return {"features": features_dict, "label": 0, "contact_link": 0}
+        return {"features": features_dict, "label": 0, "contact_link": 0, "q": state.q}
 
     def _move(self, motion: 'frankx.Motion', target_joints: List[float]):
         """
@@ -212,7 +221,7 @@ class FrankaRobot(RobotInterface):
                 with self.state_lock:
                     current_q = self.latest_state.q if self.latest_state else None
                 
-                if current_q and np.allclose(current_q, target_joints, atol=1e-3):
+                if current_q and np.allclose(current_q, target_joints, atol=5e-3):
                     logging.info("Target pose reached.")
                     break
                 time.sleep(0.01)
@@ -256,6 +265,10 @@ class FrankaRobot(RobotInterface):
                 self.motion_thread.start()
             else:
                 logging.warning(f"Invalid 'duration' for wait command: {duration}")
+        elif command == "open_gripper":
+            self.open_gripper()
+        elif command == "close_gripper":
+            self.close_gripper()
         else:
             logging.warning(f"Command '{command}' is not yet implemented.")
 
@@ -263,6 +276,24 @@ class FrankaRobot(RobotInterface):
         """Checks if the motion-monitoring thread is still alive."""
         return self.motion_thread is not None and self.motion_thread.is_alive()
 
+
+
+    def open_gripper(self, width: float = 0.08):
+        if self.gripper:
+            self.gripper.move(width)
+            logging.info("Gripper opened.")
+
+    def close_gripper(self):
+        if self.gripper:
+            self.gripper.clamp()
+            logging.info("Gripper closed.")
+
+    def jog(self, relative_pose: List[float]):
+        """Performs a small, relative motion for jogging."""
+        if self.robot:
+            motion = frankx.LinearRelativeMotion(frankx.Affine(*relative_pose))
+            with self.robot_lock:
+                self.robot.move(motion)
     def stop(self) -> None:
         """Stops any ongoing robot motion and signals threads to exit."""
         self._stop_motion = True
@@ -275,6 +306,7 @@ class FrankaRobot(RobotInterface):
         if self.robot:
             logging.info("🛑 Halting robot motion.")
             self.robot.stop()
+
 
 class URRobot(RobotInterface):
     """
@@ -411,7 +443,7 @@ class URRobot(RobotInterface):
             elif feature in state: # For features that are not arrays
                  features_dict[feature] = state[feature]
     
-        return {"features": features_dict, "label": 0, "contact_link": 0}
+        return {"features": features_dict, "label": 0, "contact_link": 0, "q": state.get("q_actual", [])}
 
     def send_action(self, action_data: Dict):
         """
@@ -441,7 +473,10 @@ class URRobot(RobotInterface):
             self._stop_action = False
             self._action_thread = Thread(target=self._execute_wait, args=(duration,))
             self._action_thread.start()
-            
+        elif command == "open_gripper":
+            self.open_gripper()
+        elif command == "close_gripper":
+            self.close_gripper()
         else:
             logging.warning(f"Unknown command '{command}' received. Ignoring.")
 
@@ -486,6 +521,22 @@ class URRobot(RobotInterface):
         Checks if the robot is currently executing a threaded action.
         """
         return self._action_thread is not None and self._action_thread.is_alive()    
+
+    def open_gripper(self):
+        logging.warning("URRobot does not have a gripper.")
+
+    def close_gripper(self):
+        logging.warning("URRobot does not have a gripper.")
+    
+    def enable_freedrive(self):
+        if self.robot_control:
+            self.robot_control.teachMode()
+            logging.info("URRobot teaching mode enabled.")
+
+    def disable_freedrive(self):
+        if self.robot_control:
+            self.robot_control.endTeachMode()
+            logging.info("URRobot teaching mode disabled.")
     
     def stop(self) -> None:
         """Stops any ongoing robot motion."""

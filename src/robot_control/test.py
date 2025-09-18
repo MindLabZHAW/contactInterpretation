@@ -33,10 +33,10 @@ joint_motion = state.q
 joint_ID = 5
 joint_motion[joint_ID] = joint_motion[joint_ID]-0.05
 
-robot.move_async(JointMotion(joint_motion))
+#robot.move_async(JointMotion(joint_motion))
 print('Joints: ', state.q)
 print('Joints_d: ', state.q_d)
-time.sleep(2)
+print('current_pose:',robot.current_pose())
 '''
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 from rtde_control import RTDEControlInterface as RTDEControl
