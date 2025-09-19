@@ -1,0 +1,77 @@
+2025-09-19 16:57:52,242 - INFO - Loaded and consolidated 745580 total collision samples using parallel processing.
+2025-09-19 16:57:55,989 - INFO - --- Starting Optimized Model Training ---
+2025-09-19 16:58:14,187 - INFO - Epoch [1/50], Loss: 1.6361, LR: 0.000050
+2025-09-19 16:58:33,033 - INFO - Epoch [2/50], Loss: 1.2943, LR: 0.000081
+2025-09-19 16:58:51,718 - INFO - Epoch [3/50], Loss: 1.1389, LR: 0.000132
+2025-09-19 16:59:11,051 - INFO - Epoch [4/50], Loss: 1.0276, LR: 0.000199
+2025-09-19 16:59:30,665 - INFO - Epoch [5/50], Loss: 0.9409, LR: 0.000280
+2025-09-19 16:59:48,767 - INFO - Epoch [6/50], Loss: 0.8622, LR: 0.000372
+2025-09-19 17:00:07,455 - INFO - Epoch [7/50], Loss: 0.7834, LR: 0.000470
+2025-09-19 17:00:24,216 - INFO - Epoch [8/50], Loss: 0.7129, LR: 0.000570
+2025-09-19 17:00:41,202 - INFO - Epoch [9/50], Loss: 0.6691, LR: 0.000668
+2025-09-19 17:00:58,793 - INFO - Epoch [10/50], Loss: 0.6420, LR: 0.000760
+2025-09-19 17:01:17,747 - INFO - Epoch [11/50], Loss: 0.6183, LR: 0.000841
+2025-09-19 17:01:34,595 - INFO - Epoch [12/50], Loss: 0.5975, LR: 0.000908
+2025-09-19 17:01:52,542 - INFO - Epoch [13/50], Loss: 0.5793, LR: 0.000959
+2025-09-19 17:02:09,849 - INFO - Epoch [14/50], Loss: 0.5623, LR: 0.000990
+2025-09-19 17:02:29,038 - INFO - Epoch [15/50], Loss: 0.5486, LR: 0.001000
+2025-09-19 17:02:47,180 - INFO - Epoch [16/50], Loss: 0.5374, LR: 0.000998
+2025-09-19 17:03:05,714 - INFO - Epoch [17/50], Loss: 0.5272, LR: 0.000992
+2025-09-19 17:03:24,648 - INFO - Epoch [18/50], Loss: 0.5183, LR: 0.000982
+2025-09-19 17:03:41,752 - INFO - Epoch [19/50], Loss: 0.5109, LR: 0.000968
+2025-09-19 17:04:00,396 - INFO - Epoch [20/50], Loss: 0.5039, LR: 0.000950
+2025-09-19 17:04:18,637 - INFO - Epoch [21/50], Loss: 0.4974, LR: 0.000929
+2025-09-19 17:04:37,344 - INFO - Epoch [22/50], Loss: 0.4916, LR: 0.000905
+2025-09-19 17:04:56,243 - INFO - Epoch [23/50], Loss: 0.4869, LR: 0.000877
+2025-09-19 17:05:15,341 - INFO - Epoch [24/50], Loss: 0.4830, LR: 0.000846
+2025-09-19 17:05:35,715 - INFO - Epoch [25/50], Loss: 0.4798, LR: 0.000812
+2025-09-19 17:05:55,884 - INFO - Epoch [26/50], Loss: 0.4768, LR: 0.000775
+2025-09-19 17:06:14,178 - INFO - Epoch [27/50], Loss: 0.4741, LR: 0.000737
+2025-09-19 17:06:31,528 - INFO - Epoch [28/50], Loss: 0.4720, LR: 0.000697
+2025-09-19 17:06:51,216 - INFO - Epoch [29/50], Loss: 0.4699, LR: 0.000655
+2025-09-19 17:07:10,168 - INFO - Epoch [30/50], Loss: 0.4677, LR: 0.000611
+2025-09-19 17:07:27,774 - INFO - Epoch [31/50], Loss: 0.4659, LR: 0.000567
+2025-09-19 17:07:45,379 - INFO - Epoch [32/50], Loss: 0.4642, LR: 0.000522
+2025-09-19 17:08:02,697 - INFO - Epoch [33/50], Loss: 0.4624, LR: 0.000478
+2025-09-19 17:08:21,947 - INFO - Epoch [34/50], Loss: 0.4610, LR: 0.000433
+2025-09-19 17:08:41,215 - INFO - Epoch [35/50], Loss: 0.4594, LR: 0.000389
+2025-09-19 17:08:59,379 - INFO - Epoch [36/50], Loss: 0.4579, LR: 0.000345
+2025-09-19 17:09:17,344 - INFO - Epoch [37/50], Loss: 0.4562, LR: 0.000303
+2025-09-19 17:09:36,299 - INFO - Epoch [38/50], Loss: 0.4550, LR: 0.000263
+2025-09-19 17:09:53,378 - INFO - Epoch [39/50], Loss: 0.4540, LR: 0.000225
+2025-09-19 17:10:12,098 - INFO - Epoch [40/50], Loss: 0.4529, LR: 0.000188
+2025-09-19 17:10:30,234 - INFO - Epoch [41/50], Loss: 0.4521, LR: 0.000154
+2025-09-19 17:10:48,250 - INFO - Epoch [42/50], Loss: 0.4512, LR: 0.000123
+2025-09-19 17:11:05,282 - INFO - Epoch [43/50], Loss: 0.4505, LR: 0.000095
+2025-09-19 17:11:22,500 - INFO - Epoch [44/50], Loss: 0.4499, LR: 0.000071
+2025-09-19 17:11:39,934 - INFO - Epoch [45/50], Loss: 0.4494, LR: 0.000050
+2025-09-19 17:11:59,778 - INFO - Epoch [46/50], Loss: 0.4490, LR: 0.000032
+2025-09-19 17:12:18,623 - INFO - Epoch [47/50], Loss: 0.4487, LR: 0.000018
+2025-09-19 17:12:36,815 - INFO - Epoch [48/50], Loss: 0.4484, LR: 0.000008
+2025-09-19 17:12:54,651 - INFO - Epoch [49/50], Loss: 0.4483, LR: 0.000002
+2025-09-19 17:13:11,362 - INFO - Epoch [50/50], Loss: 0.4482, LR: 0.000000
+2025-09-19 17:13:11,363 - INFO - --- Evaluating Model ---
+2025-09-19 17:13:13,549 - INFO - Accuracy of the model on the test data: 82.77 %
+2025-09-19 17:13:13,585 - INFO - 
+✅ Model trained and saved to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/FNN_localization_model_simple.pth
+2025-09-19 17:13:13,586 - INFO - ✅ Scaler saved to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/scaler.pkl
+2025-09-19 17:22:04,102 - INFO - Successfully loaded model from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/FNN_localization_model_simple.pth and scaler from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/scaler.pkl
+2025-09-19 17:22:04,157 - INFO - 
+Evaluation Results for: g1_1.csv
+2025-09-19 17:22:04,158 - INFO - Ground Truth Link: 1
+2025-09-19 17:22:04,159 - INFO - Model Accuracy: 99.48%
+2025-09-19 17:23:13,775 - INFO - Successfully loaded model from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/FNN_localization_model_simple.pth and scaler from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/scaler.pkl
+2025-09-19 17:23:13,819 - INFO - 
+Evaluation Results for: g2_3.csv
+2025-09-19 17:23:13,820 - INFO - Ground Truth Link: 1
+2025-09-19 17:23:13,821 - INFO - Model Accuracy: 100.00%
+2025-09-19 17:23:33,194 - INFO - Successfully loaded model from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/FNN_localization_model_simple.pth and scaler from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/scaler.pkl
+2025-09-19 17:23:33,260 - INFO - 
+Evaluation Results for: g2_9.csv
+2025-09-19 17:23:33,261 - INFO - Ground Truth Link: 1
+2025-09-19 17:23:33,262 - INFO - Model Accuracy: 11.95%
+2025-09-19 17:28:51,847 - INFO - Successfully loaded model from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/FNN_localization_model_simple.pth and scaler from /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_FNN_simple/scaler.pkl
+2025-09-19 17:29:11,383 - INFO - 
+--- Overall Dataset Evaluation Complete ---
+2025-09-19 17:29:11,384 - INFO - Total Collision Events Evaluated: 745580
+2025-09-19 17:29:11,384 - INFO - Overall Model Accuracy: 82.87%
