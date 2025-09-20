@@ -1,0 +1,26 @@
+2025-09-20 02:49:14,711 - INFO - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_detection_v2/72/training_log_1758329354.7110083.txt
+2025-09-20 02:49:14,712 - INFO - Starting data loading for seq_num=30, gap=5, hidden_size=32, num_layers=1
+2025-09-20 02:49:14,714 - INFO - Starting parallel data loading with 48 workers...
+2025-09-20 02:49:17,029 - INFO - Successfully loaded and combined data from 501 files into a dataset with 334067 samples.
+2025-09-20 02:49:20,331 - INFO - --- Starting Optimized Model Training ---
+2025-09-20 02:49:39,349 - INFO - Epoch [1/40], Train Loss: 0.4148, Val Loss: 0.4290, Val Acc: 81.09%
+2025-09-20 02:49:39,359 - INFO - New best model saved with accuracy: 81.09%
+2025-09-20 02:49:58,867 - INFO - Epoch [2/40], Train Loss: 0.3478, Val Loss: 0.3606, Val Acc: 84.92%
+2025-09-20 02:49:58,876 - INFO - New best model saved with accuracy: 84.92%
+2025-09-20 02:50:17,700 - INFO - Epoch [3/40], Train Loss: 0.3197, Val Loss: 0.3288, Val Acc: 86.69%
+2025-09-20 02:50:17,711 - INFO - New best model saved with accuracy: 86.69%
+2025-09-20 02:50:36,722 - INFO - Epoch [4/40], Train Loss: 0.3017, Val Loss: 0.4129, Val Acc: 83.20%
+2025-09-20 02:50:55,049 - INFO - Epoch [5/40], Train Loss: 0.2881, Val Loss: 0.3192, Val Acc: 86.98%
+2025-09-20 02:50:55,057 - INFO - New best model saved with accuracy: 86.98%
+2025-09-20 02:51:13,864 - INFO - Epoch [6/40], Train Loss: 0.2763, Val Loss: 0.3109, Val Acc: 87.41%
+2025-09-20 02:51:13,875 - INFO - New best model saved with accuracy: 87.41%
+2025-09-20 02:51:33,248 - INFO - Epoch [7/40], Train Loss: 0.2648, Val Loss: 0.3160, Val Acc: 87.28%
+2025-09-20 02:51:52,188 - INFO - Epoch [8/40], Train Loss: 0.2561, Val Loss: 0.2904, Val Acc: 88.60%
+2025-09-20 02:51:52,197 - INFO - New best model saved with accuracy: 88.60%
+2025-09-20 02:52:11,045 - INFO - Epoch [9/40], Train Loss: 0.2475, Val Loss: 0.3484, Val Acc: 85.42%
+2025-09-20 02:52:29,944 - INFO - Epoch [10/40], Train Loss: 0.2383, Val Loss: 0.3134, Val Acc: 87.32%
+2025-09-20 02:52:48,962 - INFO - Epoch [11/40], Train Loss: 0.2311, Val Loss: 0.2736, Val Acc: 89.32%
+2025-09-20 02:52:48,973 - INFO - New best model saved with accuracy: 89.32%
+2025-09-20 02:53:07,906 - INFO - Epoch [12/40], Train Loss: 0.2246, Val Loss: 0.3339, Val Acc: 87.02%
+2025-09-20 02:53:26,558 - INFO - Epoch [13/40], Train Loss: 0.2177, Val Loss: 0.3483, Val Acc: 87.18%
+2025-09-20 02:53:45,358 - INFO - Epoch [14/40], Train Loss: 0.2111, Val Loss: 0.3835, Val Acc: 85.71%
