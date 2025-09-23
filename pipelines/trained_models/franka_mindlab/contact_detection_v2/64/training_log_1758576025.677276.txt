@@ -1,0 +1,16 @@
+2025-09-22 23:20:25,677 - INFO - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_mindlab/contact_detection_v2/64/training_log_1758576025.677276.txt
+2025-09-22 23:20:25,678 - INFO - Starting parallel data loading with 48 workers...
+2025-09-22 23:20:26,129 - INFO - Successfully loaded and combined data from 21 files into a dataset with 28764 samples.
+2025-09-22 23:20:26,133 - INFO - Starting data loading for seq_num=30, gap=3, hidden_size=32, num_layers=1
+2025-09-22 23:20:34,275 - INFO - --- Starting Optimized Model Training ---
+2025-09-22 23:20:39,983 - INFO - Epoch [1/40], Train Loss: 0.4022, Val Loss: 0.3949, Val Acc: 82.49%
+2025-09-22 23:20:39,992 - INFO - New best model saved with accuracy: 82.49%
+2025-09-22 23:20:46,448 - INFO - Epoch [2/40], Train Loss: 0.3687, Val Loss: 0.3613, Val Acc: 85.06%
+2025-09-22 23:20:46,457 - INFO - New best model saved with accuracy: 85.06%
+2025-09-22 23:20:52,936 - INFO - Epoch [3/40], Train Loss: 0.3509, Val Loss: 0.3784, Val Acc: 84.20%
+2025-09-22 23:20:57,642 - INFO - Epoch [4/40], Train Loss: 0.3346, Val Loss: 0.3596, Val Acc: 84.82%
+2025-09-22 23:21:02,579 - INFO - Epoch [5/40], Train Loss: 0.3237, Val Loss: 0.4686, Val Acc: 79.57%
+2025-09-22 23:21:07,489 - INFO - Epoch [6/40], Train Loss: 0.3157, Val Loss: 0.3428, Val Acc: 85.45%
+2025-09-22 23:21:07,498 - INFO - New best model saved with accuracy: 85.45%
+2025-09-22 23:21:13,632 - INFO - Epoch [7/40], Train Loss: 0.3024, Val Loss: 0.3438, Val Acc: 86.30%
+2025-09-22 23:21:13,642 - INFO - New best model saved with accuracy: 86.30%

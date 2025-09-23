@@ -19,8 +19,8 @@ class LoadSeqDataset(Dataset):
         # Process features and labels
         features_data = df[selected_features].values.astype(np.float32)
         # Create a single label for the entire file's content
-        is_contact_file = 1 if label > 0 else 0
-        labels_data = (df['label'].values > 0).astype(np.int8) * is_contact_file
+    
+        labels_data = df['label'].values * label.item()
         
         self.sequences, self.labels = self._make_sequences_vectorized(features_data, labels_data)
 

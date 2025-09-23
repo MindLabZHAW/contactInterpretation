@@ -1,0 +1,11 @@
+2025-09-23 16:32:21,590 - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/ur5/contact_localization_v2/64/training_log_localization_1758637941.5904844.txt
+2025-09-23 16:32:21,590 - Starting data loading for seq_num=30, gap=3
+2025-09-23 16:32:22,673 - --- Training Localization: hidden=32, layers=1, seq=30 ---
+2025-09-23 16:32:31,604 - Epoch [1/40], Train Loss: 1.4957, Val Loss: 1.7780, Val Acc: 34.15%
+2025-09-23 16:32:31,613 - New best model saved with accuracy: 34.15%
+2025-09-23 16:32:32,806 - Epoch [2/40], Train Loss: 1.2365, Val Loss: 1.1768, Val Acc: 56.14%
+2025-09-23 16:32:32,816 - New best model saved with accuracy: 56.14%
+2025-09-23 16:32:34,245 - Epoch [3/40], Train Loss: 1.1244, Val Loss: 1.1019, Val Acc: 58.93%
+2025-09-23 16:32:34,254 - New best model saved with accuracy: 58.93%
+2025-09-23 16:32:35,392 - Epoch [4/40], Train Loss: 1.0211, Val Loss: 1.0523, Val Acc: 60.87%
+2025-09-23 16:32:35,401 - New best model saved with accuracy: 60.87%

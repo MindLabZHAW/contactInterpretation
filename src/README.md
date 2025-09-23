@@ -38,17 +38,30 @@ Benefits:
 
 ```
 contactInterpretation/
-├── config/
-│   ├── default_behaviors.json   # Default contact reactions
-│   └── my_assembly_task.json    # Specific robot task
 ├── src/
-│   ├── __init__.py
-│   ├── config_loader.py         # Load JSON files
-│   ├── main.py                  # Main entry point
-│   ├── robot_interface.py       # Abstract robot contract
-│   ├── robots.py                # Concrete robot implementations
-│   └── task_interpreter.py      # Core execution logic
-└── .gitignore                   # Ignore __pycache__ etc.
+│   ├── main.py                  # Main entry point for the application
+│   ├── task_interpreter.py      # Core logic for executing tasks
+│   ├── robot_teaching.py        # Interactive interface for teaching new tasks
+│   ├── config_loader.py         # Utility for loading JSON configuration files
+│   ├── data_logger.py           # Handles logging of session data to CSV
+│   │
+│   ├── contact_interpretation/
+│   │   ├── interpreter.py       # Manages the AI models and prediction logic
+│   │   └── plotting.py          # Real-time and post-session plotting
+│   │
+│   ├── robot_control/
+│   │   ├── robot_interface.py   # Abstract base class for all robots
+│   │   └── robots.py            # Concrete implementations for Franka, UR, etc.
+│   │
+│   └── config/
+│       ├── config.json              # Main configuration for robots and settings
+│       ├── default_behaviors.json   # Default actions to take upon contact
+│       └── robot_tasks/             # Directory for all task sequence files
+│           ├── FrankaMain_multi_pose_task.json
+│           └── UR5e_multi_pose_task.json
+│
+└── pipelines/                   # (Assumed) Contains model training code
+    └── trained_models/          # (Assumed) Directory for trained .pth model files
 ```
 
 ## 3. Getting Started

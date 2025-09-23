@@ -1,0 +1,134 @@
+argon2-cffi==21.3.0
+argon2-cffi-bindings==21.2.0
+async-generator==1.10
+attrs==22.2.0
+autolab-core==1.1.1
+backcall @ file:///home/ktietz/src/ci/backcall_1611930011877/work
+beautifulsoup4==4.11.1
+bleach==4.1.0
+brotlipy==0.7.0
+canlib==1.26.487
+catkin-pkg==0.5.2
+catkin-tools==0.9.0
+certifi==2021.5.30
+cffi @ file:///tmp/build/80754af9/cffi_1625814693874/work
+chardet @ file:///tmp/build/80754af9/chardet_1607706739153/work
+charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
+chart-studio==1.1.0
+colorlog==6.7.0
+colorlover==0.3.0
+comm==0.1.4
+conda==4.10.3
+conda-build==3.21.5
+conda-package-handling @ file:///tmp/build/80754af9/conda-package-handling_1618262155238/work
+cryptography @ file:///tmp/build/80754af9/cryptography_1635366128178/work
+cufflinks==0.17.3
+cycler==0.11.0
+dataclasses==0.8
+decorator @ file:///opt/conda/conda-bld/decorator_1643638310831/work
+defusedxml==0.7.1
+dill==0.3.4
+docutils==0.18.1
+empy==3.3.4
+entrypoints==0.3
+filelock @ file:///tmp/build/80754af9/filelock_1638521398314/work
+-e git+https://github.com/iamlab-cmu/FrankaPy@77ac361fcf98a6d3138f4db06ad2486673740f22#egg=frankapy
+frankx==0.2.0
+glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
+google==3.0.0
+idna @ file:///tmp/build/80754af9/idna_1637925883363/work
+imageio==2.15.0
+importlib-metadata==4.8.3
+ipykernel @ file:///tmp/build/80754af9/ipykernel_1596206602906/work/dist/ipykernel-5.3.4-py3-none-any.whl
+ipython @ file:///tmp/build/80754af9/ipython_1593447367857/work
+ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
+ipywidgets==7.8.5
+jedi==0.17.0
+Jinja2 @ file:///opt/conda/conda-bld/jinja2_1647436528585/work
+joblib==1.1.0
+jsonschema==3.2.0
+jupyter-client @ file:///opt/conda/conda-bld/jupyter_client_1643638337975/work
+jupyter-core @ file:///tmp/build/80754af9/jupyter_core_1633420100582/work
+jupyterlab-pygments==0.1.2
+jupyterlab_widgets==1.1.11
+kiwisolver==1.3.1
+libarchive-c @ file:///croot/python-libarchive-c_1726069797193/work
+llvmlite==0.36.0
+MarkupSafe @ file:///tmp/build/80754af9/markupsafe_1621528150516/work
+matplotlib==3.3.4
+mistune==0.8.4
+multiprocess==0.70.12.2
+nbclient==0.5.9
+nbconvert==6.0.7
+nbformat==5.1.3
+nest-asyncio @ file:///tmp/build/80754af9/nest-asyncio_1613680548246/work
+networkx==2.5.1
+notebook==6.4.10
+numba @ file:///tmp/build/80754af9/numba_1616771968628/work
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1626681920064/work
+numpy-quaternion @ file:///home/conda/feedstock_root/build_artifacts/quaternion_1630353123104/work
+opencv-python==4.6.0.66
+osrf-pycommon==2.0.2
+packaging==21.3
+pandas==1.1.5
+pandocfilters==1.5.1
+parso @ file:///opt/conda/conda-bld/parso_1641458642106/work
+pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
+pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
+Pillow==8.4.0
+pkginfo @ file:///tmp/build/80754af9/pkginfo_1643162084911/work
+plotly==5.18.0
+prometheus-client==0.17.1
+prompt-toolkit @ file:///tmp/build/80754af9/prompt-toolkit_1633440160888/work
+protobuf==3.12.4
+psutil @ file:///tmp/build/80754af9/psutil_1612297621795/work
+ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pycosat==0.6.3
+pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+pydantic==1.9.2
+pyDeprecate==0.3.2
+Pygments @ file:///opt/conda/conda-bld/pygments_1644249106324/work
+pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
+pyparsing==3.0.9
+pyrsistent==0.18.0
+pyserial==3.5
+PySocks @ file:///tmp/build/80754af9/pysocks_1605305763431/work
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+pytz==2021.3
+PyWavelets==1.1.1
+PyYAML==6.0
+pyzmq @ file:///tmp/build/80754af9/pyzmq_1628268400816/work
+Quaternion==3.5.2.post4
+requests @ file:///opt/conda/conda-bld/requests_1641824580448/work
+retrying==1.3.4
+rospkg==1.4.0
+ruamel-yaml-conda @ file:///tmp/build/80754af9/ruamel_yaml_1616016274869/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-image==0.17.2
+scikit-learn==0.24.2
+scipy==1.5.4
+seaborn==0.11.2
+Send2Trash==1.8.3
+setproctitle==1.2.3
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+soupsieve==2.3.2.post1
+tenacity==8.2.2
+terminado==0.12.1
+testpath==0.6.0
+threadpoolctl==3.1.0
+tifffile==2020.9.3
+torch==1.10.1
+torchinfo==1.5.4
+torchmetrics==0.8.2
+torchvision==0.11.2
+tornado @ file:///tmp/build/80754af9/tornado_1606942266872/work
+tqdm @ file:///tmp/build/80754af9/tqdm_1635330843403/work
+traitlets @ file:///tmp/build/80754af9/traitlets_1632746497744/work
+typing_extensions==4.1.1
+ur-rtde==1.5.9
+urllib3 @ file:///opt/conda/conda-bld/urllib3_1643638302206/work
+wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
+webencodings==0.5.1
+widgetsnbextension==3.6.10
+zipp==3.6.0

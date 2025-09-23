@@ -95,8 +95,8 @@ class ContactAI:
         """Prompts the user to enter model hyperparameters."""
         while True:
             try:
-                hidden_size = 128#int(input("Enter desired Hidden Size (e.g., 256): "))
-                seq_num = 100#int(input("Enter desired Sequence Length (e.g., 100): "))
+                hidden_size = 256#int(input("Enter desired Hidden Size (e.g., 256): "))
+                seq_num = 200#int(input("Enter desired Sequence Length (e.g., 100): "))
                 return {'hidden_size': hidden_size, 'seq_num': seq_num}
             except ValueError:
                 print("Invalid input. Please enter integers only.")

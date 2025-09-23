@@ -1,0 +1,310 @@
+2025-09-22 22:37:17,468 - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/training_log_localization_1758573437.468231.txt
+2025-09-22 22:37:17,468 - Starting data loading for seq_num=250, gap=3
+2025-09-22 22:37:29,708 - --- Training Localization: hidden=256, layers=1, seq=250 ---
+2025-09-22 22:37:45,841 - Epoch [1/40], Train Loss: 0.6287, Val Loss: 0.3230, Val Acc: 87.07%
+2025-09-22 22:37:45,857 - New best model saved with accuracy: 87.07%
+2025-09-22 22:37:58,309 - Epoch [2/40], Train Loss: 0.2999, Val Loss: 0.2270, Val Acc: 90.86%
+2025-09-22 22:37:58,326 - New best model saved with accuracy: 90.86%
+2025-09-22 22:38:11,888 - Epoch [3/40], Train Loss: 0.2143, Val Loss: 0.1629, Val Acc: 93.52%
+2025-09-22 22:38:11,903 - New best model saved with accuracy: 93.52%
+2025-09-22 22:38:25,875 - Epoch [4/40], Train Loss: 0.1749, Val Loss: 0.1446, Val Acc: 94.53%
+2025-09-22 22:38:25,892 - New best model saved with accuracy: 94.53%
+2025-09-22 22:38:40,049 - Epoch [5/40], Train Loss: 0.1503, Val Loss: 0.1420, Val Acc: 94.62%
+2025-09-22 22:38:40,066 - New best model saved with accuracy: 94.62%
+2025-09-22 22:38:54,635 - Epoch [6/40], Train Loss: 0.1321, Val Loss: 0.1016, Val Acc: 96.05%
+2025-09-22 22:38:54,652 - New best model saved with accuracy: 96.05%
+2025-09-22 22:39:09,360 - Epoch [7/40], Train Loss: 0.1205, Val Loss: 0.0970, Val Acc: 96.29%
+2025-09-22 22:39:09,377 - New best model saved with accuracy: 96.29%
+2025-09-22 22:39:23,524 - Epoch [8/40], Train Loss: 0.1104, Val Loss: 0.0969, Val Acc: 96.48%
+2025-09-22 22:39:23,542 - New best model saved with accuracy: 96.48%
+2025-09-22 22:39:37,646 - Epoch [9/40], Train Loss: 0.1022, Val Loss: 0.0907, Val Acc: 96.66%
+2025-09-22 22:39:37,664 - New best model saved with accuracy: 96.66%
+2025-09-22 22:39:51,562 - Epoch [10/40], Train Loss: 0.0936, Val Loss: 0.0793, Val Acc: 97.04%
+2025-09-22 22:39:51,580 - New best model saved with accuracy: 97.04%
+2025-09-22 22:40:05,916 - Epoch [11/40], Train Loss: 0.0871, Val Loss: 0.0778, Val Acc: 97.04%
+2025-09-22 22:40:05,933 - New best model saved with accuracy: 97.04%
+2025-09-22 22:40:19,931 - Epoch [12/40], Train Loss: 0.0806, Val Loss: 0.0785, Val Acc: 97.11%
+2025-09-22 22:40:19,949 - New best model saved with accuracy: 97.11%
+2025-09-22 22:40:34,292 - Epoch [13/40], Train Loss: 0.0788, Val Loss: 0.0755, Val Acc: 97.24%
+2025-09-22 22:40:34,309 - New best model saved with accuracy: 97.24%
+2025-09-22 22:40:48,603 - Epoch [14/40], Train Loss: 0.0743, Val Loss: 0.0651, Val Acc: 97.61%
+2025-09-22 22:40:48,620 - New best model saved with accuracy: 97.61%
+2025-09-22 22:41:02,770 - Epoch [15/40], Train Loss: 0.0719, Val Loss: 0.0714, Val Acc: 97.41%
+2025-09-22 22:41:17,226 - Epoch [16/40], Train Loss: 0.0679, Val Loss: 0.0623, Val Acc: 97.73%
+2025-09-22 22:41:17,243 - New best model saved with accuracy: 97.73%
+2025-09-22 22:41:31,175 - Epoch [17/40], Train Loss: 0.0651, Val Loss: 0.0566, Val Acc: 97.89%
+2025-09-22 22:41:31,193 - New best model saved with accuracy: 97.89%
+2025-09-22 22:41:45,441 - Epoch [18/40], Train Loss: 0.0635, Val Loss: 0.0550, Val Acc: 97.97%
+2025-09-22 22:41:45,458 - New best model saved with accuracy: 97.97%
+2025-09-22 22:41:59,944 - Epoch [19/40], Train Loss: 0.0611, Val Loss: 0.0551, Val Acc: 98.00%
+2025-09-22 22:41:59,960 - New best model saved with accuracy: 98.00%
+2025-09-22 22:42:14,059 - Epoch [20/40], Train Loss: 0.0591, Val Loss: 0.0534, Val Acc: 98.10%
+2025-09-22 22:42:14,077 - New best model saved with accuracy: 98.10%
+2025-09-22 22:42:28,329 - Epoch [21/40], Train Loss: 0.0595, Val Loss: 0.0560, Val Acc: 97.99%
+2025-09-22 22:42:43,523 - Epoch [22/40], Train Loss: 0.0557, Val Loss: 0.0580, Val Acc: 97.95%
+2025-09-22 22:42:58,323 - Epoch [23/40], Train Loss: 0.0569, Val Loss: 0.0511, Val Acc: 98.16%
+2025-09-22 22:42:58,338 - New best model saved with accuracy: 98.16%
+2025-09-22 22:43:12,024 - Epoch [24/40], Train Loss: 0.0531, Val Loss: 0.0610, Val Acc: 97.82%
+2025-09-22 22:43:26,372 - Epoch [25/40], Train Loss: 0.0531, Val Loss: 0.0475, Val Acc: 98.31%
+2025-09-22 22:43:26,389 - New best model saved with accuracy: 98.31%
+2025-09-22 22:43:40,201 - Epoch [26/40], Train Loss: 0.0513, Val Loss: 0.0474, Val Acc: 98.30%
+2025-09-22 22:43:54,424 - Epoch [27/40], Train Loss: 0.0507, Val Loss: 0.0570, Val Acc: 98.07%
+2025-09-22 22:44:08,349 - Epoch [28/40], Train Loss: 0.0494, Val Loss: 0.0542, Val Acc: 98.18%
+2025-09-22 22:44:22,739 - Epoch [29/40], Train Loss: 0.0493, Val Loss: 0.0455, Val Acc: 98.34%
+2025-09-22 22:44:22,757 - New best model saved with accuracy: 98.34%
+2025-09-22 22:44:37,384 - Epoch [30/40], Train Loss: 0.0481, Val Loss: 0.0461, Val Acc: 98.31%
+2025-09-22 22:44:51,444 - Epoch [31/40], Train Loss: 0.0457, Val Loss: 0.0434, Val Acc: 98.37%
+2025-09-22 22:44:51,461 - New best model saved with accuracy: 98.37%
+2025-09-22 22:45:05,995 - Epoch [32/40], Train Loss: 0.0462, Val Loss: 0.0416, Val Acc: 98.50%
+2025-09-22 22:45:06,012 - New best model saved with accuracy: 98.50%
+2025-09-22 22:45:20,313 - Epoch [33/40], Train Loss: 0.0447, Val Loss: 0.0421, Val Acc: 98.44%
+2025-09-22 22:45:34,756 - Epoch [34/40], Train Loss: 0.0456, Val Loss: 0.0419, Val Acc: 98.53%
+2025-09-22 22:45:34,772 - New best model saved with accuracy: 98.53%
+2025-09-22 22:45:49,028 - Epoch [35/40], Train Loss: 0.0444, Val Loss: 0.0461, Val Acc: 98.34%
+2025-09-22 22:46:03,995 - Epoch [36/40], Train Loss: 0.0264, Val Loss: 0.0311, Val Acc: 98.89%
+2025-09-22 22:46:04,014 - New best model saved with accuracy: 98.89%
+2025-09-22 22:46:18,838 - Epoch [37/40], Train Loss: 0.0263, Val Loss: 0.0275, Val Acc: 99.03%
+2025-09-22 22:46:18,855 - New best model saved with accuracy: 99.03%
+2025-09-22 22:46:33,226 - Epoch [38/40], Train Loss: 0.0254, Val Loss: 0.0309, Val Acc: 98.84%
+2025-09-22 22:46:47,852 - Epoch [39/40], Train Loss: 0.0250, Val Loss: 0.0303, Val Acc: 98.92%
+2025-09-22 22:47:01,833 - Epoch [40/40], Train Loss: 0.0248, Val Loss: 0.0291, Val Acc: 98.99%
+2025-09-22 22:47:01,833 - LR dropped below threshold. Stopping early.
+2025-09-22 22:47:01,837 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/hyperparameter_results_localization.csv
+2025-09-22 22:47:01,857 - --- Training Localization: hidden=512, layers=1, seq=250 ---
+2025-09-22 22:47:17,986 - Epoch [1/40], Train Loss: 0.6061, Val Loss: 0.3211, Val Acc: 87.06%
+2025-09-22 22:47:18,013 - New best model saved with accuracy: 87.06%
+2025-09-22 22:47:32,744 - Epoch [2/40], Train Loss: 0.2789, Val Loss: 0.2151, Val Acc: 91.48%
+2025-09-22 22:47:32,779 - New best model saved with accuracy: 91.48%
+2025-09-22 22:47:49,151 - Epoch [3/40], Train Loss: 0.1974, Val Loss: 0.1583, Val Acc: 93.71%
+2025-09-22 22:47:49,187 - New best model saved with accuracy: 93.71%
+2025-09-22 22:48:03,419 - Epoch [4/40], Train Loss: 0.1623, Val Loss: 0.1405, Val Acc: 94.12%
+2025-09-22 22:48:03,449 - New best model saved with accuracy: 94.12%
+2025-09-22 22:48:19,916 - Epoch [5/40], Train Loss: 0.1424, Val Loss: 0.1393, Val Acc: 94.60%
+2025-09-22 22:48:19,946 - New best model saved with accuracy: 94.60%
+2025-09-22 22:48:35,313 - Epoch [6/40], Train Loss: 0.1279, Val Loss: 0.1111, Val Acc: 95.79%
+2025-09-22 22:48:35,347 - New best model saved with accuracy: 95.79%
+2025-09-22 22:48:51,502 - Epoch [7/40], Train Loss: 0.1149, Val Loss: 0.0953, Val Acc: 96.29%
+2025-09-22 22:48:51,539 - New best model saved with accuracy: 96.29%
+2025-09-22 22:49:08,044 - Epoch [8/40], Train Loss: 0.1057, Val Loss: 0.0927, Val Acc: 96.42%
+2025-09-22 22:49:08,078 - New best model saved with accuracy: 96.42%
+2025-09-22 22:49:23,446 - Epoch [9/40], Train Loss: 0.0978, Val Loss: 0.0793, Val Acc: 97.02%
+2025-09-22 22:49:23,481 - New best model saved with accuracy: 97.02%
+2025-09-22 22:49:39,951 - Epoch [10/40], Train Loss: 0.0895, Val Loss: 0.0791, Val Acc: 97.18%
+2025-09-22 22:49:39,985 - New best model saved with accuracy: 97.18%
+2025-09-22 22:49:54,614 - Epoch [11/40], Train Loss: 0.0847, Val Loss: 0.0764, Val Acc: 97.03%
+2025-09-22 22:50:11,183 - Epoch [12/40], Train Loss: 0.0800, Val Loss: 0.0735, Val Acc: 97.23%
+2025-09-22 22:50:11,218 - New best model saved with accuracy: 97.23%
+2025-09-22 22:50:26,161 - Epoch [13/40], Train Loss: 0.0746, Val Loss: 0.0704, Val Acc: 97.33%
+2025-09-22 22:50:26,198 - New best model saved with accuracy: 97.33%
+2025-09-22 22:50:42,045 - Epoch [14/40], Train Loss: 0.0720, Val Loss: 0.0642, Val Acc: 97.44%
+2025-09-22 22:50:42,081 - New best model saved with accuracy: 97.44%
+2025-09-22 22:50:58,056 - Epoch [15/40], Train Loss: 0.0681, Val Loss: 0.0610, Val Acc: 97.70%
+2025-09-22 22:50:58,090 - New best model saved with accuracy: 97.70%
+2025-09-22 22:51:14,338 - Epoch [16/40], Train Loss: 0.0663, Val Loss: 0.0617, Val Acc: 97.71%
+2025-09-22 22:51:14,371 - New best model saved with accuracy: 97.71%
+2025-09-22 22:51:31,593 - Epoch [17/40], Train Loss: 0.0636, Val Loss: 0.0590, Val Acc: 97.80%
+2025-09-22 22:51:31,631 - New best model saved with accuracy: 97.80%
+2025-09-22 22:51:47,896 - Epoch [18/40], Train Loss: 0.0622, Val Loss: 0.0529, Val Acc: 98.11%
+2025-09-22 22:51:47,932 - New best model saved with accuracy: 98.11%
+2025-09-22 22:52:05,693 - Epoch [19/40], Train Loss: 0.0603, Val Loss: 0.0519, Val Acc: 98.12%
+2025-09-22 22:52:05,727 - New best model saved with accuracy: 98.12%
+2025-09-22 22:52:21,577 - Epoch [20/40], Train Loss: 0.0584, Val Loss: 0.0518, Val Acc: 98.11%
+2025-09-22 22:52:39,306 - Epoch [21/40], Train Loss: 0.0560, Val Loss: 0.0490, Val Acc: 98.23%
+2025-09-22 22:52:39,341 - New best model saved with accuracy: 98.23%
+2025-09-22 22:52:57,128 - Epoch [22/40], Train Loss: 0.0556, Val Loss: 0.0503, Val Acc: 98.16%
+2025-09-22 22:53:13,528 - Epoch [23/40], Train Loss: 0.0544, Val Loss: 0.0577, Val Acc: 97.96%
+2025-09-22 22:53:31,177 - Epoch [24/40], Train Loss: 0.0520, Val Loss: 0.0482, Val Acc: 98.26%
+2025-09-22 22:53:31,207 - New best model saved with accuracy: 98.26%
+2025-09-22 22:53:47,033 - Epoch [25/40], Train Loss: 0.0521, Val Loss: 0.0486, Val Acc: 98.28%
+2025-09-22 22:53:47,069 - New best model saved with accuracy: 98.28%
+2025-09-22 22:54:05,246 - Epoch [26/40], Train Loss: 0.0508, Val Loss: 0.0505, Val Acc: 98.16%
+2025-09-22 22:54:20,852 - Epoch [27/40], Train Loss: 0.0490, Val Loss: 0.0423, Val Acc: 98.51%
+2025-09-22 22:54:20,886 - New best model saved with accuracy: 98.51%
+2025-09-22 22:54:39,103 - Epoch [28/40], Train Loss: 0.0492, Val Loss: 0.0589, Val Acc: 97.90%
+2025-09-22 22:54:55,360 - Epoch [29/40], Train Loss: 0.0472, Val Loss: 0.0517, Val Acc: 98.14%
+2025-09-22 22:55:12,084 - Epoch [30/40], Train Loss: 0.0468, Val Loss: 0.0509, Val Acc: 98.15%
+2025-09-22 22:55:29,841 - Epoch [31/40], Train Loss: 0.0281, Val Loss: 0.0329, Val Acc: 98.81%
+2025-09-22 22:55:29,875 - New best model saved with accuracy: 98.81%
+2025-09-22 22:55:46,528 - Epoch [32/40], Train Loss: 0.0277, Val Loss: 0.0323, Val Acc: 98.84%
+2025-09-22 22:55:46,563 - New best model saved with accuracy: 98.84%
+2025-09-22 22:56:05,070 - Epoch [33/40], Train Loss: 0.0277, Val Loss: 0.0300, Val Acc: 98.97%
+2025-09-22 22:56:05,104 - New best model saved with accuracy: 98.97%
+2025-09-22 22:56:20,978 - Epoch [34/40], Train Loss: 0.0268, Val Loss: 0.0345, Val Acc: 98.76%
+2025-09-22 22:56:38,784 - Epoch [35/40], Train Loss: 0.0267, Val Loss: 0.0338, Val Acc: 98.83%
+2025-09-22 22:56:54,505 - Epoch [36/40], Train Loss: 0.0256, Val Loss: 0.0298, Val Acc: 98.91%
+2025-09-22 22:57:12,654 - Epoch [37/40], Train Loss: 0.0269, Val Loss: 0.0322, Val Acc: 98.85%
+2025-09-22 22:57:29,612 - Epoch [38/40], Train Loss: 0.0266, Val Loss: 0.0283, Val Acc: 98.98%
+2025-09-22 22:57:29,642 - New best model saved with accuracy: 98.98%
+2025-09-22 22:57:46,536 - Epoch [39/40], Train Loss: 0.0258, Val Loss: 0.0379, Val Acc: 98.78%
+2025-09-22 22:58:03,301 - Epoch [40/40], Train Loss: 0.0256, Val Loss: 0.0310, Val Acc: 98.96%
+2025-09-22 22:58:03,303 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/hyperparameter_results_localization.csv
+2025-09-22 22:58:03,359 - --- Training Localization: hidden=1024, layers=1, seq=250 ---
+2025-09-22 22:58:30,067 - Epoch [1/40], Train Loss: 0.5996, Val Loss: 0.3710, Val Acc: 84.87%
+2025-09-22 22:58:30,151 - New best model saved with accuracy: 84.87%
+2025-09-22 22:58:59,246 - Epoch [2/40], Train Loss: 0.2877, Val Loss: 0.1920, Val Acc: 92.51%
+2025-09-22 22:58:59,349 - New best model saved with accuracy: 92.51%
+2025-09-22 22:59:28,891 - Epoch [3/40], Train Loss: 0.2018, Val Loss: 0.1502, Val Acc: 94.18%
+2025-09-22 22:59:29,004 - New best model saved with accuracy: 94.18%
+2025-09-22 22:59:56,742 - Epoch [4/40], Train Loss: 0.1650, Val Loss: 0.1301, Val Acc: 95.00%
+2025-09-22 22:59:56,853 - New best model saved with accuracy: 95.00%
+2025-09-22 23:00:26,793 - Epoch [5/40], Train Loss: 0.1436, Val Loss: 0.1213, Val Acc: 95.37%
+2025-09-22 23:00:26,915 - New best model saved with accuracy: 95.37%
+2025-09-22 23:00:54,019 - Epoch [6/40], Train Loss: 0.1267, Val Loss: 0.1120, Val Acc: 95.71%
+2025-09-22 23:00:54,123 - New best model saved with accuracy: 95.71%
+2025-09-22 23:01:22,663 - Epoch [7/40], Train Loss: 0.1155, Val Loss: 0.0973, Val Acc: 96.23%
+2025-09-22 23:01:22,769 - New best model saved with accuracy: 96.23%
+2025-09-22 23:01:51,603 - Epoch [8/40], Train Loss: 0.1035, Val Loss: 0.0839, Val Acc: 96.83%
+2025-09-22 23:01:51,719 - New best model saved with accuracy: 96.83%
+2025-09-22 23:02:18,181 - Epoch [9/40], Train Loss: 0.0943, Val Loss: 0.0796, Val Acc: 96.91%
+2025-09-22 23:02:18,288 - New best model saved with accuracy: 96.91%
+2025-09-22 23:02:48,355 - Epoch [10/40], Train Loss: 0.0889, Val Loss: 0.0905, Val Acc: 96.63%
+2025-09-22 23:03:14,992 - Epoch [11/40], Train Loss: 0.0834, Val Loss: 0.0627, Val Acc: 97.62%
+2025-09-22 23:03:15,098 - New best model saved with accuracy: 97.62%
+2025-09-22 23:03:44,044 - Epoch [12/40], Train Loss: 0.0786, Val Loss: 0.0676, Val Acc: 97.48%
+2025-09-22 23:04:12,356 - Epoch [13/40], Train Loss: 0.0735, Val Loss: 0.0729, Val Acc: 97.29%
+2025-09-22 23:04:39,775 - Epoch [14/40], Train Loss: 0.0721, Val Loss: 0.0675, Val Acc: 97.60%
+2025-09-22 23:05:09,860 - Epoch [15/40], Train Loss: 0.0434, Val Loss: 0.0390, Val Acc: 98.47%
+2025-09-22 23:05:09,972 - New best model saved with accuracy: 98.47%
+2025-09-22 23:05:36,615 - Epoch [16/40], Train Loss: 0.0432, Val Loss: 0.0445, Val Acc: 98.34%
+2025-09-22 23:06:06,314 - Epoch [17/40], Train Loss: 0.0407, Val Loss: 0.0424, Val Acc: 98.40%
+2025-09-22 23:06:34,365 - Epoch [18/40], Train Loss: 0.0394, Val Loss: 0.0425, Val Acc: 98.46%
+2025-09-22 23:06:34,365 - LR dropped below threshold. Stopping early.
+2025-09-22 23:06:34,367 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/hyperparameter_results_localization.csv
+2025-09-22 23:06:34,367 - Starting data loading for seq_num=300, gap=3
+2025-09-22 23:06:53,656 - --- Training Localization: hidden=256, layers=1, seq=300 ---
+2025-09-22 23:07:10,102 - Epoch [1/40], Train Loss: 0.6256, Val Loss: 0.3317, Val Acc: 86.14%
+2025-09-22 23:07:10,116 - New best model saved with accuracy: 86.14%
+2025-09-22 23:07:25,584 - Epoch [2/40], Train Loss: 0.3047, Val Loss: 0.2329, Val Acc: 90.63%
+2025-09-22 23:07:25,603 - New best model saved with accuracy: 90.63%
+2025-09-22 23:07:41,998 - Epoch [3/40], Train Loss: 0.2247, Val Loss: 0.1862, Val Acc: 92.57%
+2025-09-22 23:07:42,015 - New best model saved with accuracy: 92.57%
+2025-09-22 23:07:58,023 - Epoch [4/40], Train Loss: 0.1813, Val Loss: 0.1619, Val Acc: 93.75%
+2025-09-22 23:07:58,042 - New best model saved with accuracy: 93.75%
+2025-09-22 23:08:13,729 - Epoch [5/40], Train Loss: 0.1571, Val Loss: 0.1226, Val Acc: 95.30%
+2025-09-22 23:08:13,750 - New best model saved with accuracy: 95.30%
+2025-09-22 23:08:29,478 - Epoch [6/40], Train Loss: 0.1373, Val Loss: 0.1156, Val Acc: 95.57%
+2025-09-22 23:08:29,496 - New best model saved with accuracy: 95.57%
+2025-09-22 23:08:45,087 - Epoch [7/40], Train Loss: 0.1228, Val Loss: 0.1127, Val Acc: 95.67%
+2025-09-22 23:08:45,106 - New best model saved with accuracy: 95.67%
+2025-09-22 23:09:01,486 - Epoch [8/40], Train Loss: 0.1135, Val Loss: 0.1097, Val Acc: 95.73%
+2025-09-22 23:09:01,506 - New best model saved with accuracy: 95.73%
+2025-09-22 23:09:19,735 - Epoch [9/40], Train Loss: 0.1049, Val Loss: 0.0821, Val Acc: 96.90%
+2025-09-22 23:09:19,754 - New best model saved with accuracy: 96.90%
+2025-09-22 23:09:39,931 - Epoch [10/40], Train Loss: 0.0974, Val Loss: 0.0843, Val Acc: 96.69%
+2025-09-22 23:09:56,562 - Epoch [11/40], Train Loss: 0.0901, Val Loss: 0.0853, Val Acc: 96.94%
+2025-09-22 23:09:56,581 - New best model saved with accuracy: 96.94%
+2025-09-22 23:10:15,901 - Epoch [12/40], Train Loss: 0.0835, Val Loss: 0.0756, Val Acc: 97.33%
+2025-09-22 23:10:15,920 - New best model saved with accuracy: 97.33%
+2025-09-22 23:10:32,993 - Epoch [13/40], Train Loss: 0.0795, Val Loss: 0.0834, Val Acc: 96.91%
+2025-09-22 23:10:52,562 - Epoch [14/40], Train Loss: 0.0764, Val Loss: 0.0736, Val Acc: 97.35%
+2025-09-22 23:10:52,581 - New best model saved with accuracy: 97.35%
+2025-09-22 23:11:11,467 - Epoch [15/40], Train Loss: 0.0702, Val Loss: 0.0672, Val Acc: 97.51%
+2025-09-22 23:11:11,486 - New best model saved with accuracy: 97.51%
+2025-09-22 23:11:28,160 - Epoch [16/40], Train Loss: 0.0682, Val Loss: 0.0584, Val Acc: 97.84%
+2025-09-22 23:11:28,177 - New best model saved with accuracy: 97.84%
+2025-09-22 23:11:47,470 - Epoch [17/40], Train Loss: 0.0643, Val Loss: 0.0605, Val Acc: 97.66%
+2025-09-22 23:12:04,094 - Epoch [18/40], Train Loss: 0.0654, Val Loss: 0.0622, Val Acc: 97.71%
+2025-09-22 23:12:23,279 - Epoch [19/40], Train Loss: 0.0629, Val Loss: 0.0595, Val Acc: 97.83%
+2025-09-22 23:12:41,420 - Epoch [20/40], Train Loss: 0.0383, Val Loss: 0.0383, Val Acc: 98.58%
+2025-09-22 23:12:41,438 - New best model saved with accuracy: 98.58%
+2025-09-22 23:12:58,578 - Epoch [21/40], Train Loss: 0.0366, Val Loss: 0.0412, Val Acc: 98.53%
+2025-09-22 23:13:17,674 - Epoch [22/40], Train Loss: 0.0356, Val Loss: 0.0409, Val Acc: 98.52%
+2025-09-22 23:13:34,446 - Epoch [23/40], Train Loss: 0.0345, Val Loss: 0.0385, Val Acc: 98.66%
+2025-09-22 23:13:34,467 - New best model saved with accuracy: 98.66%
+2025-09-22 23:13:34,467 - LR dropped below threshold. Stopping early.
+2025-09-22 23:13:34,470 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/hyperparameter_results_localization.csv
+2025-09-22 23:13:34,491 - --- Training Localization: hidden=512, layers=1, seq=300 ---
+2025-09-22 23:13:56,338 - Epoch [1/40], Train Loss: 0.6086, Val Loss: 0.3150, Val Acc: 87.67%
+2025-09-22 23:13:56,365 - New best model saved with accuracy: 87.67%
+2025-09-22 23:14:17,307 - Epoch [2/40], Train Loss: 0.2830, Val Loss: 0.2030, Val Acc: 92.37%
+2025-09-22 23:14:17,342 - New best model saved with accuracy: 92.37%
+2025-09-22 23:14:37,034 - Epoch [3/40], Train Loss: 0.1957, Val Loss: 0.1412, Val Acc: 94.45%
+2025-09-22 23:14:37,069 - New best model saved with accuracy: 94.45%
+2025-09-22 23:14:59,690 - Epoch [4/40], Train Loss: 0.1606, Val Loss: 0.1189, Val Acc: 95.30%
+2025-09-22 23:14:59,724 - New best model saved with accuracy: 95.30%
+2025-09-22 23:15:17,344 - Epoch [5/40], Train Loss: 0.1353, Val Loss: 0.1177, Val Acc: 95.53%
+2025-09-22 23:15:17,378 - New best model saved with accuracy: 95.53%
+2025-09-22 23:15:39,655 - Epoch [6/40], Train Loss: 0.1209, Val Loss: 0.1086, Val Acc: 96.00%
+2025-09-22 23:15:39,692 - New best model saved with accuracy: 96.00%
+2025-09-22 23:16:00,411 - Epoch [7/40], Train Loss: 0.1111, Val Loss: 0.1003, Val Acc: 96.28%
+2025-09-22 23:16:00,443 - New best model saved with accuracy: 96.28%
+2025-09-22 23:16:19,870 - Epoch [8/40], Train Loss: 0.1021, Val Loss: 0.0801, Val Acc: 96.85%
+2025-09-22 23:16:19,905 - New best model saved with accuracy: 96.85%
+2025-09-22 23:16:42,477 - Epoch [9/40], Train Loss: 0.0955, Val Loss: 0.0957, Val Acc: 96.37%
+2025-09-22 23:17:00,038 - Epoch [10/40], Train Loss: 0.0868, Val Loss: 0.0822, Val Acc: 96.87%
+2025-09-22 23:17:00,073 - New best model saved with accuracy: 96.87%
+2025-09-22 23:17:22,358 - Epoch [11/40], Train Loss: 0.0840, Val Loss: 0.0660, Val Acc: 97.52%
+2025-09-22 23:17:22,396 - New best model saved with accuracy: 97.52%
+2025-09-22 23:17:42,915 - Epoch [12/40], Train Loss: 0.0785, Val Loss: 0.0665, Val Acc: 97.50%
+2025-09-22 23:18:01,629 - Epoch [13/40], Train Loss: 0.0763, Val Loss: 0.0757, Val Acc: 97.24%
+2025-09-22 23:18:24,438 - Epoch [14/40], Train Loss: 0.0717, Val Loss: 0.0665, Val Acc: 97.56%
+2025-09-22 23:18:24,474 - New best model saved with accuracy: 97.56%
+2025-09-22 23:18:42,178 - Epoch [15/40], Train Loss: 0.0445, Val Loss: 0.0466, Val Acc: 98.28%
+2025-09-22 23:18:42,213 - New best model saved with accuracy: 98.28%
+2025-09-22 23:19:04,886 - Epoch [16/40], Train Loss: 0.0418, Val Loss: 0.0499, Val Acc: 98.13%
+2025-09-22 23:19:25,183 - Epoch [17/40], Train Loss: 0.0423, Val Loss: 0.0450, Val Acc: 98.36%
+2025-09-22 23:19:25,217 - New best model saved with accuracy: 98.36%
+2025-09-22 23:19:44,385 - Epoch [18/40], Train Loss: 0.0397, Val Loss: 0.0429, Val Acc: 98.45%
+2025-09-22 23:19:44,418 - New best model saved with accuracy: 98.45%
+2025-09-22 23:20:12,671 - Epoch [19/40], Train Loss: 0.0389, Val Loss: 0.0429, Val Acc: 98.46%
+2025-09-22 23:20:12,706 - New best model saved with accuracy: 98.46%
+2025-09-22 23:20:34,239 - Epoch [20/40], Train Loss: 0.0381, Val Loss: 0.0423, Val Acc: 98.44%
+2025-09-22 23:21:07,493 - Epoch [21/40], Train Loss: 0.0367, Val Loss: 0.0332, Val Acc: 98.77%
+2025-09-22 23:21:07,527 - New best model saved with accuracy: 98.77%
+2025-09-22 23:21:34,669 - Epoch [22/40], Train Loss: 0.0358, Val Loss: 0.0361, Val Acc: 98.75%
+2025-09-22 23:22:05,375 - Epoch [23/40], Train Loss: 0.0348, Val Loss: 0.0336, Val Acc: 98.83%
+2025-09-22 23:22:05,410 - New best model saved with accuracy: 98.83%
+2025-09-22 23:22:39,392 - Epoch [24/40], Train Loss: 0.0355, Val Loss: 0.0387, Val Acc: 98.64%
+2025-09-22 23:22:39,392 - LR dropped below threshold. Stopping early.
+2025-09-22 23:22:39,395 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/hyperparameter_results_localization.csv
+2025-09-22 23:22:39,454 - --- Training Localization: hidden=1024, layers=1, seq=300 ---
+2025-09-22 23:23:30,724 - Epoch [1/40], Train Loss: 0.6119, Val Loss: 0.3416, Val Acc: 86.86%
+2025-09-22 23:23:30,797 - New best model saved with accuracy: 86.86%
+2025-09-22 23:24:24,679 - Epoch [2/40], Train Loss: 0.2797, Val Loss: 0.2144, Val Acc: 91.24%
+2025-09-22 23:24:24,783 - New best model saved with accuracy: 91.24%
+2025-09-22 23:25:24,739 - Epoch [3/40], Train Loss: 0.1929, Val Loss: 0.1434, Val Acc: 94.48%
+2025-09-22 23:25:24,835 - New best model saved with accuracy: 94.48%
+2025-09-22 23:26:13,200 - Epoch [4/40], Train Loss: 0.1580, Val Loss: 0.1468, Val Acc: 94.35%
+2025-09-22 23:27:04,941 - Epoch [5/40], Train Loss: 0.1379, Val Loss: 0.1296, Val Acc: 95.12%
+2025-09-22 23:27:05,049 - New best model saved with accuracy: 95.12%
+2025-09-22 23:27:58,272 - Epoch [6/40], Train Loss: 0.1236, Val Loss: 0.1170, Val Acc: 95.45%
+2025-09-22 23:27:58,374 - New best model saved with accuracy: 95.45%
+2025-09-22 23:28:48,289 - Epoch [7/40], Train Loss: 0.1126, Val Loss: 0.0962, Val Acc: 96.35%
+2025-09-22 23:28:48,384 - New best model saved with accuracy: 96.35%
+2025-09-22 23:29:47,509 - Epoch [8/40], Train Loss: 0.1018, Val Loss: 0.1036, Val Acc: 96.06%
+2025-09-22 23:30:42,811 - Epoch [9/40], Train Loss: 0.0967, Val Loss: 0.0795, Val Acc: 97.11%
+2025-09-22 23:30:42,907 - New best model saved with accuracy: 97.11%
+2025-09-22 23:31:34,711 - Epoch [10/40], Train Loss: 0.0917, Val Loss: 0.0873, Val Acc: 96.85%
+2025-09-22 23:32:32,821 - Epoch [11/40], Train Loss: 0.0846, Val Loss: 0.0718, Val Acc: 97.35%
+2025-09-22 23:32:32,919 - New best model saved with accuracy: 97.35%
+2025-09-22 23:33:22,266 - Epoch [12/40], Train Loss: 0.0806, Val Loss: 0.0793, Val Acc: 97.12%
+2025-09-22 23:34:17,156 - Epoch [13/40], Train Loss: 0.0761, Val Loss: 0.0607, Val Acc: 97.78%
+2025-09-22 23:34:17,263 - New best model saved with accuracy: 97.78%
+2025-09-22 23:35:15,890 - Epoch [14/40], Train Loss: 0.0740, Val Loss: 0.0584, Val Acc: 97.88%
+2025-09-22 23:35:15,984 - New best model saved with accuracy: 97.88%
+2025-09-22 23:36:05,687 - Epoch [15/40], Train Loss: 0.0697, Val Loss: 0.0547, Val Acc: 97.98%
+2025-09-22 23:36:05,809 - New best model saved with accuracy: 97.98%
+2025-09-22 23:37:04,497 - Epoch [16/40], Train Loss: 0.0691, Val Loss: 0.0733, Val Acc: 97.28%
+2025-09-22 23:38:01,436 - Epoch [17/40], Train Loss: 0.0628, Val Loss: 0.0567, Val Acc: 97.87%
+2025-09-22 23:38:58,458 - Epoch [18/40], Train Loss: 0.0620, Val Loss: 0.0546, Val Acc: 98.11%
+2025-09-22 23:38:58,566 - New best model saved with accuracy: 98.11%
+2025-09-22 23:39:58,790 - Epoch [19/40], Train Loss: 0.0618, Val Loss: 0.0613, Val Acc: 97.80%
+2025-09-22 23:40:43,438 - Epoch [20/40], Train Loss: 0.0580, Val Loss: 0.0493, Val Acc: 98.22%
+2025-09-22 23:40:43,531 - New best model saved with accuracy: 98.22%
+2025-09-22 23:41:32,071 - Epoch [21/40], Train Loss: 0.0566, Val Loss: 0.0471, Val Acc: 98.36%
+2025-09-22 23:41:32,166 - New best model saved with accuracy: 98.36%
+2025-09-22 23:42:24,978 - Epoch [22/40], Train Loss: 0.0552, Val Loss: 0.0485, Val Acc: 98.35%
+2025-09-22 23:43:16,223 - Epoch [23/40], Train Loss: 0.0544, Val Loss: 0.0491, Val Acc: 98.25%
+2025-09-22 23:44:09,639 - Epoch [24/40], Train Loss: 0.0529, Val Loss: 0.0482, Val Acc: 98.24%
+2025-09-22 23:45:04,932 - Epoch [25/40], Train Loss: 0.0309, Val Loss: 0.0335, Val Acc: 98.82%
+2025-09-22 23:45:05,035 - New best model saved with accuracy: 98.82%
+2025-09-22 23:46:03,146 - Epoch [26/40], Train Loss: 0.0303, Val Loss: 0.0369, Val Acc: 98.66%
+2025-09-22 23:47:01,148 - Epoch [27/40], Train Loss: 0.0308, Val Loss: 0.0314, Val Acc: 98.91%
+2025-09-22 23:47:01,243 - New best model saved with accuracy: 98.91%
+2025-09-22 23:48:02,747 - Epoch [28/40], Train Loss: 0.0299, Val Loss: 0.0327, Val Acc: 98.83%
+2025-09-22 23:49:07,782 - Epoch [29/40], Train Loss: 0.0310, Val Loss: 0.0331, Val Acc: 98.83%
+2025-09-22 23:50:11,181 - Epoch [30/40], Train Loss: 0.0284, Val Loss: 0.0332, Val Acc: 98.81%
+2025-09-22 23:50:11,181 - LR dropped below threshold. Stopping early.
+2025-09-22 23:50:11,183 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_v2/74/hyperparameter_results_localization.csv
+2025-09-22 23:50:11,183 - 
+--- Hyperparameter search for localization complete ---

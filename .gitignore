@@ -11,6 +11,8 @@ __pycache__/
 /Archive
 /logs
 
+pipelines/trained_models/**/*.pth
+/pipelines/trained_models/**/*.pth
 
 # Other common files to ignore
 *.log

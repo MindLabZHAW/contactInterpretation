@@ -22,17 +22,9 @@ def load_dataset_worker(args):
     file_path, label, selected_features, seq_num, gap = args
     return LoadSeqDataset(file_path, label, selected_features, seq_num, gap)
 
-def train_model(full_dataset,model,  n_epochs=50, batch_size=64, learning_rate=0.001, model_path='cnn_lstm_model'):
+def train_model(train_loader, val_loader,model,  n_epochs=50, batch_size=64, learning_rate=0.001, model_path='cnn_lstm_model'):
     # This function remains the same as your provided script
     # ... (training and validation loop) ...
-    train_size = int(0.5 * len(full_dataset))
-    val_size = len(full_dataset) - train_size
-    train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
-
-    train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, 
-                              num_workers=min(4, os.cpu_count()), pin_memory=True)
-    val_loader = DataLoader(dataset=val_dataset, batch_size=batch_size, shuffle=False,
-                            num_workers=min(4, os.cpu_count()), pin_memory=True)
     
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -104,17 +96,16 @@ if __name__ == '__main__':
     # --- Configuration ---
     project_root = os.getcwd().replace('pipelines','')
 
-    data_name = 'franka_main'
+    data_name = 'franka_mindlab'
     dof = 7
 
     # --- Hyperparameter Search Space ---
-    hidden_sizes = [32, 64, 128, 256]
+    hidden_sizes = [32, 64, 128, 256, 512, 1024]
     num_layers_list = [1, 2, 3]
-    seq_nums = [30, 50, 80, 100, 150, 200]
-    gap = 5#[3, 5, 10, 15]
+    seq_nums = [30, 50, 80, 100, 150, 200, 250, 300]
+    gaps = [ 5, 10]
 
-    gap = 5
-    batch_size = 72
+    batch_size = 65
     n_epochs = 40
 
     log_dir = f'{project_root}/pipelines/trained_models/{data_name}/contact_detection_v2/{batch_size}/'
@@ -140,40 +131,53 @@ if __name__ == '__main__':
     if not all_csv_files:
         logging.error(f"No CSV files found in '{data_directory}'. Please check the path.")
     else:
-        for seq_num in seq_nums:
-            for hidden_size in hidden_sizes:
-                for num_layers in num_layers_list:
-                    logging.info(f"Starting data loading for seq_num={seq_num}, gap={gap}, hidden_size={hidden_size}, num_layers={num_layers}")
-                    # Create a list of arguments for the parallel worker function
-                    tasks = []
-                    for file in all_csv_files:
-                        label = 1 if 'no_contact' not in file else 0
-                        tasks.append((file, torch.tensor(label), selected_features, seq_num, gap))
+        for gap in gaps:
+            for seq_num in seq_nums:
+                # Create a list of arguments for the parallel worker function
+                tasks = []
+                for file in all_csv_files:
+                    label = 1 if 'no_contact' not in file else 0
+                    tasks.append((file, torch.tensor(label), selected_features, seq_num, gap))
 
-                    # Use a multiprocessing Pool to load datasets in parallel
-                    logging.info(f"Starting parallel data loading with {cpu_count()} workers...")
-                    with Pool(processes=cpu_count()) as pool:
-                        all_datasets = pool.map(load_dataset_worker, tasks)
-                    
-                    # Combine them into a single dataset
-                    master_dataset = ConcatDataset(all_datasets)
-                    logging.info(f"Successfully loaded and combined data from {len(all_csv_files)} files into a dataset with {len(master_dataset)} samples.")
-                    
-                    # --- Train the Model ---
-                    model = cnnLSTM(num_features_joints=seq_num, hidden_size=hidden_size, num_layers=num_layers)
-                    model_name = f'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{seq_num}_gap{gap}'
+                # Use a multiprocessing Pool to load datasets in parallel
+                logging.info(f"Starting parallel data loading with {cpu_count()} workers...")
+                with Pool(processes=cpu_count()) as pool:
+                    all_datasets = pool.map(load_dataset_worker, tasks)
+                
+                # Combine them into a single dataset
+                master_dataset = ConcatDataset(all_datasets)
+                logging.info(f"Successfully loaded and combined data from {len(all_csv_files)} files into a dataset with {len(master_dataset)} samples.")
+                
+                train_size = int(0.5 * len(master_dataset))
+                val_size = len(master_dataset) - train_size
+                train_dataset, val_dataset = random_split(master_dataset, [train_size, val_size])
 
-                    trained_model, accuracy  = train_model(full_dataset=master_dataset,model=model, n_epochs=n_epochs,batch_size=batch_size, model_path = f'{log_dir}{model_name}.pth')
-                    os.rename(f'{log_dir}{model_name}.pth', f'{log_dir}{model_name}_accuracy{accuracy:.2f}.pth')
+                train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, 
+                                        num_workers=min(4, os.cpu_count()), pin_memory=True)
+                val_loader = DataLoader(dataset=val_dataset, batch_size=batch_size, shuffle=False,
+                                        num_workers=min(4, os.cpu_count()), pin_memory=True)
 
-                    results_list.append({
-                        'gap': gap,
-                        'seq_num': seq_num,
-                        'hidden_size': hidden_size,
-                        'num_layer': num_layers,
-                        'ACC': accuracy
-                    })
-                    results_df = pd.DataFrame(results_list)
-                    results_df.to_csv(results_csv_path, index=False)
-                    logging.info(f"Results saved to {results_csv_path}")
+                for hidden_size in hidden_sizes:
+                    for num_layers in num_layers_list:
+                        logging.info(f"Starting data loading for seq_num={seq_num}, gap={gap}, hidden_size={hidden_size}, num_layers={num_layers}")
+                        
+                        # --- Train the Model ---
+                        model = cnnLSTM(num_features_joints=seq_num, hidden_size=hidden_size, num_layers=num_layers)
+                        model_name = f'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{seq_num}_gap{gap}'
+
+                        trained_model, accuracy  = train_model(train_loader=train_loader, val_loader=val_loader,
+                                                                model=model, n_epochs=n_epochs,batch_size=batch_size, 
+                                                                model_path = f'{log_dir}{model_name}.pth')
+                        os.rename(f'{log_dir}{model_name}.pth', f'{log_dir}{model_name}_accuracy{accuracy:.2f}.pth')
+
+                        results_list.append({
+                            'gap': gap,
+                            'seq_num': seq_num,
+                            'hidden_size': hidden_size,
+                            'num_layer': num_layers,
+                            'ACC': accuracy
+                        })
+                        results_df = pd.DataFrame(results_list)
+                        results_df.to_csv(results_csv_path, index=False)
+                        logging.info(f"Results saved to {results_csv_path}")
     logging.info("\n--- Hyperparameter search complete ---")
