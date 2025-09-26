@@ -1,0 +1,4 @@
+2025-09-24 00:01:47,329 - INFO - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_detection_v2/75/training_log_1758664907.3297985.txt
+2025-09-24 00:01:47,333 - INFO - Starting parallel data loading with 48 workers...
+2025-09-24 00:01:50,062 - INFO - Successfully loaded and combined data from 501 files into a dataset with 556609 samples.
+2025-09-24 00:01:50,097 - INFO - Starting data loading for seq_num=30, gap=3, hidden_size=512, num_layers=1

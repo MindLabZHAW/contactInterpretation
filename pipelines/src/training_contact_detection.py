@@ -96,16 +96,17 @@ if __name__ == '__main__':
     # --- Configuration ---
     project_root = os.getcwd().replace('pipelines','')
 
-    data_name = 'franka_mindlab'
+    data_name = 'franka_main'
     dof = 7
 
     # --- Hyperparameter Search Space ---
-    hidden_sizes = [32, 64, 128, 256, 512, 1024]
+    hidden_sizes = [32, 64, 128, 256]
+    hidden_sizes = [512, 1024]
     num_layers_list = [1, 2, 3]
     seq_nums = [30, 50, 80, 100, 150, 200, 250, 300]
-    gaps = [ 5, 10]
+    gaps = [3, 5, 10, 15]
 
-    batch_size = 65
+    batch_size = 76
     n_epochs = 40
 
     log_dir = f'{project_root}/pipelines/trained_models/{data_name}/contact_detection_v2/{batch_size}/'
