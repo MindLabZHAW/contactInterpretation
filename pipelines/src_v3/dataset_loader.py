@@ -23,11 +23,11 @@ class LoadSeqDataset(Dataset):
         self.gap = gap
         
         # Load the entire dataframe first
-        df = pd.read_csv(file_path, usecols=selected_features + ['label'], engine='python')
+        df = pd.read_csv(file_path, usecols=selected_features + ['label', 'time'], engine='python')
         
         # --- NEW: Splitting logic based on 'mode' ---
         num_rows = len(df)
-        mid_point = num_rows // 2
+        mid_point = num_rows - num_rows // 3
         
         if mode == 'train':
             # Use the first half of the dataframe
@@ -48,10 +48,11 @@ class LoadSeqDataset(Dataset):
             # Process features and labels from the selected data split
             features_data = data_split[selected_features].values.astype(np.float32)
             labels_data = data_split['label'].values * label.item()
+            time_info = data_split['time'].values
             
-            self.sequences, self.labels = self._make_sequences_vectorized(features_data, labels_data)
+            self.sequences, self.labels , self.times= self._make_sequences_vectorized(features_data, labels_data, time_info)
 
-    def _make_sequences_vectorized(self, features, labels):
+    def _make_sequences_vectorized(self, features, labels, time_info):
         """
         Creates sequences using efficient NumPy array manipulation.
         """
@@ -78,12 +79,13 @@ class LoadSeqDataset(Dataset):
         #    This slice starts from the end of the first possible window and selects
         #    all subsequent labels.
         sequence_labels = labels[self.seq_num - 1:]
+        sequence_times = time_info[self.seq_num-1:]
         
         # 5. Apply the 'gap' to subsample the data.
         #    The [::self.gap] slice selects every Nth sequence and its corresponding label,
         #    where N is the gap size. This is a fast, vectorized way to reduce
         #    the overlap between consecutive sequences.
-        return windows[::self.gap], sequence_labels[::self.gap]
+        return windows[::self.gap], sequence_labels[::self.gap], sequence_times[::self.gap]
     
     def __len__(self):
         return len(self.sequences)

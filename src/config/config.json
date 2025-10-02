@@ -37,7 +37,7 @@
     "SimulationRobot": {
       "class_name": "SimulationRobot",
       "init_args": {
-        "csv_file_path": "dataset/franka_main/labeled_data/link1/g2_9.csv",
+        "csv_file_path": "logs/FrankaRobot_data_20250922-151049.csv",
         "selected_features": ["e0", "e1", "e2", "e3", "e4", "e5", "e6"]
       },
       "task_name": "src/config/robot_tasks/my_simulation_task.json",
@@ -45,5 +45,5 @@
     }
   },
   "_comment": "Selection choices for active_robot: 'franka_main', 'franka_mindlab', 'ur5', 'SimulationRobot', 'AUTO_DETECT', 'INTERACTIVE'",
-  "active_robot": "AUTO_DETECT"
+  "active_robot": "SimulationRobot"
 }

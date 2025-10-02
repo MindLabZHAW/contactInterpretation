@@ -1,0 +1,2 @@
+gap,seq_num,d_model,n_head,num_layer,ACC,train_size,val_size
+1,200,128,4,2,92.89475676084817,1023017,92481
