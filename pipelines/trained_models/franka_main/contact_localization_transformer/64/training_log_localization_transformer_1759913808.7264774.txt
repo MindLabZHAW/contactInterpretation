@@ -1,0 +1,6 @@
+2025-10-08 10:56:48,726 - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_transformer/65/training_log_localization_transformer_1759913808.7264774.txt
+2025-10-08 10:56:48,728 - --- Processing for Sequence Length (num_features) = 300 ---
+2025-10-08 10:56:48,839 - Loading validation datasets with fixed gap=5...
+2025-10-08 10:56:51,935 - Created stable Validation Dataset for localization with 32561 samples.
+2025-10-08 10:56:51,935 - --- Processing for Training Gap = 1 ---
+2025-10-08 10:56:51,937 - Loading training datasets with gap=1...

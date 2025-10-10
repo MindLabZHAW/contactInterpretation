@@ -1,0 +1,12 @@
+2025-10-08 17:32:14,908 - INFO - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_detection_transformer/67/training_log_hyperparam_search_20251008-173214.txt
+2025-10-08 17:32:14,910 - INFO - --- Pre-loading all datasets ---
+2025-10-08 17:32:17,736 - INFO - Validation dataset loaded with 102501 samples.
+2025-10-08 17:32:24,072 - INFO - Training dataset loaded with 1073117 samples.
+2025-10-08 17:32:24,162 - INFO - --- Starting Training ---
+2025-10-08 17:32:24,162 - INFO - PARAMS: num_features=100, d_model=1024, n_head=8, num_layers=8, dropout=0.3, lr=0.0001, wd=0.0001
+2025-10-08 17:32:37,391 - INFO - --- Starting Optimized Model Training ---
+2025-10-08 18:04:35,019 - INFO - Epoch [1/30], Train Loss: 0.3089, Val Loss: 0.3122, Val Acc: 87.07%
+2025-10-08 18:04:35,613 - INFO - New best model saved with accuracy: 87.07%
+2025-10-08 18:31:34,748 - INFO - Epoch [2/30], Train Loss: 0.2760, Val Loss: 0.3107, Val Acc: 88.00%
+2025-10-08 18:31:35,605 - INFO - New best model saved with accuracy: 88.00%
+2025-10-08 19:02:26,688 - INFO - Epoch [3/30], Train Loss: 0.2927, Val Loss: 0.3364, Val Acc: 86.88%

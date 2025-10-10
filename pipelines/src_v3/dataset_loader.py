@@ -6,7 +6,8 @@ import torch
 import random
 
 class LoadSeqDataset(Dataset):
-    def __init__(self, file_path: str, label: int, selected_features: list, mode: str, seq_num=28, gap=5):
+    def __init__(self, file_path: str, label: int, selected_features: list, mode: str, seq_num=28, gap=5, data_df=None):
+
         """
         An optimized dataset loader that uses vectorized operations for speed.
         
@@ -19,11 +20,19 @@ class LoadSeqDataset(Dataset):
             seq_num (int): The length of each sequence.
             gap (int): The step size between the start of consecutive sequences.
         """
+        if data_df is not None:
+            # If a DataFrame is provided, use it directly
+            df = data_df
+        elif file_path is not None:
+            # Otherwise, read from the file_path as before
+            df = pd.read_csv(file_path, usecols=selected_features + ['label', 'time'], engine='python')
+
+        else:
+            raise ValueError("You must provide either a 'file_path' or a 'data_df'.")
         self.seq_num = seq_num
         self.gap = gap
         
         # Load the entire dataframe first
-        df = pd.read_csv(file_path, usecols=selected_features + ['label', 'time'], engine='python')
         
         # --- NEW: Splitting logic based on 'mode' ---
         num_rows = len(df)

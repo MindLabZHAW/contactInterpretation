@@ -1,0 +1,11 @@
+2025-10-06 15:08:29,685 - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/contact_localization_transformer/64/training_log_localization_transformer_1759756109.6854491.txt
+2025-10-06 15:08:29,687 - --- Processing for Sequence Length (num_features) = 100 ---
+2025-10-06 15:08:29,804 - Loading validation datasets with fixed gap=5...
+2025-10-06 15:08:33,345 - Created stable Validation Dataset for localization with 43908 samples.
+2025-10-06 15:08:33,345 - --- Processing for Training Gap = 1 ---
+2025-10-06 15:08:33,349 - Loading training datasets with gap=1...
+2025-10-06 15:08:54,901 - Created Training Dataset for localization with 497575 samples.
+2025-10-06 15:08:54,915 - --- Training: dModel128_nHead1_nLayer1_sNum100 ---
+2025-10-06 15:08:58,706 - --- Starting Optimized Model Training ---
+2025-10-06 15:09:49,892 - Epoch [1/40], Train Loss: 1.4672, Val Loss: 1.3518, Val Acc: 41.99%
+2025-10-06 15:09:49,900 - New best model saved with accuracy: 41.99%

@@ -1,0 +1,72 @@
+# General evaluation settings
+data_name: "franka_main"
+dof: 7
+
+# Parameters for the evaluation process
+evaluation_params:
+  batch_size: 1024
+  n_majority_voting: 14
+  allowable_delay_ms: 150
+
+# Templates for constructing file paths
+paths:
+  # Base directory for the dataset
+  dataset_dir: 'dataset/{data_name}/labeled_data'
+  # Base directory where trained models are stored
+  models_dir: 'pipelines/trained_models/franka_main/'
+
+# --- Model Specific Configurations ---
+detection_model:
+  architecture: 'cnnLSTM_contactDetection'
+  type: 'contact_detection_v3'
+  version: '64'
+
+  # Arguments for the model's __init__(...) function, defined with ANCHORS (&)
+  model_init_args:
+    num_features_joints: &det_seq 200
+    hidden_size:  32
+    num_layers:  1
+
+  # Parameters used only for building the weights filename
+  filename_params:
+    gap: 3
+    accuracy: 92.83
+
+  # A template string with placeholders for Python to format
+  weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features_joints}_gap{gap}_accuracy{accuracy:.2f}.pth'
+
+  # Parameters needed for the LoadSeqDataset, reusing values with ALIASES (*)
+  data_loader_params:
+    seq_num: *det_seq
+    gap: 1
+
+localization_model:
+  architecture: 'cnnLSTM_contactLocalization'
+  type: 'contact_localization_v3'
+  version: '67'
+  
+  model_init_args:
+    num_features_joints: &loc_seq 200
+    hidden_size:  128
+    num_layers:  2
+
+  filename_params:
+    gap: 3
+    accuracy: 92.55
+
+  weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features_joints}_gap{gap}_accuracy{accuracy:.2f}.pth'
+
+  data_loader_params:
+    seq_num: *loc_seq
+    gap: 1
+
+# Label mapping for this dataset
+labels:
+  link7: 7
+  link6: 6
+  link5: 5
+  link4: 4
+  link3: 3
+  link2: 2
+  link1: 1
+  no_contact: 0
