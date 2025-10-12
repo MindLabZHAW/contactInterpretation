@@ -19,7 +19,7 @@ paths:
 
 detection_model:
   architecture: 'cnnLSTM_contactDetection'
-  type: 'contact_detection_v3'
+  type: 'exp2_cnnBiLSTM_contactDetection'
   version: '64'
 
   # NOTE: Replace these with the actual best values from your CSV file.
@@ -45,8 +45,8 @@ detection_model:
 
 localization_model:
   architecture: 'cnnLSTM_contactLocalization'
-  type: 'contact_localization_v3'
-  version: '67'
+  type: 'exp2_cnnBiLSTM_contactLocalization'
+  version: '64'
   
   # NOTE: Replace these with the actual best values from your CSV file.
   model_init_args:

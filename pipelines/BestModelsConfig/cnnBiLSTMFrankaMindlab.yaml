@@ -19,7 +19,7 @@ paths:
 
 detection_model:
   architecture: 'cnnLSTM_contactDetection'
-  type: 'contact_detection_v3'
+  type: 'exp2_cnnBiLSTM_contactDetection'
   version: '64'
 
   # Arguments for the model's __init__(...) function, defined with ANCHORS (&)
@@ -43,8 +43,8 @@ detection_model:
 
 localization_model:
   architecture: 'cnnLSTM_contactLocalization'
-  type: 'contact_localization_v3'
-  version: '65'
+  type: 'exp2_cnnBiLSTM_contactLocalization'
+  version: '64'
   
   model_init_args:
     num_features_joints: &loc_seq 300
