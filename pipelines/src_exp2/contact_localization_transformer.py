@@ -108,10 +108,10 @@ if __name__ == '__main__':
     # --- Main Configuration ---
     data_name = 'ur5'
     dof = 6
-    batch_size = 64
+    batch_size = 65
     n_epochs = 40
 
-    seq_nums = [ 100]    
+    seq_nums = [ 400]    
     gaps = [1]
     d_models = [64, 128, 256, 512]  # Test a larger model
     n_heads = [1, 4, 8]       # Test more attention heads
