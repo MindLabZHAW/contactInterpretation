@@ -1,0 +1,84 @@
+# General evaluation settings
+data_name: "franka_mindlab"
+dof: 7
+
+# Parameters for the evaluation process
+evaluation_params:
+  batch_size: 1024
+  n_majority_voting: 14
+  allowable_delay_ms: 150
+
+# Templates for constructing file paths
+paths:
+  # Base directory for the dataset
+  dataset_dir: 'dataset/{data_name}/labeled_data'
+  # Base directory where trained models are stored
+  models_dir: 'pipelines/trained_models/franka_mindlab'
+
+# --- Model Specific Configurations ---
+
+detection_model:
+  # The class name from your all_models.py file.
+  architecture: 'TransformerModel_contactDetection'
+  type: 'contact_detection_transformer'
+  version: '64'
+
+  # Arguments for the model's __init__ method, matching your provided signature.
+  model_init_args:
+    # Using an ANCHOR (&) to define this value once.
+    d_model: 128
+    nhead: 8 #4
+    num_encoder_layers: 1 #8
+    num_features: &det_seq 100 #200
+    dropout: 0.3
+    dim_feedforward: 512 # default: 4*d_model
+
+  # Extra parameters used only for building the weights filename.
+  filename_params:
+    accuracy: 90.97
+
+  # A template string that uses the keys from model_init_args and filename_params.
+  # It's recommended to align your saved model names with this for clarity.
+  weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}s_acc{accuracy:.2f}.pth'
+
+  # Parameters needed for the LoadSeqDataset, reusing num_features with an ALIAS (*).
+  data_loader_params:
+    seq_num: *det_seq
+    gap: 1
+
+localization_model:
+  architecture: 'TransformerForLinkLocalization'
+  type: 'contact_localization_transformer'
+  version: '64'
+  
+    # Arguments for the model's __init__ method, matching your provided signature.
+  model_init_args:
+    # Using an ANCHOR (&) to define this value once.
+    d_model: 128
+    nhead: 1
+    num_encoder_layers: 8
+    num_features: &loc_seq 300
+    dropout: 0.3
+    dim_feedforward: 512 # default: 4*d_model
+
+  # Extra parameters used only for building the weights filename.
+  filename_params:
+    accuracy: 89.34
+
+  # A template string that uses the keys from model_init_args and filename_params.
+  # It's recommended to align your saved model names with this for clarity.
+  weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}_acc{accuracy:.2f}.pth'
+
+  data_loader_params:
+    seq_num: *loc_seq
+    gap: 1
+# Label mapping for this dataset
+labels:
+  link7: 7
+  link6: 6
+  link5: 5
+  link4: 4
+  link3: 3
+  link2: 2
+  link1: 1
+  no_contact: 0

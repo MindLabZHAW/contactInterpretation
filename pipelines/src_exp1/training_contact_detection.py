@@ -14,7 +14,7 @@ project_root = os.getcwd().replace('pipelines', '')
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from pipelines.src.dataset_loader import LoadSeqDataset
+from pipelines.src_exp1.dataset_loader import LoadSeqDataset
 from pipelines.models.cnnLSTM_contactDetection import cnnLSTM
 
 # Helper function for parallel data loading

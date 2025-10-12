@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 project_root = os.getcwd().replace('pipelines', '')
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
-from pipelines.src_v3.dataset_loader import LoadSeqDataset
+from pipelines.src_exp2.dataset_loader import LoadSeqDataset
 import pipelines.models.all_models as model_zoo
 
 # --- 2. HELPER FUNCTIONS ---

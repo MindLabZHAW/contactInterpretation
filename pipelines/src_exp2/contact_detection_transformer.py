@@ -17,7 +17,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 try:
-    from pipelines.src_v3.dataset_loader import LoadSeqDataset
+    from pipelines.src_exp2.dataset_loader import LoadSeqDataset
     from pipelines.models.transformer_contactDetection import TransformerModel # Assuming the model is in transformer_model.py
 except ImportError:
     print("Please ensure your project structure and paths are set up correctly.")
@@ -114,21 +114,21 @@ def train_model(train_loader, val_loader, model, n_epochs=50, learning_rate=0.00
 if __name__ == '__main__':
     # --- Configuration ---
     project_root = os.getcwd().replace('pipelines','')
-    data_name = 'franka_main'
-    dof = 7
-    batch_size = 67
+    data_name = 'ur5'
+    dof = 6
+    batch_size = 64
     n_epochs = 30
     VALIDATION_GAP = 5
     
     # --- EXPANDED Hyperparameter Search Space ---
-    d_models = [1024]#[64, 128, 256, 512, 1024]  # Test a larger model
-    n_heads = [2, 4, 8]       # Test more attention heads
+    d_models = [64, 128, 256, 512]  # Test a larger model
+    n_heads = [1,4, 8]       # Test more attention heads
     num_encoder_layers_list = [1, 4, 8] # Test a deeper model
     dropout_rates = [0.3] # Tune dropout for regularization
     learning_rates = [0.0001] # Can expand this too, e.g., [0.0001, 0.00005]
     weight_decays = [1e-4] # Tune weight decay
     
-    seq_nums = [200]#[100, 200, 300]
+    seq_nums = [100]#[100, 200, 300]
     gaps = [1]
 
     log_dir = f'{project_root}/pipelines/trained_models/{data_name}/contact_detection_transformer/{batch_size}/'
