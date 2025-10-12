@@ -17,7 +17,7 @@ project_root = os.getcwd().replace('pipelines', '')
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from pipelines.src_exp1.dataset_loader import LoadSeqDataset
+from pipelines.src_m1.dataset_loader import LoadSeqDataset
 
 # --- 1. Model Definition ---
 from pipelines.models.cnnLSTM_contactLocalization import cnnLSTM
@@ -115,7 +115,7 @@ if __name__ == '__main__':
     batch_size = 64
     n_epochs = 40
 
-    log_dir = f'{project_root}/pipelines/trained_models/{data_name}/contact_localization_v2/{batch_size}/'
+    log_dir = f'{project_root}/pipelines/trained_models/{data_name}/m1_cnnBiLSTM_contactLocalization/{batch_size}/'
 
     os.makedirs(log_dir, exist_ok=True)
     log_file = os.path.join(log_dir, f'training_log_localization_{time.time()}.txt')

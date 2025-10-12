@@ -23,14 +23,14 @@ detection_model:
 
   # Arguments for the model's __init__(...) function, defined with ANCHORS (&)
   model_init_args:
-    num_features_joints: &det_seq 200
-    hidden_size:  32
+    num_features_joints: &det_seq 200 #300
+    hidden_size:  32 #256
     num_layers:  1
 
   # Parameters used only for building the weights filename
   filename_params:
     gap: 3
-    accuracy: 92.83
+    accuracy: 92.83 #95.95
 
   # A template string with placeholders for Python to format
   weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features_joints}_gap{gap}_accuracy{accuracy:.2f}.pth'
@@ -46,13 +46,13 @@ localization_model:
   version: '64'
   
   model_init_args:
-    num_features_joints: &loc_seq 200
-    hidden_size:  128
-    num_layers:  2
+    num_features_joints: &loc_seq 200 #150
+    hidden_size:  128 #256
+    num_layers:  2 #1
 
   filename_params:
     gap: 3
-    accuracy: 92.55
+    accuracy: 92.55 # 98.75
 
   weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features_joints}_gap{gap}_accuracy{accuracy:.2f}.pth'
 

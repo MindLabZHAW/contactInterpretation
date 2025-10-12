@@ -17,7 +17,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 try:
-    from pipelines.src_exp2.dataset_loader import LoadSeqDataset
+    from pipelines.src_m2.dataset_loader import LoadSeqDataset
     from pipelines.models.transformer_contactDetection import TransformerModel # Assuming the model is in transformer_model.py
 except ImportError:
     print("Please ensure your project structure and paths are set up correctly.")
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     seq_nums = [100]#[100, 200, 300]
     gaps = [1]
 
-    log_dir = f'{project_root}/pipelines/trained_models/{data_name}/contact_detection_transformer/{batch_size}/'
+    log_dir = f'{project_root}/pipelines/trained_models/{data_name}/m2_transformer_contactDetection/{batch_size}/'
     os.makedirs(log_dir, exist_ok=True)
     log_file = os.path.join(log_dir, f'training_log_hyperparam_search_{time.strftime("%Y%m%d-%H%M%S")}.txt')
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[logging.StreamHandler(sys.stdout), logging.FileHandler(log_file)])
