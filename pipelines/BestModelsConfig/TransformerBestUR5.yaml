@@ -20,7 +20,7 @@ paths:
 detection_model:
   # The class name from your all_models.py file.
   architecture: 'TransformerModel_contactDetection'
-  type: 'exp2_transformer_contactDetection'
+  type: 'm2_transformer_contactDetection'
   version: '64'
 
   # Arguments for the model's __init__ method, matching your provided signature.
@@ -48,7 +48,7 @@ detection_model:
 
 localization_model:
   architecture: 'TransformerForLinkLocalization'
-  type: 'exp2_transformer_contactLocalization'
+  type: 'm2_transformer_contactLocalization'
   version: '64'
   
     # Arguments for the model's __init__ method, matching your provided signature.
