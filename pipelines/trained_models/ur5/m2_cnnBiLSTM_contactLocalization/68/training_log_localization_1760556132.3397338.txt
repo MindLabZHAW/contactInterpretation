@@ -1,0 +1,29 @@
+2025-10-15 21:22:12,339 - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/ur5/m2_cnnBiLSTM_contactLocalization/68/training_log_localization_1760556132.3397338.txt
+2025-10-15 21:22:12,340 - --- Processing for Sequence Length (seq_num) = 400 ---
+2025-10-15 21:22:12,461 - Loading validation datasets with fixed gap=5...
+2025-10-15 21:22:13,048 - Created stable Validation Dataset for localization with 666 samples.
+2025-10-15 21:22:13,048 - --- Processing for Training Gap = 1 ---
+2025-10-15 21:22:13,048 - Loading training datasets with gap=1...
+2025-10-15 21:22:15,117 - Created Training Dataset for localization with 18390 samples.
+2025-10-15 21:22:15,140 - --- Training Localization: hidden=256, layers=3, seq=400, gap=1 ---
+2025-10-15 21:22:21,516 - Epoch [1/40], Train Loss: 0.3431, Val Loss: 1.3213, Val Acc: 77.33%
+2025-10-15 21:22:21,560 - New best model saved with accuracy: 77.33%
+2025-10-15 21:22:24,675 - Epoch [2/40], Train Loss: 0.0584, Val Loss: 1.3691, Val Acc: 80.33%
+2025-10-15 21:22:24,721 - New best model saved with accuracy: 80.33%
+2025-10-15 21:22:27,852 - Epoch [3/40], Train Loss: 0.0387, Val Loss: 1.0428, Val Acc: 83.18%
+2025-10-15 21:22:27,896 - New best model saved with accuracy: 83.18%
+2025-10-15 21:22:31,056 - Epoch [4/40], Train Loss: 0.0262, Val Loss: 0.9740, Val Acc: 85.59%
+2025-10-15 21:22:31,105 - New best model saved with accuracy: 85.59%
+2025-10-15 21:22:34,242 - Epoch [5/40], Train Loss: 0.0181, Val Loss: 1.2474, Val Acc: 85.14%
+2025-10-15 21:22:37,326 - Epoch [6/40], Train Loss: 0.0151, Val Loss: 1.3007, Val Acc: 83.33%
+2025-10-15 21:22:40,426 - Epoch [7/40], Train Loss: 0.0091, Val Loss: 1.4304, Val Acc: 83.63%
+2025-10-15 21:22:43,521 - Epoch [8/40], Train Loss: 0.0025, Val Loss: 1.5036, Val Acc: 84.23%
+2025-10-15 21:22:46,666 - Epoch [9/40], Train Loss: 0.0009, Val Loss: 1.5407, Val Acc: 84.83%
+2025-10-15 21:22:49,767 - Epoch [10/40], Train Loss: 0.0004, Val Loss: 1.5827, Val Acc: 84.53%
+2025-10-15 21:22:52,909 - Epoch [11/40], Train Loss: 0.0004, Val Loss: 1.5339, Val Acc: 84.68%
+2025-10-15 21:22:56,010 - Epoch [12/40], Train Loss: 0.0004, Val Loss: 1.5900, Val Acc: 84.83%
+2025-10-15 21:22:59,132 - Epoch [13/40], Train Loss: 0.0005, Val Loss: 1.5189, Val Acc: 84.98%
+2025-10-15 21:22:59,133 - LR dropped below threshold. Stopping early.
+2025-10-15 21:22:59,140 - Results updated at /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/ur5/m2_cnnBiLSTM_contactLocalization/68/hyperparameter_results_localization.csv
+2025-10-15 21:22:59,340 - 
+--- Hyperparameter search for localization complete ---

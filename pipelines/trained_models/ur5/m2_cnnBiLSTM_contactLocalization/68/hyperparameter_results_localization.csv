@@ -1,0 +1,2 @@
+seq_num,gap,hidden_size,num_layer,ACC,train_size,val_size
+400,1,256,3,85.58558558558559,18390,666

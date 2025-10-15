@@ -35,7 +35,7 @@ def train_localization_model(train_loader, val_loader, model, model_path, n_epoc
     model.to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-5)
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=2, verbose=True)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.1, patience=2, verbose=True)
     best_val_accuracy = 0.0
 
     for epoch in range(n_epochs):
@@ -84,15 +84,15 @@ def train_localization_model(train_loader, val_loader, model, model_path, n_epoc
 
 if __name__ == '__main__':
     # --- Main Configuration ---
-    data_name = 'franka_main'
-    dof = 7
+    data_name = 'ur5'
+    dof = 6
     hidden_sizes = [32, 64, 128, 256]#, 512, 1024]
     num_layers_list = [1, 2, 3]
-    seq_nums = [30, 50, 80, 100, 150, 200, 250, 300]
+    seq_nums = [30, 50, 80, 100]#, 150, 200, 250, 300, 350, 400, 450, 500]
     #seq_nums = [450, 500]
 
-    gaps = [3, 5, 10]
-    batch_size = 67
+    gaps = [1]#[3, 5, 10]
+    batch_size = 65
     n_epochs = 40
     
     # --- Define a fixed gap for the validation set ---
