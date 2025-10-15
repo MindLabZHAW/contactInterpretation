@@ -1,0 +1,8 @@
+2025-10-12 23:29:24,588 - INFO - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_mindlab/m2_cnnBiLSTM_contactDetection/66/training_log_1760304564.5885885.txt
+2025-10-12 23:29:24,589 - INFO - --- Processing for Sequence Length (seq_num) = 100 ---
+2025-10-12 23:29:24,680 - INFO - Loading validation datasets with fixed gap=5...
+2025-10-12 23:29:24,919 - INFO - Created stable Validation Dataset for seq_num=100 with 5383 samples.
+2025-10-12 23:29:24,919 - INFO - --- Processing for Training Gap = 1 ---
+2025-10-12 23:29:24,920 - INFO - Loading training datasets with gap=1...
+2025-10-12 23:29:25,409 - INFO - Created Training Dataset for gap=1 with 55850 samples.
+2025-10-12 23:29:25,409 - INFO - Starting training for: seq_num=100, gap=1, hidden_size=32, num_layers=1

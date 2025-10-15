@@ -34,7 +34,7 @@ def train_model(train_loader, val_loader,model,  n_epochs=50, batch_size=64, lea
 
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=3, verbose=True)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.1, patience=2, verbose=True)
     
     scaler_amp = torch.cuda.amp.GradScaler(enabled=torch.cuda.is_available())
     best_val_accuracy = 0.0
@@ -45,12 +45,10 @@ def train_model(train_loader, val_loader,model,  n_epochs=50, batch_size=64, lea
         running_loss = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device, non_blocking=True), labels.to(device, non_blocking=True).float()
-            
+            optimizer.zero_grad(set_to_none=True)
             with torch.cuda.amp.autocast(enabled=torch.cuda.is_available()):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
-            
-            optimizer.zero_grad(set_to_none=True)
             scaler_amp.scale(loss).backward()
             scaler_amp.step(optimizer)
             scaler_amp.update()
@@ -87,7 +85,7 @@ def train_model(train_loader, val_loader,model,  n_epochs=50, batch_size=64, lea
             logging.info(f"New best model saved with accuracy: {best_val_accuracy:.2f}%")
         
         current_lr = optimizer.param_groups[0]['lr']
-        if current_lr < 0.0005:
+        if current_lr < 0.0001:
             logging.info(f"Learning rate ({current_lr:.6f}) has dropped below the threshold. Stopping training early.")
             break
         
@@ -98,13 +96,13 @@ def train_model(train_loader, val_loader,model,  n_epochs=50, batch_size=64, lea
 if __name__ == '__main__':
     # --- Configuration (unchanged) ---
     project_root = os.getcwd().replace('pipelines','')
-    data_name = 'franka_main'
+    data_name = 'franka_mindlab'
     dof = 7
-    hidden_sizes = [32, 64, 128, 256]#, 512, 1024]
+    hidden_sizes = [32, 64, 128, 256, 512, 1024]
     num_layers_list = [1, 2, 3]
-    seq_nums = [30, 50, 80, 100, 150, 200]#, 250, 300]
-    gaps = [3, 5, 10, 15]
-    batch_size = 64
+    seq_nums = [80, 100]#, 150, 200, 250, 300]
+    gaps = [1]
+    batch_size = 65
     n_epochs = 40
 
     VALIDATION_GAP = 5

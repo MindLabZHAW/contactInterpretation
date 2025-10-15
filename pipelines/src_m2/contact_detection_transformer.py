@@ -54,7 +54,7 @@ def train_model(train_loader, val_loader, model, n_epochs=50, learning_rate=0.00
         train_pbar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{n_epochs} [T]", unit="batch")
         for inputs, labels in train_pbar:
             inputs, labels = inputs.to(device, non_blocking=True), labels.to(device, non_blocking=True).float()
-            
+            optimizer.zero_grad(set_to_none=True)
             with torch.cuda.amp.autocast(enabled=torch.cuda.is_available()):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
@@ -63,7 +63,6 @@ def train_model(train_loader, val_loader, model, n_epochs=50, learning_rate=0.00
                 #logging.warning(f"NaN loss detected at epoch {epoch+1}. Skipping batch.")
                 continue
 
-            optimizer.zero_grad(set_to_none=True)
             scaler_amp.scale(loss).backward()
             scaler_amp.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)

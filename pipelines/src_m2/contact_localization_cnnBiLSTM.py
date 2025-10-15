@@ -43,10 +43,10 @@ def train_localization_model(train_loader, val_loader, model, model_path, n_epoc
         running_loss = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device, non_blocking=True), labels.to(device, non_blocking=True)
+            optimizer.zero_grad()
             outputs = model(inputs)
             target_labels = (labels - 1).long() # Convert labels 1-7 to 0-6
             loss = criterion(outputs, target_labels)
-            optimizer.zero_grad()
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
