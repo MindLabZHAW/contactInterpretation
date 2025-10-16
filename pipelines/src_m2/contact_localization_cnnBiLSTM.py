@@ -84,15 +84,15 @@ def train_localization_model(train_loader, val_loader, model, model_path, n_epoc
 
 if __name__ == '__main__':
     # --- Main Configuration ---
-    data_name = 'ur5'
-    dof = 6
+    data_name = 'franka_main'
+    dof = 7
     hidden_sizes = [32, 64, 128, 256]#, 512, 1024]
     num_layers_list = [1, 2, 3]
-    seq_nums = [30, 50, 80, 100]#, 150, 200, 250, 300, 350, 400, 450, 500]
+    seq_nums = [250, 300]#, 350, 400, 450, 500]
     #seq_nums = [450, 500]
 
     gaps = [1]#[3, 5, 10]
-    batch_size = 65
+    batch_size = 67
     n_epochs = 40
     
     # --- Define a fixed gap for the validation set ---

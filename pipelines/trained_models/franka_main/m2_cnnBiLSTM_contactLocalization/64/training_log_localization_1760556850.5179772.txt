@@ -1,0 +1,11 @@
+2025-10-15 21:34:10,518 - Logging to /home/rzma/myProjects/contactInterpretation/pipelines/trained_models/franka_main/m2_cnnBiLSTM_contactLocalization/65/training_log_localization_1760556850.5179772.txt
+2025-10-15 21:34:10,519 - --- Processing for Sequence Length (seq_num) = 30 ---
+2025-10-15 21:34:10,635 - Loading validation datasets with fixed gap=5...
+2025-10-15 21:34:13,670 - Created stable Validation Dataset for localization with 48023 samples.
+2025-10-15 21:34:13,670 - --- Processing for Training Gap = 1 ---
+2025-10-15 21:34:13,671 - Loading training datasets with gap=1...
+2025-10-15 21:34:26,855 - Created Training Dataset for localization with 497583 samples.
+2025-10-15 21:34:26,861 - --- Training Localization: hidden=32, layers=1, seq=30, gap=1 ---
+2025-10-15 21:35:09,874 - Epoch [1/40], Train Loss: 0.8679, Val Loss: 0.7550, Val Acc: 70.27%
+2025-10-15 21:35:09,882 - New best model saved with accuracy: 70.27%
+2025-10-15 21:35:51,229 - Epoch [2/40], Train Loss: 0.6206, Val Loss: 0.8096, Val Acc: 68.53%
