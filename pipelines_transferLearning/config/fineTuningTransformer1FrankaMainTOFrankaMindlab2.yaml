@@ -1,0 +1,90 @@
+project:
+    data_name: "franka_mindlab"
+    dof: 7
+    dataset_dir: "dataset/{data_name}/labeled_data"
+    models_dir: "pipelines_transferLearning/trained_models/franka_mindlab/"
+    save_model_dir: "pipelines_transferLearning/trained_models/{data_name}/"
+
+detection_model:
+  architecture: 'TransformerModel'
+  type: 'm2_transformer_contactDetection'
+  version: '64'
+  model_init_args:
+    task: 'detection'
+    d_model: 512
+    nhead: 2
+    num_encoder_layers: 4
+    num_features: &det_seq 100
+    dropout: 0.3
+    # dim_feedforward: 2048 #default = d_model*4
+
+  filename_params:
+    accuracy: 93.86
+    acc: 88.52
+  weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}s_acc{accuracy:.2f}_acc{acc:.2f}.pth'
+  
+  # --- Data Parameters for the TRAINER ---
+  trainer_params:
+    window_length: *det_seq
+    training_gap: 15
+    # A larger gap for the validation set (during training) to speed up epochs.
+    validation_gap: 5
+    epochs: 40
+    batch_size: 64
+    learning_rate: 0.00001
+    optimizer: 'AdamW'
+    early_stop_patience: 5
+
+  # --- Data Parameters for the FINAL EVALUATOR ---
+  evaluator_params:
+    window_length: *det_seq
+    gap: 1
+    batch_size: 1024
+    n_majority_voting: 14
+    allowable_delay_ms: 150
+
+localization_model:
+  architecture: 'TransformerModel'
+  type: 'm2_transformer_contactLocalization'
+  version: '64'
+  model_init_args:
+    task: 'localization'
+    d_model: 256
+    nhead: 1
+    num_encoder_layers: 8
+    num_features: &loc_seq 200
+    dropout: 0.3
+    # dim_feedforward: 1024 #default = d_model*4
+  filename_params:
+    accuracy: 92.86
+    acc: 90.56
+  weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}_acc{accuracy:.2f}_acc{acc:.2f}.pth'
+  # --- Data Parameters for the TRAINER ---
+  trainer_params:
+    window_length: *loc_seq
+    training_gap: 10
+    # A larger gap for the validation set (during training) to speed up epochs.
+    validation_gap: 5
+    epochs: 40
+    batch_size: 64
+    learning_rate: 0.0001
+    optimizer: 'AdamW'
+    early_stop_patience: 5
+
+  # --- Data Parameters for the FINAL EVALUATOR ---
+  evaluator_params:
+    window_length: *loc_seq
+    gap: 1
+    batch_size: 1024
+    n_majority_voting: 14
+    allowable_delay_ms: 150
+
+labels:
+  link7: 7
+  link6: 6
+  link5: 5
+  link4: 4
+  link3: 3
+  link2: 2
+  link1: 1
+  no_contact: 0

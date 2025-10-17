@@ -1,7 +1,11 @@
 # Python
 # Ignore Python cache files and compiled files
-/**/__pycache__/
+__pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*.pth
 
 # Project-Specific Directories
 # Ignore these directories only at the root of the project
@@ -10,9 +14,6 @@
 /data
 /Archive
 /logs
-
-pipelines/trained_models/**/*.pth
-/pipelines/trained_models/**/*.pth
 
 # Other common files to ignore
 *.log

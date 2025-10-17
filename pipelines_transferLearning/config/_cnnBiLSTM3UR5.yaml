@@ -1,0 +1,84 @@
+project:
+    data_name: "ur5"
+    dof: 6
+    dataset_dir: "dataset/{data_name}/labeled_data"
+    models_dir: "pipelines/trained_models/ur5/"
+    save_model_dir: "pipelines_transferLearning/trained_models/{data_name}/"
+
+
+detection_model:
+    architecture: 'cnnBiLSTM'
+    type: 'm2_cnnBiLSTM_contactDetection'
+    version: '64'
+
+    model_init_args:
+      num_features: &det_seq 80
+      hidden_size: 256
+      num_layers: 3
+      task: 'detection'
+
+    filename_params:
+      gap: 1
+      accuracy: 89.14
+
+    weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}.pth'
+    
+    trainer_params:
+      window_length: *det_seq
+      training_gap: 1
+      validation_gap: 5
+      epochs: 40
+      batch_size: 64
+      learning_rate: 0.001
+      optimizer: 'Adam'
+      early_stop_patience: 3
+
+    evaluator_params:
+      window_length: *det_seq
+      gap: 1
+      batch_size: 2048
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+localization_model:
+    architecture: 'cnnBiLSTM'
+    type: 'm2_cnnBiLSTM_contactLocalization'
+    version: '64'
+    
+    model_init_args:
+      num_features: &loc_seq 300
+      hidden_size: 256
+      num_layers: 3
+      task: 'localization'
+
+    filename_params:
+      gap: 1
+      accuracy: 87.67 
+
+    weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}.pth'
+
+    trainer_params:
+      window_length: *loc_seq
+      training_gap: 1
+      validation_gap: 5
+      epochs: 40
+      batch_size: 64
+      learning_rate: 0.001
+      optimizer: 'Adam'
+      early_stop_patience: 3
+
+    evaluator_params:
+      window_length: *loc_seq
+      gap: 1
+      batch_size: 2048
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+labels:
+    link6: 6
+    link5: 5
+    link4: 4
+    link3: 3
+    link2: 2
+    link1: 1
+    no_contact: 0

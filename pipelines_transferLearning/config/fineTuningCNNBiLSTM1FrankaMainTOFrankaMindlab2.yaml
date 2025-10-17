@@ -1,0 +1,100 @@
+project:
+    # The name of the dataset (e.g., "franka_main", "ur5").
+    data_name: "franka_mindlab"
+    # Degrees of Freedom of the robot.
+    dof: 7
+    dataset_dir: "dataset/{data_name}/labeled_data"
+    models_dir: "pipelines_transferLearning/trained_models/franka_mindlab"
+    save_model_dir: "pipelines_transferLearning/trained_models/{data_name}/"
+
+
+# --- Model Specifications ---
+detection_model:
+    architecture: 'cnnBiLSTM'
+    type: 'm2_cnnBiLSTM_contactDetection'
+    version: '64'
+    
+    model_init_args:
+      task: 'detection'    
+      num_layers: 3
+      hidden_size: 256  #  
+      num_features: &det_seq 80
+
+
+    filename_params:
+      gap: 1 # The training gap is part of the filename
+      accuracy: 93.55
+      acc: 89.39 
+    weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}_acc{acc:.2f}.pth'
+
+    # --- Data Parameters for the TRAINER ---
+    trainer_params:
+      window_length: *det_seq
+      training_gap: 15
+      # A larger gap for the validation set (during training) to speed up epochs.
+      validation_gap: 5
+      epochs: 40
+      batch_size: 64
+      learning_rate: 0.001
+      optimizer: 'AdamW'
+      early_stop_patience: 5
+
+    # --- Data Parameters for the FINAL EVALUATOR ---
+    evaluator_params:
+      window_length: *det_seq
+      # The gap is fixed to 1 for the final, comprehensive evaluation.
+      gap: 1
+      batch_size: 1024
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+  
+localization_model:
+    architecture: 'cnnBiLSTM'
+    type: 'm2_cnnBiLSTM_contactLocalization'
+    version: '64'
+
+    model_init_args:
+      task: 'localization'
+      num_layers: 2    
+      hidden_size: 256 
+      num_features: &loc_seq 150
+
+    filename_params:
+      gap: 1
+      accuracy: 94.49
+      acc: 85.07
+
+    weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}_acc{acc:.2f}.pth'
+
+    # --- Data Parameters for the TRAINER ---
+    trainer_params:
+      window_length: *loc_seq
+      training_gap: 10
+      validation_gap: 5
+      epochs: 40
+      batch_size: 64
+      learning_rate: 0.001
+      optimizer: 'AdamW'
+      early_stop_patience: 5
+
+    # --- Data Parameters for the FINAL EVALUATOR ---
+    evaluator_params:
+      window_length: *loc_seq
+      gap: 1
+      batch_size: 1024
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+
+# --- Label Mapping ---
+# Maps keywords in filenames to ground truth labels.
+labels:
+    link7: 7
+    link6: 6
+    link5: 5
+    link4: 4
+    link3: 3
+    link2: 2
+    link1: 1
+    no_contact: 0
