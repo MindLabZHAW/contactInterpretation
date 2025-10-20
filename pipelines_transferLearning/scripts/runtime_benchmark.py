@@ -120,13 +120,13 @@ def benchmark(model: nn.Module, model_cfg: dict, device: torch.device, dof: int,
     avg_time_per_sample = avg_time_per_batch / batch_size
     fps = 1.0 / avg_time_per_sample
     
-    logging.info(f"--- Results for {device} ---")
-    logging.info(f"Total time for {num_runs} runs: {total_time:.4f} seconds")
+    #logging.info(f"--- Results for {device} ---")
+    #logging.info(f"Total time for {num_runs} runs: {total_time:.4f} seconds")
     logging.info(f"Average time per batch (batch_size={batch_size}): {avg_time_per_batch * 1000:.4f} ms")
-    logging.info(f"Average inference time per sample: {avg_time_per_sample * 1000:.4f} ms")
-    logging.info(f"Estimated Real-time FPS: {fps:.2f}\n")
-
-def main(batch_size):
+    #logging.info(f"Average inference time per sample: {avg_time_per_sample * 1000:.4f} ms")
+    #logging.info(f"Estimated Real-time FPS: {fps:.2f}\n")
+    
+def run_benchmark(batch_size, model, task):
     """
     Main entry point for the benchmark script.
     """
@@ -137,13 +137,13 @@ def main(batch_size):
     parser.add_argument(
         '--config',
         type=str,
-        required=True,
+        default=f'config/{model}',
         help='Path to the configuration YAML file (e.g., config/fineTuningCNNBiLSTM2FrankaMainTOFrankaMindlab.yaml).'
     )
     parser.add_argument(
         '--model_key',
         type=str,
-        default='detection_model',
+        default=task,
         choices=['detection_model', 'localization_model'],
         help='Which model to benchmark from the config file.'
     )
@@ -166,7 +166,7 @@ def main(batch_size):
     try:
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
-        logging.info(f"Successfully loaded configuration from: {config_path}")
+        #logging.info(f"Successfully loaded configuration from: {config_path}")
     except FileNotFoundError:
         logging.error(f"Configuration file not found at: {config_path}")
         sys.exit(1)
@@ -174,7 +174,7 @@ def main(batch_size):
     dof = config['project']['dof']
 
     # --- 1. Benchmark on CPU ---
-    logging.info("--- Preparing CPU Benchmark ---")
+    #logging.info("--- Preparing CPU Benchmark ---")
     cpu_device = torch.device("cpu")
     try:
         cpu_model, model_cfg = load_model_from_config(config, args.model_key, cpu_device)
@@ -184,7 +184,7 @@ def main(batch_size):
 
     # --- 2. Benchmark on GPU ---
     if torch.cuda.is_available():
-        logging.info("--- Preparing GPU Benchmark ---")
+        #logging.info("--- Preparing GPU Benchmark ---")
         gpu_device = torch.device("cuda:0")
         try:
             # Must reload model to move it to the correct device
@@ -197,4 +197,12 @@ def main(batch_size):
 
 if __name__ == '__main__':
     setup_logging()
-    main(batch_size=1)
+    models= ['_cnnBiLSTM1FrankaMain.yaml', '_cnnBiLSTM2FrankaMindlab.yaml', '_cnnBiLSTM3UR5.yaml',
+            '_Transformer1FrankaMainBest.yaml', '_Transformer2FrankaMainLight.yaml', 
+            '_Transformer3FrankaMindlab.yaml', '_Transformer4UR5.yaml']
+    
+    tasks= ['detection_model', 'localization_model']
+    for task in tasks:
+        for model in models:
+            for batch_size in [1, 100]:
+                run_benchmark(model=model, task=task, batch_size=batch_size)
