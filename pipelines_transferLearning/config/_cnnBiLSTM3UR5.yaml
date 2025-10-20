@@ -21,6 +21,10 @@ detection_model:
       gap: 1
       accuracy: 89.14
 
+    filename_params_:
+      gap: 15
+      accuracy: 82.91
+
     weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}.pth'
     
     trainer_params:
@@ -54,6 +58,10 @@ localization_model:
     filename_params:
       gap: 1
       accuracy: 87.67 
+
+    filename_params_:
+      gap: 10
+      accuracy: 83.81
 
     weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}.pth'
 

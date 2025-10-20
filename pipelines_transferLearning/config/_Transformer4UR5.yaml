@@ -21,6 +21,11 @@ detection_model:
 
     filename_params:
       accuracy: 89.76
+
+    filename_params_:
+      accuracy: 83.66
+      gap: 10
+
     weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}s_acc{accuracy:.2f}.pth'
     
     trainer_params:
@@ -31,7 +36,7 @@ detection_model:
       batch_size: 64
       learning_rate: 0.0001
       optimizer: 'AdamW'
-      early_stop_patience: 3
+      early_stop_patience: 5
    
     evaluator_params:
       window_length: *det_seq
@@ -55,6 +60,10 @@ localization_model:
 
     filename_params:
       accuracy: 80.82
+    
+    filename_params_:
+      accuracy: 79.08
+      gap: 10
     weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}_acc{accuracy:.2f}.pth'
 
     trainer_params:
@@ -65,7 +74,7 @@ localization_model:
       batch_size: 64
       learning_rate: 0.0001
       optimizer: 'AdamW'
-      early_stop_patience: 3
+      early_stop_patience: 5
 
     evaluator_params:
       window_length: *loc_seq

@@ -21,6 +21,10 @@ detection_model:
 
   filename_params:
     accuracy: 90.97
+  
+  filename_params_:
+    accuracy: 84.49
+    gap: 15
   weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}s_acc{accuracy:.2f}.pth'
 
   trainer_params:
@@ -55,6 +59,10 @@ localization_model:
 
   filename_params:
     accuracy: 89.34
+  
+  filename_params_:
+    accuracy: 84.62
+    gap: 10
   weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}_acc{accuracy:.2f}.pth'
 
   trainer_params:
