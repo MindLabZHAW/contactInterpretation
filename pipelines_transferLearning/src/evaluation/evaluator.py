@@ -20,7 +20,6 @@ except ImportError:
 
 from src.data import LoadSeqDataset
 import src.models as model_zoo
-
 # --- 2. HELPER FUNCTIONS ---
 
 def majority_voting_last_n(model_out: pd.Series, n: int) -> pd.Series:
@@ -140,8 +139,32 @@ class Evaluator:
         models_dir = self.config['project']['models_dir'].format(data_name=self.config['project']['data_name'])
         
         try:
-            ModelClass = getattr(model_zoo, model_cfg['architecture'])
-            model = ModelClass(**model_cfg['model_init_args'])
+            init_args = model_cfg['model_init_args']
+
+            # --- Build the DMLClassificationNet from components ---
+            if model_cfg['architecture'] == 'DMLClassificationNet':
+
+                # 1. Build the Embedding Net
+                embedding_net = model_zoo.Conv1DNet(
+                    in_channels=init_args['in_channels'],
+                    embedding_dim=init_args['embedding_dim'],
+                    window_length=init_args['window_length'],
+                    task=init_args['task']
+                )
+
+                # 2. Build the Classifier
+                classifier = model_zoo.Classifier(
+                    embedding_dim=init_args['embedding_dim'],
+                    num_classes=init_args['num_classes']
+                )
+
+                # 3. Build the Wrapper
+                model = model_zoo.DMLClassificationNet(embedding_net, classifier)
+
+            # --- Fallback for your old models ---
+            else:
+                ModelClass = getattr(model_zoo, model_cfg['architecture'])
+                model = ModelClass(**init_args)
         except Exception as e:
             raise TypeError(f"Error instantiating '{model_cfg['architecture']}'. Check 'model_init_args'. Error: {e}")
         

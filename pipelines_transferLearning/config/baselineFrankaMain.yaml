@@ -1,0 +1,108 @@
+# --- Project Configuration ---
+project:
+    # The name of the dataset (e.g., "franka_main", "ur5").
+    data_name: "franka_mindlab"
+    # Degrees of Freedom of the robot.
+    dof: &dof 7
+    dataset_dir: "dataset/{data_name}/labeled_data/"
+    models_dir: "pipelines_transferLearning/trained_models/franka_main"
+    save_model_dir: "pipelines_transferLearning/trained_models/{data_name}/"
+
+# --- Model Specifications ---
+detection_model:
+    architecture: 'DMLClassificationNet'
+    type: 'dml_detection'
+    version: '64'
+    
+    model_init_args:
+      in_channels: *dof
+      embedding_dim: 128
+      window_length: &det_seq 80
+      task: 'detection'
+      num_classes: 2
+
+
+    filename_params:
+      gap: 1 # The training gap is part of the filename
+      accuracy: 90.72
+    
+    weights_file_template: 'dml_task{task}_windowLength{window_length}.pth'
+    weights_file_template: 'dml_task{task}_windowLength{window_length}_stage2_cls_final_acc{accuracy}.pth' # <-- RECOMMENDED CHANGE
+
+    # --- Data Parameters for the TRAINER ---
+    trainer_params:
+      window_length: *det_seq
+      triplet_loss_weight: 1
+      training_gap: 1
+      # A larger gap for the validation set (during training) to speed up epochs.
+      validation_gap: 5
+      epochs: 50
+      batch_size: 64
+      learning_rate: 0.001
+      optimizer: 'Adam'
+      early_stop_patience: 7
+
+    # --- Data Parameters for the FINAL EVALUATOR ---
+    evaluator_params:
+      window_length: *det_seq
+      # The gap is fixed to 1 for the final, comprehensive evaluation.
+      gap: 1
+      batch_size: 1024
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+  
+localization_model:
+    architecture: 'DMLClassificationNet' #
+    type: 'dml_localization'
+    version: '64'
+    
+    model_init_args:
+      in_channels: *dof
+      embedding_dim: 256
+      window_length: &loc_seq 300
+      task: 'localization'
+      num_classes: *dof
+
+    filename_params:
+      gap: 1 # The training gap is part of the filename
+      accuracy: 80.67 
+    
+    weights_file_template: 'dml_task{task}_windowLength{window_length}.pth'
+    weights_file_template: 'dml_task{task}_windowLength{window_length}_stage2_cls_final_acc{accuracy}.pth' # <-- RECOMMENDED CHANGE
+
+    # --- Data Parameters for the TRAINER ---
+    trainer_params:
+      window_length: *loc_seq
+      triplet_loss_weight: 1
+      training_gap: 15
+      # A larger gap for the validation set (during training) to speed up epochs.
+      validation_gap: 5
+      epochs: 50
+      batch_size: 64
+      learning_rate: 0.001
+      optimizer: 'Adam'
+      early_stop_patience: 5
+
+    # --- Data Parameters for the FINAL EVALUATOR ---
+    evaluator_params:
+      window_length: *loc_seq
+      # The gap is fixed to 1 for the final, comprehensive evaluation.
+      gap: 1
+      batch_size: 1024
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+  
+
+# --- Label Mapping ---
+# Maps keywords in filenames to ground truth labels.
+labels:
+    link6: 7
+    link6: 6
+    link5: 5
+    link4: 4
+    link3: 3
+    link2: 2
+    link1: 1
+    no_contact: 0
