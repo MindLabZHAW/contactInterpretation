@@ -25,7 +25,8 @@ cryptography @ file:///tmp/build/80754af9/cryptography_1635366128178/work
 cufflinks==0.17.3
 cycler==0.11.0
 dataclasses==0.8
-decorator @ file:///opt/conda/conda-bld/decorator_1643638310831/work
+dcor==0.5.3
+decorator==4.4.2
 defusedxml==0.7.1
 dill==0.3.4
 docutils==0.18.1
@@ -36,6 +37,8 @@ filelock @ file:///tmp/build/80754af9/filelock_1638521398314/work
 frankx==0.2.0
 glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
 google==3.0.0
+googledrivedownloader==0.4
+graphviz==0.19.1
 idna @ file:///tmp/build/80754af9/idna_1637925883363/work
 imageio==2.15.0
 importlib-metadata==4.8.3
@@ -43,6 +46,7 @@ ipykernel @ file:///tmp/build/80754af9/ipykernel_1596206602906/work/dist/ipykern
 ipython @ file:///tmp/build/80754af9/ipython_1593447367857/work
 ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
 ipywidgets==7.8.5
+isodate==0.6.1
 jedi==0.17.0
 Jinja2 @ file:///opt/conda/conda-bld/jinja2_1647436528585/work
 joblib==1.1.0
@@ -99,6 +103,7 @@ PyWavelets==1.1.1
 PyYAML==6.0
 pyzmq @ file:///tmp/build/80754af9/pyzmq_1628268400816/work
 Quaternion==3.5.2.post4
+rdflib==5.0.0
 requests @ file:///opt/conda/conda-bld/requests_1641824580448/work
 retrying==1.3.4
 rospkg==1.4.0
@@ -122,6 +127,7 @@ torch==1.10.1
 torchinfo==1.5.4
 torchmetrics==0.8.2
 torchvision==0.11.2
+torchviz==0.0.3
 tornado @ file:///tmp/build/80754af9/tornado_1606942266872/work
 tqdm @ file:///tmp/build/80754af9/tqdm_1635330843403/work
 traitlets @ file:///tmp/build/80754af9/traitlets_1632746497744/work
@@ -131,4 +137,5 @@ urllib3 @ file:///opt/conda/conda-bld/urllib3_1643638302206/work
 wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
 webencodings==0.5.1
 widgetsnbextension==3.6.10
+yacs==0.1.8
 zipp==3.6.0

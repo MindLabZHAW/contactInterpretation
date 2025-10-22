@@ -48,7 +48,9 @@ def main():
     args = parser.parse_args()
 
     # --- Load Configuration ---
-    config_path = project_root / args.config
+    #config_path = project_root / args.config
+    config_path = f'{project_root}/config/{args.config}'
+
     try:
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
