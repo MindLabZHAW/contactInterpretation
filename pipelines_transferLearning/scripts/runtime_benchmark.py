@@ -4,7 +4,7 @@ import sys
 import os
 import yaml
 import torch
-import time
+import time, re, glob
 from pathlib import Path
 import torch.nn as nn
 
@@ -12,6 +12,7 @@ import torch.nn as nn
 # This allows the script to find and import modules from the 'src' directory.
 project_root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(project_root))
+project_root_run= Path(__file__).resolve().parents[2]
 
 try:
     # --- Import Core Components ---
@@ -125,7 +126,122 @@ def benchmark(model: nn.Module, model_cfg: dict, device: torch.device, dof: int,
     logging.info(f"Average time per batch (batch_size={batch_size}): {avg_time_per_batch * 1000:.4f} ms")
     #logging.info(f"Average inference time per sample: {avg_time_per_sample * 1000:.4f} ms")
     #logging.info(f"Estimated Real-time FPS: {fps:.2f}\n")
+
+def find_best_accuracy(config: dict, model_key: str):
+    """
+    Checks if a model's accuracy is 'idk'. If so, scans its directory
+    for the file matching all other params with the highest accuracy.
+    """
+    if model_key not in config:
+        logging.warning(f"'{model_key}' not found in config. Skipping accuracy check.")
+        return
+
+    model_cfg = config[model_key]
     
+    # --- 1. Find the correct parameter dictionary ---
+    params_key = None
+    if 'filename_params' in model_cfg:
+        params_key = 'filename_params'
+    else:
+        logging.info(f"No 'file_params' or 'filename_params' found for '{model_key}'. Skipping 'idk' check.")
+        return
+        
+    params_dict = model_cfg.get(params_key, {})
+    accuracy_value = params_dict.get('accuracy')
+
+    # --- 2. Check if search is needed ---
+    if accuracy_value != 'idk':
+        #logging.info(f"Accuracy for '{model_key}' is '{accuracy_value}'. No search needed.")
+        return
+
+    #logging.info(f"Accuracy for '{model_key}' is 'idk'. Searching for best model...")
+
+    # --- 3. Get the model directory path ---
+    try:
+        base_models_dir_template = config['project']['models_dir']
+        
+        if '{data_name}' in base_models_dir_template:
+            base_models_dir = base_models_dir_template.format(data_name=config['project']['data_name'])
+        else:
+            base_models_dir = base_models_dir_template
+            
+        folder_name_ = model_cfg.get('type', '')
+        folder_name = model_cfg.get('version', '')
+        
+        full_model_dir = os.path.join(project_root_run, base_models_dir, folder_name_, folder_name)
+        
+        if not os.path.isdir(full_model_dir):
+            logging.error(f"Model directory not found at: {full_model_dir}")
+            sys.exit(1)
+            
+    except KeyError as e:
+        logging.error(f"Missing expected key in config to find model directory: {e}")
+        sys.exit(1)
+
+    # --- 4. Build the search pattern ---
+    try:
+        # Get all parameters needed for the template
+        format_context = {
+            **model_cfg.get('model_init_args', {}),
+            **model_cfg.get(params_key, {})
+        }
+        
+        # Remove 'accuracy' because it's the key we're searching for
+        if 'accuracy' in format_context:
+            del format_context['accuracy']
+
+        # Get the template and replace the accuracy format with a wildcard
+        weights_template = model_cfg['weights_file_template']
+        # This regex finds any {key:format} pattern for 'accuracy'
+        glob_template = re.sub(r'\{accuracy[^\}]*\}', '*', weights_template)
+        
+        # Create the final glob search pattern
+        search_pattern = glob_template.format(**format_context)
+        
+    except KeyError as e:
+        logging.error(f"Config is missing a key required by the 'weights_file_template': {e}")
+        sys.exit(1)
+    except Exception as e:
+        logging.error(f"Error building search pattern: {e}")
+        sys.exit(1)
+
+    # --- 5. Scan directory with glob and parse with regex ---
+    #logging.info(f"Searching in: {full_model_dir}")
+    #logging.info(f"Using pattern: {search_pattern}")
+    
+    # Regex to extract the accuracy value from the matching filenames
+    if model_cfg['architecture'] == 'TransformerModel':
+        acc_regex = re.compile(r"_acc(\d+\.\d+)")
+    else:
+        acc_regex = re.compile(r"_accuracy(\d+\.\d+)")
+    
+    max_acc = -1.0
+    files_found = 0
+    
+    # Use glob to find all files matching the pattern
+    search_path = os.path.join(full_model_dir, search_pattern)
+    for filepath in glob.glob(search_path):
+        filename = os.path.basename(filepath)
+        match = acc_regex.search(filename)
+        
+        if match:
+            files_found += 1
+            acc_float = float(match.group(1))
+            
+            if acc_float > max_acc:
+                max_acc = acc_float
+
+    # --- 6. Update the config ---
+    if max_acc > -1.0:
+        #logging.info(f"Found {files_found} matching models. Best accuracy: {max_acc:.4f}.")
+        # --- THE FIX ---
+        # Update the config with the FLOAT, not the string, using the correct key
+        config[model_key][params_key]['accuracy'] = max_acc
+    else:
+        logging.error(f"Accuracy for '{model_key}' was 'idk', but no models matching "
+                      f"the pattern '{search_pattern}' were found in {full_model_dir}.")
+        sys.exit(1)
+
 def run_benchmark(batch_size, model, task):
     """
     Main entry point for the benchmark script.
@@ -173,6 +289,9 @@ def run_benchmark(batch_size, model, task):
     
     dof = config['project']['dof']
 
+    find_best_accuracy(config, 'detection_model')
+    find_best_accuracy(config, 'localization_model')
+
     # --- 1. Benchmark on CPU ---
     #logging.info("--- Preparing CPU Benchmark ---")
     cpu_device = torch.device("cpu")
@@ -201,8 +320,13 @@ if __name__ == '__main__':
             '_Transformer1FrankaMainBest.yaml', '_Transformer2FrankaMainLight.yaml', 
             '_Transformer3FrankaMindlab.yaml', '_Transformer4UR5.yaml']
     
+    models= ['_cnnBiLSTM1FrankaMain.yaml', '_cnnBiLSTM2FrankaMindlab.yaml', '_cnnBiLSTM3UR5.yaml',
+            '_Transformer1FrankaMain.yaml', 
+            '_Transformer3FrankaMindlab.yaml', '_Transformer4UR5.yaml']    
+    
     tasks= ['detection_model', 'localization_model']
+    
     for task in tasks:
         for model in models:
             for batch_size in [1, 100]:
-                run_benchmark(model=model, task=task, batch_size=batch_size)
+                run_benchmark(model=f'fastestModels/{model}', task=task, batch_size=batch_size)
