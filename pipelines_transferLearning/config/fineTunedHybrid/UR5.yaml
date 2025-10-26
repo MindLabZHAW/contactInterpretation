@@ -1,0 +1,87 @@
+project:
+    data_name: "ur5"
+    dof: 6
+    dataset_dir: "dataset/{data_name}/labeled_data"
+    models_dir: "pipelines_transferLearning/trained_models/ur5/"
+    save_model_dir: "pipelines_transferLearning/trained_models/{data_name}/"
+
+detection_model:
+    architecture: 'TransformerModel'
+    type: 'm2_transformer_contactDetection'
+    version: '64'
+    model_init_args:
+      task: 'detection'
+      d_model: 512
+      nhead: 4
+      num_encoder_layers: 1
+      num_features: &det_seq 100
+      dropout: 0.3
+      # dim_feedforward: 512 #default = 4*d_model
+
+    filename_params:
+      accuracy: 88.22
+      acc: 87.82
+      gap: 10
+
+    weights_file_template: 'dModel{d_model}_nHead{nhead}_nLayer{num_encoder_layers}_sNum{num_features}s_acc{accuracy:.2f}_acc{acc:.2f}.pth'
+    
+    trainer_params:
+      window_length: *det_seq
+      training_gap: 20
+      validation_gap: 5
+      epochs: 50
+      batch_size: 64
+      learning_rate: 0.0002
+      optimizer: 'AdamW'
+      early_stop_patience: 8
+   
+    evaluator_params:
+      window_length: *det_seq
+      gap: 1
+      batch_size: 1024
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+localization_model:
+    architecture: 'cnnBiLSTM'
+    type: 'm2_cnnBiLSTM_contactLocalization'
+    version: '64'
+    
+    model_init_args:
+      num_features: &loc_seq 400
+      hidden_size: 256
+      num_layers: 1
+      task: 'localization'
+
+    filename_params:
+      gap: 10
+      accuracy: 90.75
+      acc: 89.49
+
+    weights_file_template: 'numLayer{num_layers}_hiddenSize{hidden_size}_seq_num{num_features}_gap{gap}_accuracy{accuracy:.2f}_acc{acc:.2f}.pth'
+
+    trainer_params:
+      window_length: *loc_seq
+      training_gap: 20
+      validation_gap: 5
+      epochs: 40
+      batch_size: 64
+      learning_rate: 0.004
+      optimizer: 'Adam'
+      early_stop_patience: 8
+
+    evaluator_params:
+      window_length: *loc_seq
+      gap: 1
+      batch_size: 2048
+      n_majority_voting: 14
+      allowable_delay_ms: 150
+
+labels:
+    link6: 6
+    link5: 5
+    link4: 4
+    link3: 3
+    link2: 2
+    link1: 1
+    no_contact: 0

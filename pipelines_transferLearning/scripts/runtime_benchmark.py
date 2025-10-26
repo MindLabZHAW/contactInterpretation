@@ -322,11 +322,11 @@ if __name__ == '__main__':
     
     models= ['_cnnBiLSTM1FrankaMain.yaml', '_cnnBiLSTM2FrankaMindlab.yaml', '_cnnBiLSTM3UR5.yaml',
             '_Transformer1FrankaMain.yaml', 
-            '_Transformer3FrankaMindlab.yaml', '_Transformer4UR5.yaml']    
+            '_Transformer3FrankaMindlab.yaml', '_Transformer4UR5.yaml']
     
     tasks= ['detection_model', 'localization_model']
     
     for task in tasks:
         for model in models:
-            for batch_size in [1, 100]:
+            for batch_size in [1]:
                 run_benchmark(model=f'fastestModels/{model}', task=task, batch_size=batch_size)
