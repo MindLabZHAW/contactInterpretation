@@ -9,6 +9,17 @@ from collections import Counter
 from torch.utils.data import DataLoader
 import glob
 from pathlib import Path
+from matplotlib.colors import LinearSegmentedColormap
+
+# --- NEW IMPORTS ---
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+# -------------------
+# Define custom two-tone colormap for the heatmap
+custom_palette = [ '#67AB9F', '#EA6B66']    
+sns.set_palette(custom_palette)
+custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", custom_palette)
 
 # --- 1. SETUP AND IMPORTS (Updated for new structure) ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -115,6 +126,7 @@ class Evaluator:
     2. Instantiating and loading the pre-trained detection and localization models.
     3. Iterating through all test data files.
     4. Running the two-stage pipeline and reporting final performance metrics.
+    5. ADDED: Generating a confusion matrix for the overall results.
     """
     def __init__(self, config):
         self.config = config
@@ -218,7 +230,7 @@ class Evaluator:
 
         This method performs the following steps:
         1. Runs the high-performance detection model on the entire file.
-        2. Applies a majority-voting filter to smooth the detection predictions.
+        2. Applies a rolling majority-voting filter to smooth the detection predictions.
         3. Identifies the specific time steps where contact was detected.
         4. Runs the more complex localization model ONLY on these identified time steps.
         5. Combines the results and calculates performance statistics for the file.
@@ -305,10 +317,76 @@ class Evaluator:
         
         return df_results, file_stats
 
+# --- METHOD TO BE UPDATED (Corrected Signature) ---
+    def _plot_confusion_matrix(self, y_true, y_pred, class_names, class_labels, task_type: str): # Added task_type here
+        """Generates and saves a confusion matrix plot based on task type."""
+        try:
+            # Generate the matrix using the explicit label numbers
+            # Ensure labels parameter includes all unique values present in y_true or y_pred
+            # that we want to plot, even if some aren't in class_labels (though they should be)
+            present_labels = sorted(list(set(y_true) | set(y_pred)))
+            plot_labels = sorted(list(set(class_labels) | set(present_labels))) # Combine expected and actual labels
+
+            cm = confusion_matrix(y_true, y_pred, labels=plot_labels) # Use combined labels
+            logging.info(cm)
+            # Adjust class_names if plot_labels has extra unexpected labels
+            plot_class_names = []
+            label_to_name = dict(zip(class_labels, class_names))
+            for label in plot_labels:
+                 plot_class_names.append(label_to_name.get(label, f"Unknown ({label})"))
+
+            # --- Font Size Adjustments ---
+            label_fontsize = 10
+            tick_fontsize = 10
+            annotation_fontsize = 9 # Font size for numbers inside the heatmap
+            # ---------------------------
+
+            plt.figure(figsize=(max(7, len(plot_class_names)*0.8), max(5, len(plot_class_names)*0.6))) # Adjust figure size slightly if needed
+
+            sns.heatmap(cm, annot=True, fmt='d', cmap=custom_cmap,
+                        xticklabels=plot_class_names, yticklabels=plot_class_names,
+                        annot_kws={"size": annotation_fontsize}) # Set annotation font size
+
+            # Set font sizes for title and labels
+            plt.ylabel('True Label', fontsize=label_fontsize)
+            plt.xlabel('Predicted Label', fontsize=label_fontsize)
+
+            # Set font sizes for tick labels (optional, but good for consistency)
+            plt.xticks(fontsize=tick_fontsize)
+            plt.yticks(fontsize=tick_fontsize, rotation=0) # Keep y-axis labels horizontal
+
+            plt.tight_layout()
+
+            # Determine save path (same logic as before)
+            save_dir_base = 'models' # Default
+            data_name = self.config.get('project', {}).get('data_name', 'results')
+            try:
+                 project_root = Path(__file__).resolve().parents[2]
+                 save_dir_base = os.path.join(project_root, 'models', data_name)
+                 if not os.path.isdir(save_dir_base):
+                     save_dir_base = os.path.join(project_root, 'models') # fallback
+            except Exception:
+                 project_root = '.' # fallback if structure is unexpected
+                 save_dir_base = os.path.join(project_root,'models', data_name)
+
+
+            os.makedirs(save_dir_base, exist_ok=True)
+            # Use task_type in the filename
+            save_path = os.path.join(save_dir_base, f'confusion_matrix_{task_type}_{data_name}.pdf')
+
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+            logging.info(f"{task_type.replace('_', ' ').capitalize()} confusion matrix saved to: {save_path}")
+            plt.close()
+
+        except Exception as e:
+            logging.error(f"Failed to generate {task_type} confusion matrix plot: {e}", exc_info=True)
+    
     def _report_results(self, final_df: pd.DataFrame, total_stats: dict):
         """
-        Logs the final, aggregated performance metrics for the entire dataset.
+        Logs final metrics and generates separate confusion matrices.
+        Localization matrix now excludes 'No Contact' class entirely.
         """
+        # --- Stage 1 Report (Identical) ---
         logging.info("\n--- Stage 1: Detection Model Performance ---")
         total_all = total_stats['TP'] + total_stats['TN'] + total_stats['FP'] + total_stats['FN']
         ModelAccuracy = (total_stats['TP'] + total_stats['TN']) / total_all * 100 if total_all > 0 else 0
@@ -316,20 +394,65 @@ class Evaluator:
         FalseAlarmRate = total_stats['FP'] / (total_stats['TN'] + total_stats['FP']) * 100 if (total_stats['TN'] + total_stats['FP']) > 0 else 0
         avg_contact_delay = np.nanmean(total_stats['contact_delays']) if total_stats['contact_delays'] else 0
         avg_no_contact_delay = np.nanmean(total_stats['no_contact_delays']) if total_stats['no_contact_delays'] else 0
+
         logging.info(f"Detection Accuracy: {ModelAccuracy:.2f}%")
         logging.info(f"Detection Failure Rate: {DetectionFailureRate:.2f}% (Missed Detections)")
         logging.info(f"False Alarm Rate: {FalseAlarmRate:.2f}%")
         logging.info(f"Average Contact Detection Delay: {avg_contact_delay:.4f} seconds")
         logging.info(f"Average No-Contact Detection Delay: {avg_no_contact_delay:.4f} seconds")
-        
+
+        # --- Stage 2 Report (Identical) ---
         logging.info("\n--- Stage 2: Localization Model Performance ---")
-        # Filter for instances where contact was correctly detected (True Positives)
+        # Filter for instances where true contact occurred AND prediction indicates contact
         true_positive_detections_df = final_df[(final_df['label_loc'] > 0) & (final_df['pipeline_final_pred'] > 0)]
         if not true_positive_detections_df.empty:
-            # Calculate localization accuracy only on these true positive detections
             correctly_localized_tps = (true_positive_detections_df['pipeline_final_pred'] == true_positive_detections_df['label_loc']).sum()
             loc_accuracy_on_tps = (correctly_localized_tps / len(true_positive_detections_df)) * 100
             logging.info(f"Localization Accuracy on Correctly Detected Contacts: {loc_accuracy_on_tps:.2f}%")
         else:
-            logging.warning("No correct contact detections were made to calculate localization accuracy.")
+            # Check if there were true contacts at all, even if none were detected
+             if (final_df['label_loc'] > 0).any():
+                  logging.warning("No contacts were correctly *detected* by the pipeline to calculate localization accuracy.")
+             else:
+                  logging.info("No true contact samples present in the dataset.")
 
+
+        # --- Generate Detection Confusion Matrix (Identical) ---
+        logging.info("\n--- Generating Detection Confusion Matrix ---")
+        try:
+            y_true_detect = (final_df['label_loc'] > 0).astype(int)
+            y_pred_detect = final_df['detection_pred_smooth'].astype(int)
+            detect_class_names = ['No Contact', 'Contact']
+            detect_labels = [0, 1]
+            self._plot_confusion_matrix(y_true_detect, y_pred_detect, detect_class_names, detect_labels, task_type='detection')
+        except Exception as e:
+            logging.error(f"Error during detection confusion matrix generation: {e}", exc_info=True)
+
+        # --- Generate Localization Confusion Matrix (MODIFIED: Excludes No Contact) ---
+        logging.info("\n--- Generating Localization Confusion Matrix (Contact Classes Only) ---")
+        try:
+            # Filter the dataframe for rows where BOTH true label AND prediction indicate contact (>0)
+            # This completely removes the 'No Contact' class from consideration for this matrix
+            contact_only_df = final_df[(final_df['label_loc'] > 0) & (final_df['pipeline_final_pred'] > 0)].copy()
+
+            if not contact_only_df.empty:
+                y_true_loc = contact_only_df['label_loc'].astype(int)
+                y_pred_loc = contact_only_df['pipeline_final_pred'].astype(int)
+
+                # Get class names/labels excluding 'no_contact' (label 0)
+                loc_labels_sorted = sorted([item for item in self.config.get('labels', {}).items() if item[1] > 0], key=lambda item: item[1])
+                loc_class_names = [name for name, label_num in loc_labels_sorted]
+                loc_label_nums = [label_num for name, label_num in loc_labels_sorted] # These are the labels > 0
+
+                if not loc_class_names:
+                    logging.warning("No contact labels (>0) found in config 'labels'. Skipping localization confusion matrix.")
+                else:
+                    # Pass ONLY the contact class names and labels
+                    self._plot_confusion_matrix(y_true_loc, y_pred_loc, loc_class_names, loc_label_nums, task_type='localization_contact_only') # Changed task_type for filename
+            else:
+                 logging.warning("No samples where both true label and prediction indicated contact (>0). Cannot generate contact-only localization confusion matrix.")
+
+        except KeyError as e:
+            logging.error(f"Config missing key {e}. Skipping localization confusion matrix.", exc_info=True)
+        except Exception as e:
+            logging.error(f"Error during localization confusion matrix preparation: {e}", exc_info=True)    
