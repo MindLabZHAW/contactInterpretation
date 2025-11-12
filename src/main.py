@@ -1,30 +1,39 @@
 import logging
 import socket
 import sys
-from task_interpreter import TaskInterpreter
+import os # <-- Added for path joining
+from robot_control.task_interpreter import TaskInterpreter
 from contact_interpretation.interpreter import ContactAI
 from robot_control import robots 
 from config_loader import ConfigLoader
 from data_logger import DataLogger
 
-def select_robot_from_list(config: dict) -> str:
+# --- Constants for Config Paths ---
+# Use os.path.join to create OS-agnostic paths
+SRC_DIR = os.path.dirname(__file__)
+MAIN_CONFIG_FILE = os.path.join(SRC_DIR, 'config', 'config.yaml')
+DEFAULT_BEHAVIORS_FILE = os.path.join(SRC_DIR, 'config', 'default_behaviors.yaml')
+
+
+def select_robot_profile(config: dict) -> str:
     """
-    Displays a menu of available robots from the config file and prompts the user to choose one.
+    Displays a menu of available robot profiles and prompts the user to choose one.
     """
-    robot_options = list(config.get("robot_settings", {}).keys())
-    if not robot_options:
-        logging.error("No robots found in the 'robot_settings' of your config file.")
+    # Reads from "robot_profiles" instead of "robot_settings"
+    profile_options = list(config.get("robot_profiles", {}).keys())
+    if not profile_options:
+        logging.error("No 'robot_profiles' found in your config.yaml.")
         return None
 
-    print("\n--- Please Select a Robot ---")
-    for i, name in enumerate(robot_options):
+    print("\n--- Please Select a Robot Profile ---")
+    for i, name in enumerate(profile_options):
         print(f"[{i + 1}] {name}")
     
     while True:
         try:
-            choice = int(input(f"Enter your choice (1-{len(robot_options)}): "))
-            if 1 <= choice <= len(robot_options):
-                return robot_options[choice - 1]
+            choice = int(input(f"Enter your choice (1-{len(profile_options)}): "))
+            if 1 <= choice <= len(profile_options):
+                return profile_options[choice - 1]
             else:
                 print("Invalid choice. Please try again.")
         except ValueError:
@@ -33,39 +42,44 @@ def select_robot_from_list(config: dict) -> str:
 
 def discover_active_robot(config: dict) -> str:
     """
-    Tries to connect to each robot defined in the config to find which one is active.
-    Returns the name of the first robot that responds.
+    Tries to connect to each robot in 'robot_profiles' to find an active one.
     """
-    robot_settings = config.get("robot_settings", {})
-    for name, settings in robot_settings.items():
-        ip = settings.get("init_args", {}).get("ip_address")
+    robot_profiles = config.get("robot_profiles", {})
+    for name, profile in robot_profiles.items():
+        # Reads from "robot_init_args"
+        ip = profile.get("robot_init_args", {}).get("ip_address")
         if not ip:
             continue 
 
         try:
             logging.info(f"Checking for robot '{name}' at {ip}...")
-            with socket.create_connection((ip, 80), timeout=1):
-                logging.info(f"✅ Found active robot: {name}")
+            # Use a standard port (e.g., 80 for web interface) for a quick check
+            with socket.create_connection((ip, 80), timeout=1): 
+                logging.info(f"✅ Found active robot profile: {name}")
                 return name
-        except (socket.timeout, ConnectionRefusedError):
+        except (socket.timeout, ConnectionRefusedError, OSError):
             logging.info(f"No response from '{name}'.")
             continue
             
     return None
 
 
-def create_robot(config: dict, active_robot_name: str):
+def create_robot_from_profile(config: dict, active_profile_name: str):
     """
-    Factory function to dynamically create a robot instance from configuration.
+    Factory function to create a robot instance and get all paths from a profile.
+    
+    Returns a tuple of:
+    (robot_instance, task_file_path, loop_delay, selected_features, ai_model_config_path)
     """
-    settings = config.get("robot_settings", {}).get(active_robot_name)
+    # Reads from "robot_profiles"
+    profile = config.get("robot_profiles", {}).get(active_profile_name)
 
-    if not settings:
-        logging.error(f"Configuration for active robot '{active_robot_name}' not found.")
-        return None, None, None, None
+    if not profile:
+        logging.error(f"Configuration for active profile '{active_profile_name}' not found.")
+        return None, None, None, None, None
 
-    class_name = settings.get("class_name")
-    init_args = settings.get("init_args", {})
+    class_name = profile.get("robot_class")
+    init_args = profile.get("robot_init_args", {})
     selected_features = init_args.get("selected_features")
     
     try:
@@ -73,15 +87,17 @@ def create_robot(config: dict, active_robot_name: str):
         robot_instance = RobotClass(**init_args)
     except AttributeError:
         logging.error(f"Robot class '{class_name}' not found in 'robot_control.robots' module.")
-        return None, None, None, None
+        return None, None, None, None, None
     except Exception as e:
         logging.error(f"Failed to instantiate robot '{class_name}': {e}")
-        return None, None, None, None
+        return None, None, None, None, None
 
-    task_name = settings.get("task_name")
-    loop_delay = settings.get("loop_delay")
+    # Get all the other settings from the profile
+    task_file = profile.get("task_file")
+    loop_delay = profile.get("loop_delay")
+    ai_model_config_path = profile.get("ai_model_config")
     
-    return robot_instance, task_name, loop_delay, selected_features
+    return robot_instance, task_file, loop_delay, selected_features, ai_model_config_path
 
 if __name__ == "__main__":
     """
@@ -91,49 +107,73 @@ if __name__ == "__main__":
     logging.info("--- Initializing System ---")
     
     config_loader = ConfigLoader()
-    config = config_loader.load('src/config/config.json')
+    
+    # --- 1. Load Main Config (YAML) ---
+    config = config_loader.load_yaml(MAIN_CONFIG_FILE)
     if not config:
-        logging.error("Could not load config.json. Exiting application.")
+        logging.error(f"Could not load {MAIN_CONFIG_FILE}. Exiting application.")
         sys.exit(1)
 
-    active_robot_name = config.get("active_robot")
+    # --- 2. Determine Active Profile ---
+    active_profile_name = config.get("active_robot_profile")
     
-    if active_robot_name == "INTERACTIVE":
-        active_robot_name = select_robot_from_list(config)
-        if not active_robot_name:
+    if active_profile_name == "INTERACTIVE":
+        active_profile_name = select_robot_profile(config)
+        if not active_profile_name:
             sys.exit(1)
-    elif active_robot_name == "AUTO_DETECT":
-        active_robot_name = discover_active_robot(config)
-        if not active_robot_name:
+    elif active_profile_name == "AUTO_DETECT":
+        active_profile_name = discover_active_robot(config)
+        if not active_profile_name:
             logging.error("Auto-detect failed: No configured robots found on the network.")
             sys.exit(1)
-    elif active_robot_name not in config.get("robot_settings", {}):
-        logging.error(f"The specified active_robot '{active_robot_name}' does not exist in the configuration.")
+    elif active_profile_name not in config.get("robot_profiles", {}):
+        logging.error(f"The specified active_robot_profile '{active_profile_name}' does not exist in the configuration.")
         sys.exit(1)
         
-    my_robot, task_name, loop_delay, selected_features = create_robot(config, active_robot_name)
+    logging.info(f"--- 🚀 Activating Profile: {active_profile_name} ---")
+
+    # --- 3. Create Robot and Get Settings ---
+    my_robot, task_file, loop_delay, selected_features, ai_config_path = create_robot_from_profile(config, active_profile_name)
     
     if my_robot is None:
         sys.exit(1)
-
-    NUM_FEATURES = len(selected_features)
     
-    contact_ai = ContactAI(num_features=NUM_FEATURES)
-    if contact_ai.detection_model is None or contact_ai.localization_model is None:
-        logging.error("Model loading failed. Exiting application.")
+    if not all([task_file, selected_features, ai_config_path]):
+        logging.error("Profile is missing one or more required keys: 'task_file', 'selected_features' (in robot_init_args), or 'ai_model_config'.")
         sys.exit(1)
 
+    NUM_FEATURES = len(selected_features)
+
+    # --- 4. Load AI Model Config (YAML) ---
+    ai_config = config_loader.load_yaml(ai_config_path)
+    if not ai_config:
+        logging.error(f"Could not load AI model config: {ai_config_path}. Exiting.")
+        sys.exit(1)
+    
+    # --- 5. Initialize AI ---
+    # We will update ContactAI to accept ai_config in its constructor
+    contact_ai = ContactAI(ai_model_config=ai_config, num_features=NUM_FEATURES)
+    
+    # This check will be updated inside the new ContactAI
+    # if contact_ai.detection_model is None or contact_ai.localization_model is None:
+    #     logging.error("Model loading failed. Exiting application.")
+    #     sys.exit(1)
+
+    # --- 6. Initialize Logger ---
     data_logger = None
     save_data = input("Do you want to save the collected data to a CSV file? (y/n): ").lower()
     if save_data == 'y':
+        # Headers are now dynamic from the profile
         log_headers = ['label','raw_pred', 'smoothed_pred', 'loc_pred'] + selected_features
         data_logger = DataLogger(headers=log_headers)
 
-    default_behaviors = config_loader.load('src/config/default_behaviors.json')
+    # --- 7. Load Default Behaviors (YAML) ---
+    default_behaviors = config_loader.load_yaml(DEFAULT_BEHAVIORS_FILE)
     if not default_behaviors:
-        logging.warning("Could not load default behaviors. Continuing with no defaults.")
+        logging.warning(f"Could not load {DEFAULT_BEHAVIORS_FILE}. Continuing with no defaults.")
         default_behaviors = {}
 
+    # --- 8. Initialize and Run Interpreter ---
     controller = TaskInterpreter(
         robot=my_robot, 
         ai_model=contact_ai, 
@@ -143,7 +183,7 @@ if __name__ == "__main__":
         realtime_plot=True
     )
     
-    controller.load_task_from_file(task_name)
+    controller.load_task_from_file(task_file) # Use the task_file from the profile
     controller.run()
     
     logging.info("--- System Shutdown ---")

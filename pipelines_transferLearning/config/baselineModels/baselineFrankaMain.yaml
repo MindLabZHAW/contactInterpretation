@@ -1,7 +1,7 @@
 # --- Project Configuration ---
 project:
     # The name of the dataset (e.g., "franka_main", "ur5").
-    data_name: "franka_mindlab"
+    data_name: "franka_main"
     # Degrees of Freedom of the robot.
     dof: &dof 7
     dataset_dir: "dataset/{data_name}/labeled_data/"
@@ -98,7 +98,7 @@ localization_model:
 # --- Label Mapping ---
 # Maps keywords in filenames to ground truth labels.
 labels:
-    link6: 7
+    link7: 7
     link6: 6
     link5: 5
     link4: 4

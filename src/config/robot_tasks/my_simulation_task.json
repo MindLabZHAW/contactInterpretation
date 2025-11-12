@@ -1,13 +1,16 @@
 {
-  "task_name": "Full Simulation Data Analysis",
-  "description": "A task to process an entire simulation CSV file for contact events.",
+  "task_name": "Streaming data without robot movement",
+  "description": "A task to simulate data streaming for 40 seconds.",
   "steps": [
     {
       "step_id": 1,
-      "description": "Process all simulation data from CSV",
-      "command": "move",
-      "target": [],
-      "speed": 0.1
+      "description": "Waiting without moving",
+      "command": "wait",
+      "duration": 40.0,
+      "on_contact_": {
+        "action": "log_and_continue",
+        "message": "Contact detected during simulated wait."
+      }
     }
   ]
 }

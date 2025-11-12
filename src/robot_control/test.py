@@ -1,3 +1,51 @@
+# Import from franky_control instead of frankx
+from franky import *
+
+import numpy as np
+import time 
+
+robot_ip = "192.168.15.33" 
+
+gripper = Gripper(robot_ip)
+robot = Robot(robot_ip)
+
+# Recover from errors
+robot.recover_from_errors()
+
+gripper.move(0.03, 0.1)
+
+# --- THIS LINE IS UPDATED ---
+# Set velocity, acceleration and jerk to 5% of the maximum
+robot.relative_dynamics_factor = 0.05
+
+#motion = LinearRelativeMotion(Affine(0, 0, 0.02))
+#robot.move(motion)
+
+print('\nPose: ', robot.current_pose)
+
+state = robot.state
+print('Joints: ', state.q)
+print('Joints_d: ', state.q_d)
+
+feature_vector = np.array(state.q_d)- np.array(state.q)# Using external torques as an example
+
+print('error: ', feature_vector)
+
+joint_motion = np.array(state.q)
+joint_ID = 5
+joint_motion[joint_ID] = joint_motion[joint_ID]+0.05
+
+robot.move(JointMotion(joint_motion), asynchronous=True)
+print('Joints: ', state.q)
+print('Joints_d: ', state.q_d)
+print('current_pose:',robot.current_pose)
+
+# The UR part remains commented out
+'''
+from rtde_receive import RTDEReceiveInterface as RTDEReceive
+...
+'''
+'''
 from frankx import Affine, LinearRelativeMotion, Robot, JointMotion
 from frankx import Gripper
 import numpy as np
@@ -37,7 +85,7 @@ joint_motion[joint_ID] = joint_motion[joint_ID]-0.05
 print('Joints: ', state.q)
 print('Joints_d: ', state.q_d)
 print('current_pose:',robot.current_pose())
-'''
+
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 from rtde_control import RTDEControlInterface as RTDEControl
 

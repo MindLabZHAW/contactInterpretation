@@ -1,0 +1,75 @@
+# -----------------------------------------------------------------
+# Main Application Configuration
+# -----------------------------------------------------------------
+# Defines "profiles" that bundle a robot, a task, and an AI model.
+#
+robot_profiles:
+  
+  franka_main_best_model:
+    robot_class: FrankaRobot
+    robot_init_args:
+      ip_address: "10.10.10.150"
+      robot_name: "franka_main"
+      selected_features: ["e0", "e1", "e2", "e3", "e4", "e5", "e6"]
+      set_dynamic_rel: 0.08
+    task_file: "config/robot_tasks/FrankaMain_multi_pose_task.json"
+    ai_model_config: "pipelines_transferLearning/config/bestModels/_Transformer1FrankaMainBest.yaml"
+    loop_delay: 0.005
+
+  franka_mindlab_finetuned_hybrid:
+    robot_class: FrankaRobot
+    robot_init_args:
+      ip_address: "192.168.15.33"
+      robot_name: "franka_mindlab"
+      selected_features: ["e0", "e1", "e2", "e3", "e4", "e5", "e6"]
+      set_dynamic_rel: 0.05
+    task_file: "config/robot_tasks/FrankaMindlab_multi_pose_task.json"
+    ai_model_config: "pipelines_transferLearning/config/fineTunedHybrid/FrankaMainToMindlab.yaml"
+    loop_delay: 0.005
+
+  franka_mindlab_best_hybrid:
+    robot_class: FrankaRobot
+    robot_init_args:
+      ip_address: "192.168.15.33"
+      robot_name: "franka_mindlab"
+      selected_features: ["e0", "e1", "e2", "e3", "e4", "e5", "e6"]
+      set_dynamic_rel: 0.05
+    task_file: "config/robot_tasks/FrankaMindlab_multi_pose_task.json"
+    ai_model_config: "pipelines_transferLearning/config/hybrid/FrankaMindlab.yaml"
+    loop_delay: 0.001
+
+  ur5_finetuned_transformer:
+    robot_class: URRobot
+    robot_init_args:
+      ip_address: "192.168.163.11"
+      robot_name: "UR_COVVI"
+      selected_features: ["e0", "e1", "e2", "e3", "e4", "e5"]
+      frequency: 200
+    task_file: "config/robot_tasks/UR5e_multi_pose_task.json"
+    ai_model_config: "pipelines_transferLearning/config/fineTunedModels/fineTuningTransformer1FrankaMainTOUR5.yaml"
+    loop_delay: 0.005
+
+  simulation_franka_baseline:
+    robot_class: SimulationRobot
+    robot_init_args:
+      # NOTE: Update this path to be relative to the root, or use an absolute path.
+      csv_file_path: "dataset/franka_main/labeled_data/link2/f2_1.csv"
+      selected_features: ["e0", "e1", "e2", "e3", "e4", "e5", "e6"]
+    task_file: "config/robot_tasks/my_simulation_task.json"
+    ai_model_config: "pipelines_transferLearning/config/baselineModels/baselineFrankaMain.yaml"
+    ai_model_config: "pipelines_transferLearning/config/bestModels/_Transformer2FrankaMainLight.yaml"
+    loop_delay: 0.0
+
+# -----------------------------------------------------------------
+# Active Profile Selection
+# -----------------------------------------------------------------
+# Select which profile to run by uncommenting one name.
+# Options: 
+#   - "franka_main_best_model"
+#   - "franka_mindlab_finetuned_hybrid"
+#   - "ur5_finetuned_transformer"
+#   - "simulation_franka_baseline"
+#   - "INTERACTIVE" (Will ask you to choose from the list above)
+#   - "AUTO_DETECT" (Will try to ping the IPs and pick the first one that responds)
+#
+active_robot_profile: "franka_mindlab_best_hybrid"

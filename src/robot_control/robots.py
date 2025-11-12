@@ -11,16 +11,21 @@ try:
 except ImportError:
     pd = None
 
+# Import the new, maintained library
 try:
-    import frankx
+    # The pip package is 'franky-control', but the module is 'franky'
+    import franky
 except ImportError:
-    frankx = None
+    franky = None
 
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 from rtde_control import RTDEControlInterface as RTDEControl
 
 class SimulationRobot(RobotInterface):
-    # ... (This class is unchanged) ...
+    """
+    Simulated robot that reads from a CSV file.
+    It dynamically builds its feature vector based on 'selected_features'.
+    """
     def __init__(self, csv_file_path: str, selected_features: List[str], robot_name: str = "SimulationRobot"):
 
         if pd is None:
@@ -49,18 +54,19 @@ class SimulationRobot(RobotInterface):
         print("Connecting to simulation...")
         try:
             full_data = pd.read_csv(self.file_path)
+            
+            required_cols = self.selected_features + ['label']
+            if not all(col in full_data.columns for col in required_cols):
+                missing = [col for col in required_cols if col not in full_data.columns]
+                logging.error(f"One or more required columns are missing in {self.file_path}. Missing: {missing}")
+                return False
 
-            start_index = 0#len(full_data) // 2
+            start_index = 0
             self.data = full_data.iloc[start_index:].reset_index(drop=True)
-
             self.total_steps = len(self.data)
             self.current_step_index = 0
 
-            required_cols = self.selected_features + ['label']
-            if not all(col in self.data.columns for col in required_cols):
-                logging.error(f"One or more required columns are missing in {self.file_path}.")
-                return False
-            print(f"✅ Simulation data loaded successfully with {self.total_steps} timesteps (processing second half).")
+            print(f"✅ Simulation data loaded successfully with {self.total_steps} timesteps.")
             return True
         except Exception as e:
             logging.error(f"Failed to load or parse simulation CSV: {e}")
@@ -70,28 +76,33 @@ class SimulationRobot(RobotInterface):
         print("\nDisconnected from simulation.")
 
     def get_data(self) -> dict:
+        """
+        Gets data from the CSV row and dynamically builds the feature vector.
+        """
         if self.current_step_index >= self.total_steps:
-            self.current_step_index = self.total_steps - 1
+            self.current_step_index = self.total_steps - 1 
 
         row = self.data.iloc[self.current_step_index]
-        feature_vector = row[self.selected_features].values
+        
+        features_dict = {name: row[name] for name in self.selected_features}
+        
         detection_label = int(row['label'])
-
         localization_label = self.ground_truth_link if detection_label == 1 else 0
+        
+        q_cols = [col for col in self.data.columns if col.startswith('q') and not col.startswith('q_d')]
+        q_values = list(row[q_cols].values)
 
         self.current_step_index += 1
-        #features_dict = {f'e{i}': val for i, val in enumerate(feature_vector)}
-        features_dict = {name: val for name, val in zip(self.selected_features, feature_vector)}
 
         return {
             "features": features_dict,
             "label": detection_label,
             "contact_link": localization_label,
-            "q": list(row[self.selected_features].values)
+            "q": q_values
         }
 
     def send_action(self, action_data: dict):
-        self._is_performing_action = True
+        self._is_performing_action = True 
 
     def is_performing_action(self) -> bool:
         if self.current_step_index >= self.total_steps:
@@ -110,32 +121,28 @@ class SimulationRobot(RobotInterface):
 
 class FrankaRobot(RobotInterface):
     """
-    Final robust implementation based on the user's suggested architecture.
-    Uses a dedicated state-reading thread and a dedicated motion-monitoring thread.
+    Updated implementation for 'franky-control'.
     """
     def __init__(self, ip_address: str, selected_features: List[str], robot_name: str = "FrankaRobot",set_dynamic_rel: float = 0.05):
-        if frankx is None:
-            raise ImportError("The 'frankx' library is not installed.")
+        if franky is None:
+            raise ImportError("The 'franky-control' library is not installed. Please run: pip install franky-control")
         
         self.ip_address = ip_address
         self.selected_features = selected_features
-        self.robot = None
-        self.gripper = None
-        self.motion_thread = None
+        self.robot: Optional[franky.Robot] = None
+        self.gripper: Optional[franky.Gripper] = None
+        self.motion_thread: Optional[Thread] = None
         self.name = robot_name
         self.set_dynamic_rel = set_dynamic_rel
         
-        # Thread-safe state handling
-        self.latest_state = None
+        self.latest_state: Optional[Dict] = None
         self.state_lock = threading.Lock()
-        self.state_reader_thread = None
+        self.state_reader_thread: Optional[Thread] = None
         self.run_state_reader = False
         self.robot_lock = threading.Lock()
-
-        # Motion execution flag
         self._stop_motion = False
         
-        logging.info(f"🤖 FrankaRobot initialized for IP address: {self.ip_address}")
+        logging.info(f"🤖 FrankaRobot (using franky) initialized for IP: {self.ip_address}")
 
     def _state_reader_loop(self):
         """A background thread that ONLY reads robot state."""
@@ -143,41 +150,53 @@ class FrankaRobot(RobotInterface):
         while self.run_state_reader:
             try:
                 with self.robot_lock:
-                    state = self.robot.read_once()
-                with self.state_lock:
-                    self.latest_state = state
+                    state_raw = self.robot.state
+                
+                if state_raw:
+                    state_data = {
+                        "q": np.array(state_raw.q),
+                        "q_d": np.array(state_raw.q_d),
+                        "tau_J": np.array(state_raw.tau_J)
+                    }
+                    state_data["e"] = state_data["q_d"] - state_data["q"]
+                
+                    with self.state_lock:
+                        self.latest_state = state_data
+                        
             except Exception as e:
                 if self.run_state_reader:
-                    logging.debug(f"State reader thread info: {e}")
+                    # This can be spammy, so use debug level
+                    logging.debug(f"State reader thread info: {e}") 
             time.sleep(0.001) # Read at 1000 Hz
 
     def connect(self) -> bool:
         logging.info(f"Connecting to Franka robot at {self.ip_address}...")
         try:
-            self.robot = frankx.Robot(self.ip_address)
-            self.gripper = frankx.Gripper(self.ip_address)
-            self.robot.set_default_behavior()
-            self.robot.recover_from_errors()
-            self.robot.set_dynamic_rel(self.set_dynamic_rel)
-            logging.info(f"Robot dynamics set to {self.set_dynamic_rel*100}%.")
+            self.robot = franky.Robot(self.ip_address)
+            self.gripper = franky.Gripper(self.ip_address)
             
-            # Start the state reader thread
+            self.robot.recover_from_errors()
+            self.robot.relative_dynamics_factor = self.set_dynamic_rel
+            
+            # --- THIS IS THE FIX ---
+            # Log the float value, not the object
+            logging.info(f"Robot dynamics set to {self.set_dynamic_rel * 100}%.")
+            # --- END FIX ---
+            
             self.state_reader_thread = Thread(target=self._state_reader_loop)
             self.state_reader_thread.daemon = True
             self.state_reader_thread.start()
             
             return True
         except Exception as e:
-            logging.error(f"Failed to connect to Franka robot: {e}")
+            logging.error(f"Failed to connect to Franka robot: {e}", exc_info=True)
             return False
 
     def disconnect(self) -> None:
-        # Signal state reader to stop and wait for it
         self.run_state_reader = False
         if self.state_reader_thread and self.state_reader_thread.is_alive():
             self.state_reader_thread.join()
 
-        # Signal motion thread to stop and wait for it
         if self.motion_thread and self.motion_thread.is_alive():
             self._stop_motion = True
             self.motion_thread.join()
@@ -188,7 +207,10 @@ class FrankaRobot(RobotInterface):
         self.robot = None
 
     def get_data(self) -> dict:
-        """Gets the latest state and dynamically builds the feature vector."""
+        """
+        Gets the latest state and dynamically builds the feature vector
+        based on 'self.selected_features'.
+        """
         with self.state_lock:
             state = self.latest_state if self.latest_state else None
         
@@ -196,36 +218,40 @@ class FrankaRobot(RobotInterface):
             return {}
 
         features_dict = {}
-        for feature in self.selected_features:
-            feature_base = re.sub(r'\d+$', '', feature)
-            match = re.search(r'(\d+)$', feature)
-            index = int(match.group(1)) if match else None
-
-            if feature_base == 'e' and index is not None:
-                joint_error = np.array(state.q_d) - np.array(state.q)
-                if index < len(joint_error):
-                    features_dict[feature] = joint_error[index]
+        for feature_name in self.selected_features:
+            match = re.match(r'([a-zA-Z_]+)(\d+)', feature_name) 
+            
+            if match:
+                feature_base, index_str = match.groups()
+                index = int(index_str)
+                
+                if feature_base in state and index < len(state[feature_base]):
+                    features_dict[feature_name] = state[feature_base][index]
+                else:
+                    logging.warning(f"Feature '{feature_name}' not found in robot state keys '{list(state.keys())}' or index is out of bounds.")
+            elif feature_name in state: 
+                 features_dict[feature_name] = state[feature_name]
+            else:
+                logging.warning(f"Feature '{feature_name}' not found in robot state keys '{list(state.keys())}'.")
         
-        return {"features": features_dict, "label": 0, "contact_link": 0, "q": state.q}
+        return {"features": features_dict, "label": 0, "contact_link": 0, "q": np.array(state.get("q", []))}
 
-    def _move(self, motion: 'frankx.Motion', target_joints: List[float]):
+    def _move(self, motion: 'franky.Motion'):
         """
-        Starts an async move and then waits for the robot to reach the target pose.
+        Executes the blocking move command.
+        This runs in a separate thread and will be interrupted by self.robot.stop().
         """
         try:
             with self.robot_lock:
-                # Use move_async to not block the main thread
-                self.robot.move_async(motion)
+                # This is a BLOCKING call.
+                # It will run until the move is done OR self.robot.stop() is called.
+                self.robot.move(motion) 
+            
+            if not self._stop_motion:
+                 logging.info("Target pose reached.")
 
-            while not self._stop_motion:
-                with self.state_lock:
-                    current_q = self.latest_state.q if self.latest_state else None
-                
-                if current_q and np.allclose(current_q, target_joints, atol=5e-3):
-                    logging.info("Target pose reached.")
-                    break
-                time.sleep(0.01)
         except Exception as e:
+            # This exception is *expected* if self.robot.stop() is called
             if not self._stop_motion:
                 logging.error(f"Error during motion execution: {e}")
 
@@ -253,11 +279,12 @@ class FrankaRobot(RobotInterface):
         if command == "move":
             target_joints = action_data.get("joints_positions")
             if isinstance(target_joints, list) and len(target_joints) == 7:
-                motion = frankx.JointMotion(target_joints)
-                self.motion_thread = Thread(target=self._move, args=(motion, target_joints))
+                motion = franky.JointMotion(target_joints)
+                # We run the BLOCKING _move function in a new thread
+                self.motion_thread = Thread(target=self._move, args=(motion,))
                 self.motion_thread.start()
             else:
-                logging.warning(f"Invalid 'target' for move command.")
+                logging.warning(f"Invalid 'target_joints' for move command.")
         elif command == "wait":
             duration = action_data.get("duration")
             if isinstance(duration, (int, float)) and duration > 0:
@@ -274,44 +301,44 @@ class FrankaRobot(RobotInterface):
 
     def is_performing_action(self) -> bool:
         """Checks if the motion-monitoring thread is still alive."""
-        return self.motion_thread is not None and self.motion_thread.is_alive()
+        # --- THIS IS THE FIX ---
+        # The only thing we need to check is if our thread is running.
+        is_thread_alive = self.motion_thread is not None and self.motion_thread.is_alive()
+        return is_thread_alive
+        # --- END FIX ---
 
-
-
-    def open_gripper(self, width: float = 0.08):
+    def open_gripper(self, width: float = 0.08, speed: float = 0.1):
         if self.gripper:
-            self.gripper.move(width)
+            self.gripper.move(width, speed)
             logging.info("Gripper opened.")
 
     def close_gripper(self):
         if self.gripper:
-            self.gripper.clamp()
+            self.gripper.grasp()
             logging.info("Gripper closed.")
 
     def jog(self, relative_pose: List[float]):
         """Performs a small, relative motion for jogging."""
         if self.robot:
-            motion = frankx.LinearRelativeMotion(frankx.Affine(*relative_pose))
+            motion = franky.LinearRelativeMotion(franky.Affine(*relative_pose))
             with self.robot_lock:
                 self.robot.move(motion)
+                
     def stop(self) -> None:
         """Stops any ongoing robot motion and signals threads to exit."""
         self._stop_motion = True
 
-        # Signal motion thread to stop and wait for it
-        if self.motion_thread and self.motion_thread.is_alive():
-            self._stop_motion = True
-            self.motion_thread.join()
-
         if self.robot:
             logging.info("🛑 Halting robot motion.")
-            self.robot.stop()
+            self.robot.stop() # This will interrupt the blocking .move() in the thread
+
+        if self.motion_thread and self.motion_thread.is_alive():
+            self.motion_thread.join()
 
 
 class URRobot(RobotInterface):
     """
-    A class to interface with a Universal Robot (UR), following the multi-threaded
-    architecture of the FrankaRobot class for non-blocking state reading.
+    Interface for UR robots using rtde_control and rtde_receive.
     """
     def __init__(self, ip_address: str, frequency: int = 200, selected_features: Optional[List[str]] = None, robot_name: str = "URRobot"):
         self.ip_address = ip_address
@@ -322,19 +349,15 @@ class URRobot(RobotInterface):
         self.robot_control: Optional[RTDEControl] = None
         self.robot_receive: Optional[RTDEReceive] = None
         
-        # Thread-safe state handling
         self.latest_state: Optional[Dict] = None
         self.state_lock = threading.Lock()
         self.robot_lock = threading.Lock()
         self.state_reader_thread: Optional[Thread] = None
         self.run_state_reader = False
         
-        # Motion execution thread
         self._action_thread: Optional[Thread] = None
         self._stop_action = False
 
-        # Constants for torque calculation
-        self.k_gains = np.array([1.35, 1.361, 1.355, 0.957, 0.865, 0.893])
         logging.info(f"🤖 URRobot initialized for IP address: {self.ip_address}")
 
     def _state_reader_loop(self):
@@ -343,29 +366,13 @@ class URRobot(RobotInterface):
         logging.info("URRobot state reader thread started.")
         while self.run_state_reader:
             try:
-                # --- THIS IS THE FIX ---
-                # Collect all required raw data from the robot in one go.
                 state_data = {
-                    "q_actual": np.array(self.robot_receive.getActualQ()),
-                    "q_target": np.array(self.robot_receive.getTargetQ())
-
-
+                    "q": np.array(self.robot_receive.getActualQ()),
+                    "q_d": np.array(self.robot_receive.getTargetQ()),
+                    "tau_J": np.array(self.robot_receive.getTargetMoment()),
                 }
-                ''''                    
-                "i_actual": np.array(self.robot_receive.getActualCurrent()),
-                    "dq_actual": np.array(self.robot_receive.getActualQd()),
-                    "q_target": np.array(self.robot_receive.getTargetQ()),
-                    "dq_target": np.array(self.robot_receive.getTargetQd()),
-                    "i_target": np.array(self.robot_receive.getTargetCurrent()),
-                    "tau_J_target": np.array(self.robot_receive.getTargetMoment())
-
-                state_data["tau_ext"] = (state_data["i_target"] - state_data["i_actual"]) * self.k_gains
-                state_data["de"] = state_data["dq_target"] - state_data["dq_actual"]'''
+                state_data["e"] = state_data["q_d"] - state_data["q"]
                 
-                # --- Pre-calculate all derived features ---
-                state_data["e"] = state_data["q_target"] - state_data["q_actual"]
-                # ----------------------
-
                 with self.state_lock:
                     self.latest_state = state_data
 
@@ -387,7 +394,6 @@ class URRobot(RobotInterface):
             self.robot_receive = RTDEReceive(self.ip_address, self.frequency)
             
             if self.robot_control.isConnected() and self.robot_receive.isConnected():
-                # Start the state reader thread
                 self.state_reader_thread = Thread(target=self._state_reader_loop)
                 self.state_reader_thread.daemon = True
                 self.state_reader_thread.start()
@@ -422,7 +428,8 @@ class URRobot(RobotInterface):
 
     def get_data(self) -> Optional[Dict]:
         """
-        Gets the latest state from the reader thread and builds the feature vector.
+        Gets the latest state and dynamically builds the feature vector
+        based on 'self.selected_features'.
         """
         with self.state_lock:
             state = self.latest_state
@@ -431,24 +438,25 @@ class URRobot(RobotInterface):
             return None
 
         features_dict = {}
-        for feature in self.selected_features:
-            # Assumes features are named like 'tau_ext_0', 'q_error_1', etc.
-            match = re.match(r'([a-zA-Z_]+)(\d+)', feature)
+        for feature_name in self.selected_features:
+            match = re.match(r'([a-zA-Z_]+)(\d+)', feature_name) 
+            
             if match:
                 feature_base, index_str = match.groups()
                 index = int(index_str)
                 
                 if feature_base in state and index < len(state[feature_base]):
-                    features_dict[feature] = state[feature_base][index]
-            elif feature in state: # For features that are not arrays
-                 features_dict[feature] = state[feature]
+                    features_dict[feature_name] = state[feature_base][index]
+                else:
+                    logging.warning(f"Feature '{feature_name}' not found in robot state keys '{list(state.keys())}' or index is out of bounds.")
+            elif feature_name in state: 
+                 features_dict[feature_name] = state[feature_name]
+            else:
+                logging.warning(f"Feature '{feature_name}' not found in robot state keys '{list(state.keys())}'.")
     
-        return {"features": features_dict, "label": 0, "contact_link": 0, "q": state.get("q_actual", [])}
+        return {"features": features_dict, "label": 0, "contact_link": 0, "q": np.array(state.get("q", []))}
 
     def send_action(self, action_data: Dict):
-        """
-        Sends a command to the robot. Handles blocking calls by using a background thread.
-        """
         if not self.run_state_reader or not self.robot_control:
             logging.error("Cannot send action: Robot is not connected.")
             return
@@ -456,15 +464,14 @@ class URRobot(RobotInterface):
         command = action_data.get("command")
         
         if command == "move":
-            # move is blocking, so we run it in a thread to allow monitoring.
-            target_joint = np.array(action_data["joints_positions"])
+            target_joint = action_data.get("joints_positions")
             speed = action_data.get("speed", 0.2)
             accel = action_data.get("acceleration", 0.1)
             
             self._stop_action = False
             self._action_thread = Thread(
                 target=self._execute_move, 
-                args=(self.robot_control.moveL_FK, target_joint, speed, accel, True)
+                args=(self.robot_control.moveJ, target_joint, speed, accel, False) # async=False
             )
             self._action_thread.start()
 
@@ -473,42 +480,23 @@ class URRobot(RobotInterface):
             self._stop_action = False
             self._action_thread = Thread(target=self._execute_wait, args=(duration,))
             self._action_thread.start()
-        elif command == "open_gripper":
-            self.open_gripper()
-        elif command == "close_gripper":
-            self.close_gripper()
         else:
-            logging.warning(f"Unknown command '{command}' received. Ignoring.")
+            logging.warning(f"Command '{command}' is not supported by URRobot.")
 
     def _execute_move(self, move_function, *args):
         """
-        Starts an asynchronous move and then enters a loop to monitor
-        the robot's state until the target is reached.
+        Executes a blocking move command in a separate thread.
         """
         try:
-            # Start the move asynchronously
             with self.robot_lock:
                 move_function(*args) 
-            target = args[0]  
             
-            while not self._stop_action:
-                with self.state_lock:
-                    state = self.latest_state
+            if not self._stop_action:
+                logging.info(f"Target reached for move.")
                 
-                if state:
-                    is_at_target = False
-                    current_q = state.get("q_actual")
-                    if current_q is not None:
-                        is_at_target = np.allclose(current_q, target, atol=1e-3)
-
-                    if is_at_target:
-                        logging.info(f"Target reached for target joint.")
-                        break # Exit the monitoring loop
-                
-                time.sleep(0.01) # Check for completion at 100 Hz
-            #self.robot_control.stopL(5.0)  # Ensure the robot is stopped after the move
         except Exception as e:
-            logging.error(f"An error occurred during robot movement: {e}")
+            if not self._stop_action:
+                logging.error(f"An error occurred during robot movement: {e}")
 
     def _execute_wait(self, duration: float):
         """Target function for the action thread to wait."""
@@ -520,7 +508,7 @@ class URRobot(RobotInterface):
         """
         Checks if the robot is currently executing a threaded action.
         """
-        return self._action_thread is not None and self._action_thread.is_alive()    
+        return self.self._action_thread is not None and self._action_thread.is_alive()    
 
     def open_gripper(self):
         logging.warning("URRobot does not have a gripper.")
@@ -540,17 +528,15 @@ class URRobot(RobotInterface):
     
     def stop(self) -> None:
         """Stops any ongoing robot motion."""
-        self._stop_action = True  # Signal waiting threads to stop
+        self._stop_action = True  
         
-        if self._action_thread and self._action_thread.is_alive():
-            self._stop_action = True
-            self._action_thread.join(timeout=1)
-
         if self.robot_control and self.robot_control.isConnected():
             try:
                 logging.info("🛑 Halting UR robot motion.")
-                # Use stopL with a high acceleration to stop linear moves quickly.
                 with self.robot_lock:
-                    self.robot_control.stopL(5.0)
+                    self.robot_control.stopJ(2.0) 
             except Exception as e:
                 logging.error(f"Failed to send stop command to UR robot: {e}")
+        
+        if self._action_thread and self._action_thread.is_alive():
+            self._action_thread.join(timeout=1)

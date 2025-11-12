@@ -1,0 +1,23 @@
+# Default contact behaviors.
+# These are used if a task step's command (e.g., "move")
+# does not have a specific "on_contact" behavior defined.
+
+move:
+  action: "stop_task"
+  message: "Default: Collision detected during a 'move' command. Halting task."
+  action: "log_and_continue"
+  message: "Default: Contact detected during 'wait'. Logging and continuing."
+
+
+screw:
+  action: "log_and_continue"
+  message: "Default: Contact made during 'screw' command. This is expected."
+
+insert:
+  action: "retry"
+  max_retries: 2
+  message: "Default: Misalignment during 'insert', will attempt to retry."
+
+wait:
+  action: "log_and_continue"
+  message: "Default: Contact detected during 'wait'. Logging and continuing."
